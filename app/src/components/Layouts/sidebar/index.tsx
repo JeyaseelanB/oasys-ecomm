@@ -55,9 +55,16 @@ export function Sidebar() {
 
       <aside
         className={cn(
-          "max-w-[290px] overflow-hidden border-r border-gray-200 bg-white transition-[width] duration-200 ease-linear dark:border-gray-800 dark:bg-gray-dark",
-          isMobile ? "fixed bottom-0 top-0 z-50" : "sticky top-0 h-screen",
-          isOpen ? "w-full" : "w-0",
+          "border-r border-gray-200 bg-white dark:border-gray-800 dark:bg-gray-dark",
+          isMobile
+            ? cn(
+                "fixed bottom-0 top-0 z-50 w-[290px] transition-[margin-left] duration-200 ease-linear",
+                isOpen ? "ml-0" : "-ml-[290px]",
+              )
+            : cn(
+                "fixed bottom-0 top-0 left-0 z-40 h-screen transition-[width] duration-200 ease-linear",
+                isOpen ? "w-[290px] overflow-hidden" : "w-0 overflow-hidden",
+              ),
         )}
         aria-label="Main navigation"
         aria-hidden={!isOpen}
@@ -86,7 +93,7 @@ export function Sidebar() {
           </div>
 
           {/* Navigation */}
-          <div className="custom-scrollbar mt-6 flex-1 overflow-y-auto pr-3 min-[850px]:mt-10">
+          <div className="custom-scrollbar mt-6 flex-1 overflow-y-auto pr-2 min-[850px]:mt-10">
             {NAV_DATA.map((section) => (
               <div key={section.label} className="mb-6">
                 <h2 className="mb-5 text-sm font-medium text-dark-4 dark:text-dark-6">

@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 type InvoiceStatus =
@@ -44,6 +45,7 @@ type SortDir = "asc" | "desc";
 const PAGE_SIZE_OPTIONS = [10, 25, 50, 100];
 
 export default function SocietyInvoicePage() {
+  const router = useRouter();
   const [filters, setFilters] = useState({
     referenceNumber: "",
     stockOutwardTo: "",
@@ -154,7 +156,15 @@ export default function SocietyInvoicePage() {
               <svg className="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
               Edit
             </button>
-            <button className="flex items-center gap-1.5 rounded bg-[#17a2b8] px-3 py-1.5 text-sm font-medium text-white hover:opacity-90">
+            <button
+              onClick={() => {
+                if (selectedId !== null) {
+                  router.push(`/weavers/society-invoice/${selectedId}`);
+                }
+              }}
+              disabled={selectedId === null}
+              className="flex items-center gap-1.5 rounded bg-[#17a2b8] px-3 py-1.5 text-sm font-medium text-white hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
               <svg className="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
               View
             </button>
