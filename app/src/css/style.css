@@ -21,10 +21,12 @@
 
    .custom-scrollbar {
     @apply overflow-auto;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(107, 114, 128, 0.5) transparent;
   }
 
   .custom-scrollbar::-webkit-scrollbar {
-    @apply size-2;
+    @apply w-2;
   }
 
   .custom-scrollbar::-webkit-scrollbar-track {
@@ -32,7 +34,11 @@
   }
 
   .custom-scrollbar::-webkit-scrollbar-thumb {
-    @apply relative flex-1 rounded-full bg-neutral-200/40 dark:bg-stroke-dark;
+    @apply rounded-full bg-gray-400 transition-colors dark:bg-gray-600;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    @apply bg-gray-500 dark:bg-gray-500;
   }
 
   
