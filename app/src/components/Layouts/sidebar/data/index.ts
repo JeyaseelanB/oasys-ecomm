@@ -52,6 +52,16 @@ export const NAV_DATA = [
         ],
       },
       {
+        title: "Weavers",
+        icon: Icons.Weavers,
+        items: [
+          {
+            title: "Society Invoice",
+            url: "/weavers/society-invoice",
+          },
+        ],
+      },
+      {
         title: "Pages",
         icon: Icons.Alphabet,
         items: [
