@@ -69,6 +69,14 @@ export const NAV_DATA = [
             title: "Settings",
             url: "/pages/settings",
           },
+          {
+            title: "Layout Demo",
+            url: "/pages/layout-demo",
+          },
+          {
+            title: "Full Width Example",
+            url: "/pages/fullwidth-example",
+          },
         ],
       },
     ],
