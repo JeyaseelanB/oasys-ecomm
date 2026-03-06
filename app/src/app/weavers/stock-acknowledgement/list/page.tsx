@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 type AckStatus = "SUBMITTED" | "INWARD ACKNOWLEDGED" | "APPROVED";
@@ -51,6 +52,7 @@ export default function StockAcknowledgementListPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
   const [selectedId, setSelectedId] = useState<number | null>(null);
+  const router = useRouter();
 
   const handleSort = (key: SortKey) => {
     if (sortKey === key) {
@@ -159,6 +161,11 @@ export default function StockAcknowledgementListPage() {
 </Link>
             <button
               disabled={selectedId === null}
+              onClick={() => {
+                if (selectedId !== null) {
+                  router.push("/weavers/stock-acknowledgement/view");
+                }
+              }}
               className="flex items-center gap-1.5 rounded bg-[#17a2b8] px-3 py-1.5 text-sm font-medium text-white hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <svg className="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
