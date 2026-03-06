@@ -57,7 +57,7 @@ export const NAV_DATA = [
         items: [
           {
             title: "Society Invoice",
-            url: "/weavers/society-invoice/list",
+            url: "/weavers/society-invoice/",
           },
           {
             title: "Stock Acknowledgement",
