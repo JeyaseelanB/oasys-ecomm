@@ -66,6 +66,66 @@ export const NAV_DATA = [
         ],
       },
       {
+        title: "Operational",
+        icon: Icons.Operational,
+        items: [
+          {
+            title: "Warehouse Management",
+            url: "/operational/warehouse-management",
+            items: [
+              {
+                title: "Product Warehouse",
+                url: "/operational/warehouse-management/product-warehouse",
+                items: [
+                  {
+                    title: "Quality Checking",
+                    url: "/operational/warehouse-management/product-warehouse/quality-check/list",
+                  },
+                  {
+                    title: "QR Code",
+                    url: "/operational/warehouse-management/product-warehouse/qr-code/list",
+                  },
+                  {
+                    title: "Stock Outward",
+                    url: "/operational/warehouse-management/product-warehouse/stock-outward/list",
+                  },
+                ],
+              },
+              {
+                title: "Distribution Warehouse",
+                url: "/operational/warehouse-management/distribution-warehouse",
+                items: [
+                  {
+                    title: "Stock Inward",
+                    url: "/operational/warehouse-management/distribution-warehouse/stock-inward/list",
+                  },
+                  {
+                    title: "Stock Outward",
+                    url: "/operational/warehouse-management/distribution-warehouse/stock-outward/list",
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+      {
+        title: "Close Sales",
+        icon: Icons.CloseSales,
+        items: [
+          {
+            title: "ISSR",
+            url: "/close-sales/issr",
+            items: [
+              {
+                title: "System Notification List",
+                url: "/close-sales/issr/system-notification-list",
+              },
+            ],
+          },
+        ],
+      },
+      {
         title: "Pages",
         icon: Icons.Alphabet,
         items: [
