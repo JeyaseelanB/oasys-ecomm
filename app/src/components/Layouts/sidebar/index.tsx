@@ -1,12 +1,12 @@
 "use client";
 
-import { Logo } from "@/components/logo";
+import { LogoIcon } from "@/components/logo";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { NAV_DATA } from "./data";
-import { ArrowLeftIcon, ChevronUp } from "./icons";
+import { ArrowLeftIcon, ChevronLeft, ChevronRight, ChevronUp } from "./icons";
 import { MenuItem } from "./menu-item";
 import { useSidebarContext } from "./sidebar-context";
 
@@ -113,7 +113,7 @@ function SubMenuItems({
 
 export function Sidebar() {
   const pathname = usePathname();
-  const { setIsOpen, isOpen, isMobile, toggleSidebar } = useSidebarContext();
+  const { setIsOpen, isOpen, isMobile, toggleSidebar, isMinimized, toggleMinimize } = useSidebarContext();
   const [expandedItems, setExpandedItems] = useState<string[]>([]);
 
   const toggleExpanded = (title: string) => {
@@ -168,43 +168,88 @@ export function Sidebar() {
                 isOpen ? "ml-0" : "-ml-[290px]",
               )
             : cn(
-                "fixed bottom-0 top-0 left-0 z-40 h-screen transition-[width] duration-200 ease-linear",
-                isOpen ? "w-[290px] overflow-hidden" : "w-0 overflow-hidden",
+                "fixed bottom-0 top-0 left-0 z-40 h-screen overflow-hidden transition-[width] duration-200 ease-linear",
+                isOpen ? (isMinimized ? "w-[70px]" : "w-[290px]") : "w-0",
               ),
         )}
         aria-label="Main navigation"
         aria-hidden={!isOpen}
         inert={!isOpen}
       >
-        <div className="flex h-full flex-col py-10 pl-[25px] pr-[7px]">
-          <div className="relative pr-4.5">
+        <div
+          className={cn(
+            "flex h-full flex-col py-10",
+            isMinimized && !isMobile
+              ? "items-center px-[10px]"
+              : "pl-[25px] pr-[7px]",
+          )}
+        >
+          <div
+            className={cn(
+              "relative",
+              isMinimized && !isMobile
+                ? "flex w-full justify-center"
+                : "pr-4.5",
+            )}
+          >
             <Link
               href={"/"}
               onClick={() => isMobile && toggleSidebar()}
-              className="px-0 py-2.5 min-[850px]:py-0"
+              className="flex items-center gap-2 px-0 py-2.5 min-[850px]:py-0"
             >
-              <Logo />
+              <LogoIcon />
+              {(!isMinimized || isMobile) && (
+                <span className="text-2xl font-bold text-dark dark:text-white">
+                  Co-optex
+                </span>
+              )}
             </Link>
 
-            {isMobile && (
+            {isMobile ? (
               <button
                 onClick={toggleSidebar}
                 className="absolute left-3/4 right-4.5 top-1/2 -translate-y-1/2 text-right"
               >
                 <span className="sr-only">Close Menu</span>
-
                 <ArrowLeftIcon className="ml-auto size-7" />
+              </button>
+            ) : (
+              <button
+                onClick={toggleMinimize}
+                className={cn(
+                  "flex items-center justify-center rounded-lg border border-gray-200 bg-white p-1.5 text-gray-500 shadow-sm hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-dark dark:text-gray-400 dark:hover:bg-[#FFFFFF1A]",
+                  isMinimized
+                    ? "size-8"
+                    : "absolute right-0 top-1/2 -translate-y-1/2",
+                )}
+                title={isMinimized ? "Expand sidebar" : "Minimize sidebar"}
+              >
+                <span className="sr-only">
+                  {isMinimized ? "Expand sidebar" : "Minimize sidebar"}
+                </span>
+                {isMinimized ? (
+                  <ChevronRight className="size-4" />
+                ) : (
+                  <ChevronLeft className="size-4" />
+                )}
               </button>
             )}
           </div>
 
           {/* Navigation */}
-          <div className="custom-scrollbar mt-6 flex-1 overflow-y-auto pr-2 min-[850px]:mt-10">
+          <div
+            className={cn(
+              "custom-scrollbar mt-6 flex-1 overflow-y-auto min-[850px]:mt-10",
+              isMinimized && !isMobile ? "w-full overflow-x-hidden" : "pr-2",
+            )}
+          >
             {NAV_DATA.map((section) => (
               <div key={section.label} className="mb-6">
-                <h2 className="mb-5 text-sm font-medium text-dark-4 dark:text-dark-6">
-                  {section.label}
-                </h2>
+                {!isMinimized && (
+                  <h2 className="mb-5 text-sm font-medium text-dark-4 dark:text-dark-6">
+                    {section.label}
+                  </h2>
+                )}
 
                 <nav role="navigation" aria-label={section.label}>
                   <ul className="space-y-2">
@@ -214,34 +259,45 @@ export function Sidebar() {
                           <div>
                             <MenuItem
                               isActive={hasActiveChild(item.items, pathname)}
-                              onClick={() => toggleExpanded(item.title)}
+                              onClick={() =>
+                                !isMinimized && toggleExpanded(item.title)
+                              }
+                              className={
+                                isMinimized && !isMobile
+                                  ? "justify-center px-2"
+                                  : ""
+                              }
                             >
                               <item.icon
                                 className="size-6 shrink-0"
                                 aria-hidden="true"
                               />
 
-                              <span>{item.title}</span>
-
-                              <ChevronUp
-                                className={cn(
-                                  "ml-auto rotate-180 transition-transform duration-200",
-                                  expandedItems.includes(item.title) &&
-                                    "rotate-0",
-                                )}
-                                aria-hidden="true"
-                              />
+                              {(!isMinimized || isMobile) && (
+                                <>
+                                  <span>{item.title}</span>
+                                  <ChevronUp
+                                    className={cn(
+                                      "ml-auto rotate-180 transition-transform duration-200",
+                                      expandedItems.includes(item.title) &&
+                                        "rotate-0",
+                                    )}
+                                    aria-hidden="true"
+                                  />
+                                </>
+                              )}
                             </MenuItem>
 
-                            {expandedItems.includes(item.title) && (
-                              <SubMenuItems
-                                items={item.items}
-                                pathname={pathname}
-                                expandedItems={expandedItems}
-                                toggleExpanded={toggleExpanded}
-                                depth={0}
-                              />
-                            )}
+                            {(!isMinimized || isMobile) &&
+                              expandedItems.includes(item.title) && (
+                                <SubMenuItems
+                                  items={item.items}
+                                  pathname={pathname}
+                                  expandedItems={expandedItems}
+                                  toggleExpanded={toggleExpanded}
+                                  depth={0}
+                                />
+                              )}
                           </div>
                         ) : (
                           (() => {
@@ -253,7 +309,10 @@ export function Sidebar() {
 
                             return (
                               <MenuItem
-                                className="flex items-center gap-3 py-3"
+                                className={cn(
+                                  "flex items-center gap-3 py-3",
+                                  isMinimized && !isMobile && "justify-center px-2",
+                                )}
                                 as="link"
                                 href={href}
                                 isActive={pathname === href}
@@ -263,7 +322,9 @@ export function Sidebar() {
                                   aria-hidden="true"
                                 />
 
-                                <span>{item.title}</span>
+                                {(!isMinimized || isMobile) && (
+                                  <span>{item.title}</span>
+                                )}
                               </MenuItem>
                             );
                           })()

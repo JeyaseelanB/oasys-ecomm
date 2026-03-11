@@ -61,6 +61,12 @@ export function PaymentsOverviewChart({ data }: PropsType) {
     },
     grid: {
       strokeDashArray: 5,
+      padding: {
+        top: 0,
+        right: 5,
+        bottom: 0,
+        left: 5,
+      },
       yaxis: {
         lines: {
           show: true,
@@ -86,7 +92,7 @@ export function PaymentsOverviewChart({ data }: PropsType) {
   };
 
   return (
-    <div className="-ml-4 -mr-5 h-[310px]">
+    <div className="h-[310px] w-full overflow-hidden">
       <Chart
         options={options}
         series={[
@@ -100,6 +106,7 @@ export function PaymentsOverviewChart({ data }: PropsType) {
           },
         ]}
         type="area"
+        width="100%"
         height={310}
       />
     </div>
