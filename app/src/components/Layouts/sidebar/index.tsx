@@ -10,36 +10,142 @@ import { ArrowLeftIcon, ChevronUp } from "./icons";
 import { MenuItem } from "./menu-item";
 import { useSidebarContext } from "./sidebar-context";
 
+// Check if any descendant URL matches the current pathname
+function hasActiveChild(items: any[], pathname: string): boolean {
+  return items.some(
+    (item) =>
+      item.url === pathname ||
+      (item.items && hasActiveChild(item.items, pathname)),
+  );
+}
+
+// Collect all parent titles that should be expanded for the current pathname
+function getExpandedTitles(items: any[], pathname: string): string[] {
+  const titles: string[] = [];
+  for (const item of items) {
+    if (item.items && item.items.length > 0) {
+      if (hasActiveChild(item.items, pathname)) {
+        titles.push(item.title);
+      }
+      titles.push(...getExpandedTitles(item.items, pathname));
+    }
+  }
+  return titles;
+}
+
+// Recursive sub-menu component
+function SubMenuItems({
+  items,
+  pathname,
+  expandedItems,
+  toggleExpanded,
+  depth,
+}: {
+  items: any[];
+  pathname: string;
+  expandedItems: string[];
+  toggleExpanded: (title: string) => void;
+  depth: number;
+}) {
+  return (
+    <ul
+      className={cn(
+        "space-y-1 pb-1 pt-1.5",
+        depth === 0 ? "ml-9 mr-0 pb-[15px] pr-0 pt-2" : "ml-4",
+      )}
+      role="menu"
+    >
+      {items.map((subItem: any) => {
+        const hasChildren = subItem.items && subItem.items.length > 0;
+        const isExpanded = expandedItems.includes(subItem.title);
+        const isActive = subItem.url === pathname;
+        const isChildActive = hasChildren && hasActiveChild(subItem.items, pathname);
+
+        if (hasChildren) {
+          return (
+            <li key={subItem.title} role="none">
+              <button
+                onClick={() => toggleExpanded(subItem.title)}
+                className={cn(
+                  "flex w-full items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium transition-all duration-200",
+                  isActive || isChildActive
+                    ? "text-primary dark:text-white"
+                    : "text-dark-4 hover:bg-gray-100 hover:text-dark dark:text-dark-6 dark:hover:bg-[#FFFFFF1A] dark:hover:text-white",
+                )}
+              >
+                <span>{subItem.title}</span>
+                <ChevronUp
+                  className={cn(
+                    "ml-auto size-4 rotate-180 transition-transform duration-200",
+                    isExpanded && "rotate-0",
+                  )}
+                  aria-hidden="true"
+                />
+              </button>
+              {isExpanded && (
+                <SubMenuItems
+                  items={subItem.items}
+                  pathname={pathname}
+                  expandedItems={expandedItems}
+                  toggleExpanded={toggleExpanded}
+                  depth={depth + 1}
+                />
+              )}
+            </li>
+          );
+        }
+
+        return (
+          <li key={subItem.title} role="none">
+            <MenuItem
+              as="link"
+              href={subItem.url}
+              isActive={isActive}
+            >
+              <span>{subItem.title}</span>
+            </MenuItem>
+          </li>
+        );
+      })}
+    </ul>
+  );
+}
+
 export function Sidebar() {
   const pathname = usePathname();
   const { setIsOpen, isOpen, isMobile, toggleSidebar } = useSidebarContext();
   const [expandedItems, setExpandedItems] = useState<string[]>([]);
 
   const toggleExpanded = (title: string) => {
-    setExpandedItems((prev) => (prev.includes(title) ? [] : [title]));
-
-    // Uncomment the following line to enable multiple expanded items
-    // setExpandedItems((prev) =>
-    //   prev.includes(title) ? prev.filter((t) => t !== title) : [...prev, title],
-    // );
+    setExpandedItems((prev) =>
+      prev.includes(title) ? prev.filter((t) => t !== title) : [...prev, title],
+    );
   };
 
   useEffect(() => {
-    // Keep collapsible open, when it's subpage is active
-    NAV_DATA.some((section) => {
-      return section.items.some((item) => {
-        return item.items.some((subItem) => {
-          if (subItem.url === pathname) {
-            if (!expandedItems.includes(item.title)) {
-              toggleExpanded(item.title);
-            }
+    // Auto-expand all ancestors for the current pathname
+    const allItems = NAV_DATA.flatMap((section) => section.items);
+    const titlesToExpand: string[] = [];
 
-            // Break the loop
-            return true;
-          }
-        });
-      });
-    });
+    for (const item of allItems) {
+      // Check top-level items
+      if (item.items && hasActiveChild(item.items, pathname)) {
+        if (!expandedItems.includes(item.title)) {
+          titlesToExpand.push(item.title);
+        }
+      }
+      // Check nested items recursively
+      const nestedTitles = getExpandedTitles(item.items, pathname);
+      for (const t of nestedTitles) {
+        if (!expandedItems.includes(t)) {
+          titlesToExpand.push(t);
+        }
+      }
+    }
+
+    if (titlesToExpand.length > 0) {
+      setExpandedItems((prev) => [...new Set([...prev, ...titlesToExpand])]);
+    }
   }, [pathname]);
 
   return (
@@ -107,9 +213,7 @@ export function Sidebar() {
                         {item.items.length ? (
                           <div>
                             <MenuItem
-                              isActive={item.items.some(
-                                ({ url }) => url === pathname,
-                              )}
+                              isActive={hasActiveChild(item.items, pathname)}
                               onClick={() => toggleExpanded(item.title)}
                             >
                               <item.icon
@@ -130,22 +234,13 @@ export function Sidebar() {
                             </MenuItem>
 
                             {expandedItems.includes(item.title) && (
-                              <ul
-                                className="ml-9 mr-0 space-y-1.5 pb-[15px] pr-0 pt-2"
-                                role="menu"
-                              >
-                                {item.items.map((subItem) => (
-                                  <li key={subItem.title} role="none">
-                                    <MenuItem
-                                      as="link"
-                                      href={subItem.url}
-                                      isActive={pathname === subItem.url}
-                                    >
-                                      <span>{subItem.title}</span>
-                                    </MenuItem>
-                                  </li>
-                                ))}
-                              </ul>
+                              <SubMenuItems
+                                items={item.items}
+                                pathname={pathname}
+                                expandedItems={expandedItems}
+                                toggleExpanded={toggleExpanded}
+                                depth={0}
+                              />
                             )}
                           </div>
                         ) : (
