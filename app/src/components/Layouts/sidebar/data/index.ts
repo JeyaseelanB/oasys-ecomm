@@ -105,6 +105,59 @@ export const NAV_DATA = [
                   },
                 ],
               },
+              {
+                title: "Inspection Center",
+                url: "/operational/warehouse-management/inspection-center",
+                items: [
+                  {
+                    title: "Quality Checking",
+                    url: "/operational/warehouse-management/inspection-center/quality-check/list",
+                  },
+                  {
+                    title: "Stock Inward",
+                    url: "/operational/warehouse-management/inspection-center/stock-inward/list",
+                  },
+                  {
+                    title: "Stock Outward",
+                    url: "/operational/warehouse-management/inspection-center/stock-outward/list",
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            title: "Production Planning",
+            url: "/operational/production-planning",
+            items: [
+              {
+                title: "Contract / Export",
+                url: "/operational/production-planning/contract-export",
+                items: [
+                  {
+                    title: "Production Plan",
+                    url: "/operational/production-planning/contract-export/list",
+                  },
+                ],
+              },
+              {
+                title: "Additional Production Plan",
+                url: "/operational/production-planning/additional-production-plan/list",
+                items: [],
+              },
+              {
+                title: "Government Scheme",
+                url: "/operational/production-planning/government-scheme",
+                items: [
+                  {
+                    title: "Production Plan",
+                    url: "/operational/production-planning/government-scheme/list",
+                  },
+                  {
+                    title: "District / Taluk Wise Requirement",
+                    url: "/operational/production-planning/government-scheme/district-taluk-wise-requirement/list",
+                  },
+                ],
+              },
             ],
           },
         ],
@@ -120,6 +173,10 @@ export const NAV_DATA = [
               {
                 title: "System Notification List",
                 url: "/close-sales/issr/system-notification-list",
+              },
+              {
+                title: "District / Taluk Wise Distribution",
+                url: "/close-sales/issr/district-taluk-wise-distribution/list",
               },
             ],
           },
