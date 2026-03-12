@@ -188,6 +188,62 @@ export function Weavers(props: PropsType) {
   );
 }
 
+export function Operational(props: PropsType) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width={24}
+      height={24}
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      {...props}
+    >
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M11.078 2.432a1.75 1.75 0 011.844 0l7.5 4.648A1.75 1.75 0 0121.25 8.6v6.8a1.75 1.75 0 01-.828 1.52l-7.5 4.648a1.75 1.75 0 01-1.844 0l-7.5-4.648A1.75 1.75 0 012.75 15.4V8.6c0-.618.326-1.19.828-1.52l7.5-4.648zM12 3.75L4.5 8.4v7.2l7.5 4.65 7.5-4.65V8.4L12 3.75zm-1 5.5a1.25 1.25 0 112.5 0v2h2a.75.75 0 010 1.5h-2v2a1.25 1.25 0 11-2.5 0v-2h-2a.75.75 0 010-1.5h2v-2z"
+      />
+    </svg>
+  );
+}
+
+export function CloseSales(props: PropsType) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width={24}
+      height={24}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      {...props}
+    >
+      <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z" />
+      <line x1="3" y1="6" x2="21" y2="6" />
+      <path d="M16 10a4 4 0 01-8 0" />
+    </svg>
+  );
+}
+
+export function ChevronLeft(props: PropsType) {
+  return (
+    <svg width={16} height={16} viewBox="0 0 24 24" fill="currentColor" {...props}>
+      <path fillRule="evenodd" clipRule="evenodd" d="M15.28 5.22a.75.75 0 010 1.06L9.56 12l5.72 5.72a.75.75 0 11-1.06 1.06l-6.25-6.25a.75.75 0 010-1.06l6.25-6.25a.75.75 0 011.06 0z" />
+    </svg>
+  );
+}
+
+export function ChevronRight(props: PropsType) {
+  return (
+    <svg width={16} height={16} viewBox="0 0 24 24" fill="currentColor" {...props}>
+      <path fillRule="evenodd" clipRule="evenodd" d="M8.72 18.78a.75.75 0 010-1.06L14.44 12 8.72 6.28a.75.75 0 011.06-1.06l6.25 6.25a.75.75 0 010 1.06l-6.25 6.25a.75.75 0 01-1.06 0z" />
+    </svg>
+  );
+}
+
 export function ArrowLeftIcon(props: PropsType) {
   return (
     <svg
