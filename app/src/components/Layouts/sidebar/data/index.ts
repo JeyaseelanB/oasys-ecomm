@@ -100,7 +100,7 @@ export const NAV_DATA = [
               },
             ],
           },
-  {
+          {
             title: "Printing & Stationary",
             items: [
               {
@@ -352,6 +352,10 @@ export const NAV_DATA = [
               {
                 title: "Request For Modernization/Construction/Supplementary work",
                 url: "/asset-management/modernization/request-for-modernization/list",
+              },
+              {
+                title: "Estimation of Modernization",
+                url: "/asset-management/modernization/estimation-of-modernization/list",
               },
             ]
           }
