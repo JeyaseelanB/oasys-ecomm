@@ -65,6 +65,7 @@ export const NAV_DATA = [
           },
         ],
       },
+      
       {
         title: "Operational",
         icon: Icons.Operational,
