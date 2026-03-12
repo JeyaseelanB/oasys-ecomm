@@ -263,6 +263,25 @@ export function ChevronRight(props: PropsType) {
   );
 }
 
+export function Personnel(props: PropsType) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width={24}
+      height={24}
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      {...props}
+    >
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M8 7a4 4 0 118 0A4 4 0 018 7zm-4 9a6 6 0 0112 0v1H4v-1zm14.293-1.707A1 1 0 0120 15h1a1 1 0 011 1v1a1 1 0 01-1 1h-1v1a1 1 0 01-2 0v-1h-1a1 1 0 010-2h1v-1a1 1 0 01.293-.707z"
+      />
+    </svg>
+  );
+}
+
 export function ArrowLeftIcon(props: PropsType) {
   return (
     <svg
