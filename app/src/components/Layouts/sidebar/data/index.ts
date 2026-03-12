@@ -63,6 +63,13 @@ export const NAV_DATA = [
             title: "Stock Acknowledgement",
             url: "/weavers/stock-acknowledgement/list",
           },
+        ],
+      },
+
+      {
+        title: "Operational",
+        icon: Icons.Operational,
+        items: [
           {
             title: "Procurement Costing Society",
             url: "/weavers/procurement-costing-society/list",
@@ -77,7 +84,6 @@ export const NAV_DATA = [
           },
 
           {
-<<<<<<< HEAD
             title: "Production Planning",
             url: "/operational/production-planning",
             items: [
@@ -188,11 +194,12 @@ export const NAV_DATA = [
                 title: "District / Taluk Wise Distribution",
                 url: "/close-sales/issr/district-taluk-wise-distribution/list",
               },
+              {
+                title: "Society Stock Outward",
+                url: "/weavers/society-stock-outward/list",
+              },
             ],
-=======
-            title: "Society Stock Outward",
-            url: "/weavers/society-stock-outward/list",
->>>>>>> e0c571896e22946d1af973f349c33922f722a1da
+
           },
         ],
       },
