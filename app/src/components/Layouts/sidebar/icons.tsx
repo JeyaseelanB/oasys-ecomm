@@ -206,6 +206,25 @@ export function Operational(props: PropsType) {
     </svg>
   );
 }
+export function AssetManagement(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={1.5}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      {...props}
+    >
+      <path d="M6 2h12v4H6z" />
+      <path d="M4 6h16a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2z" />
+      <path d="M6 17v5h12v-5" />
+      <circle cx="18" cy="11" r="1" fill="currentColor" stroke="none" />
+    </svg>
+  );
+}
 
 export function CloseSales(props: PropsType) {
   return (
@@ -240,25 +259,6 @@ export function ChevronRight(props: PropsType) {
   return (
     <svg width={16} height={16} viewBox="0 0 24 24" fill="currentColor" {...props}>
       <path fillRule="evenodd" clipRule="evenodd" d="M8.72 18.78a.75.75 0 010-1.06L14.44 12 8.72 6.28a.75.75 0 011.06-1.06l6.25 6.25a.75.75 0 010 1.06l-6.25 6.25a.75.75 0 01-1.06 0z" />
-    </svg>
-  );
-}
-
-export function Personnel(props: PropsType) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width={24}
-      height={24}
-      viewBox="0 0 24 24"
-      fill="currentColor"
-      {...props}
-    >
-      <path
-        fillRule="evenodd"
-        clipRule="evenodd"
-        d="M8 4a3 3 0 100 6 3 3 0 000-6zM3.25 7a4.75 4.75 0 119.5 0 4.75 4.75 0 01-9.5 0zM16.5 5.75a2.25 2.25 0 100 4.5 2.25 2.25 0 000-4.5zM12.75 8a3.75 3.75 0 117.5 0 3.75 3.75 0 01-7.5 0zM5.5 13.25c-1.52 0-2.917.41-3.94 1.088C.54 15.014 0 15.9 0 16.75V17a.75.75 0 001.5 0v-.25c0-.377.278-.912 1.11-1.46C3.42 14.75 4.614 14.25 6 14.25s2.58.5 3.39 1.04c.832.548 1.11 1.083 1.11 1.46V17a.75.75 0 001.5 0v-.25c0-1.274-.814-2.277-1.85-2.963C9.1 13.09 7.627 12.75 6 12.75H5.5zM16.5 12.25c-1.19 0-2.295.317-3.109.839a.75.75 0 10.818 1.262c.578-.374 1.38-.601 2.291-.601.91 0 1.713.227 2.291.6A2.02 2.02 0 0120 15.5V16a.75.75 0 001.5 0v-.5c0-.924-.544-1.692-1.309-2.19-.777-.505-1.79-.81-2.691-.81z"
-      />
     </svg>
   );
 }
