@@ -222,6 +222,18 @@ export const NAV_DATA = [
               },
             ],
           },
+           {
+            title: "Revised Retail Price",
+            url: "/operational/revised-retail-price/list",
+          },
+          {
+            title: "Gift Coupon",
+            url: "/operational/gift-coupon-generation/list",
+          },
+          {
+            title: "Sales Target",
+            url: "/operational/sales-target/list",
+          },
 
           {
             title: "Warehouse Management",
