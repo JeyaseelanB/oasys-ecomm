@@ -9,26 +9,29 @@ import { useSidebarContext } from "./sidebar/sidebar-context";
 export function ConditionalLayout({ children }: PropsWithChildren) {
   const pathname = usePathname();
   const isAuthPage = pathname.startsWith("/auth");
-  const { isOpen, isMobile } = useSidebarContext();
+  const { isOpen, isMobile, isMinimized } = useSidebarContext();
 
   if (isAuthPage) {
     return <>{children}</>;
   }
 
-  // Calculate left margin based on sidebar state (only on desktop)
-  const sidebarWidth = !isMobile && isOpen ? 290 : 0;
+  const sidebarWidth = !isMobile && isOpen ? (isMinimized ? 70 : 290) : 0;
 
   return (
-    <div className="flex min-h-screen bg-gray-2 dark:bg-[#020d1a]">
+    <div className="flex h-screen bg-gray-2 dark:bg-[#020d1a]">
       {/* Fixed Sidebar */}
       <Sidebar />
 
-      {/* Main Content - shifts based on sidebar width */}
+      {/* Placeholder div that mirrors the sidebar width so flex-1 content gets correct width */}
       <div
-        className="flex flex-1 flex-col overflow-hidden transition-[margin-left] duration-200 ease-linear"
-        style={{ marginLeft: `${sidebarWidth}px` }}
-      >
-        {/* Header - Fixed */}
+        aria-hidden="true"
+        className="shrink-0 transition-[width] duration-200 ease-linear"
+        style={{ width: `${sidebarWidth}px` }}
+      />
+
+      {/* Main Content */}
+      <div className="flex min-w-0 flex-1 flex-col overflow-hidden">
+        {/* Header */}
         <div className="flex-shrink-0">
           <Header />
         </div>
