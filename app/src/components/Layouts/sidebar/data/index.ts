@@ -199,6 +199,10 @@ export const NAV_DATA = [
                 url: "/operational/procurement/procurement-costing/list",
               },
               {
+                title: "Purchase Order",
+                url: "/operational/procurement/purchase-order/list",
+              },
+              {
                 title: "Retail Procurement",
                 url: "/operational/procurement/retail-procurement",
                 items: [
@@ -217,6 +221,38 @@ export const NAV_DATA = [
                   {
                     title: "D&P Procurement Plan",
                     url: "/operational/procurement/retail-procurement/dnp-procurement-plan/list",
+                  },
+                ],
+              },
+              {
+                title: "Other Procurement",
+                url: "/operational/procurement/other-procurement",
+                items: [
+                  {
+                    title: "Procurement Order",
+                    url: "/operational/procurement/other-procurement/procurement-order/list",
+                  },
+                  {
+                    title: "Purchase Order",
+                    url: "/operational/procurement/other-procurement/purchase-order/list",
+                  },
+                  {
+                    title: "Society Wise Production",
+                    url: "/operational/procurement/other-procurement/society-wise-production",
+                    items: [
+                      {
+                        title: "Additional Society Wise Production Plan",
+                        url: "/operational/procurement/other-procurement/society-wise-production/additional-society-wise-production-plan/list",
+                      },
+                      {
+                        title: "Contract / Export Society Wise Production Plan",
+                        url: "/operational/procurement/other-procurement/society-wise-production/contract-export-society-wise-production-plan/list",
+                      },
+                      {
+                        title: "Govt Society Wise Production Plan",
+                        url: "/operational/procurement/other-procurement/society-wise-production/govt-society-wise-production-plan/list",
+                      },
+                    ],
                   },
                 ],
               },
