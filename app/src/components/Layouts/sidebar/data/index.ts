@@ -341,6 +341,22 @@ export const NAV_DATA = [
           },
         ],
       },
+      {
+        title: "Asset Management",
+        icon: Icons.AssetManagement,
+        items: [
+          {
+            title: "Modernization",
+            url: "/asset-management/modernization",
+            items: [
+              {
+                title: "Request For Modernization/Construction/Supplementary work",
+                url: "/asset-management/modernization/request-for-modernization/list",
+              },
+            ]
+          }
+        ]
+      },
 
       {
         title: "Personnel",
