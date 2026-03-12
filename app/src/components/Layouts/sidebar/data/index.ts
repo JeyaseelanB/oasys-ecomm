@@ -107,6 +107,46 @@ export const NAV_DATA = [
               },
             ],
           },
+          {
+            title: "Advertisement",
+            url: "/operational/advertisement/list",
+            items: [],
+          },
+          {
+            title: "Testing Lab",
+            url: "/operational/testing-lab",
+            items: [
+              {
+                title: " Test Report ",
+                url: "/operational/testing-lab/list",
+              },
+            ],
+          },
+          {
+            title: "Textile Library",
+            url: "/operational/textile-library/list",
+            items: [],
+          },
+          {
+            title: "Quotation/Order/Invoice",
+            url: "/operational/quotation-order-invoice",
+            items: [
+              {
+                title: "Purchase",
+                url: "/operational/quotation-order-invoice/purchase",
+                items: [
+                  {
+                    title: "Purchase Quotation",
+                    url: "/operational/quotation-order-invoice/purchase/purchase-quotation/list",
+                  },
+                  {
+                    title: "Purchase Order",
+                    url: "/operational/quotation-order-invoice/purchase/purchase-order/list",
+                  },
+                ],
+              },
+            ],
+          },
         ],
       },
       {

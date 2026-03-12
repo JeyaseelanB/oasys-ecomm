@@ -1,0 +1,564 @@
+"use client";
+
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+
+interface GSTEntry {
+  id: number;
+  gstType: string;
+  gstPercentage: string;
+  gstValue: string;
+}
+
+interface ProductItem {
+  id: number;
+  itemName: string;
+  itemDescription: string;
+  quantity: string;
+  unitRate: string;
+  total: string;
+  discountValue: string;
+  cgst: string;
+  sgst: string;
+  netAmount: string;
+}
+
+/* ──────────────────────────────────────────────────────── helpers ── */
+const FieldIcon = ({ type }: { type: "list" | "hash" | "rupee" | "grid" | "star" | "cart" | "doc" | "play" }) => {
+  switch (type) {
+    case "list": return <svg className="size-4 shrink-0 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><line x1="8" y1="6" x2="21" y2="6" /><line x1="8" y1="12" x2="21" y2="12" /><line x1="8" y1="18" x2="21" y2="18" /><line x1="3" y1="6" x2="3.01" y2="6" /><line x1="3" y1="12" x2="3.01" y2="12" /><line x1="3" y1="18" x2="3.01" y2="18" /></svg>;
+    case "hash": return <span className="text-sm text-gray-400">#</span>;
+    case "rupee": return <span className="text-sm text-gray-400">₹</span>;
+    case "grid": return <svg className="size-4 shrink-0 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><rect x="3" y="3" width="7" height="7" /><rect x="14" y="3" width="7" height="7" /><rect x="3" y="14" width="7" height="7" /><rect x="14" y="14" width="7" height="7" /></svg>;
+    case "star": return <svg className="size-4 shrink-0 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>;
+    case "cart": return <svg className="size-4 shrink-0 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><circle cx="9" cy="21" r="1" /><circle cx="20" cy="21" r="1" /><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" /></svg>;
+    case "doc": return <svg className="size-4 shrink-0 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" /><polyline points="14,2 14,8 20,8" /></svg>;
+    case "play": return <svg className="size-4 shrink-0 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><polygon points="5 3 19 12 5 21 5 3" /></svg>;
+    default: return null;
+  }
+};
+
+const SelectField = ({ label, required, icon, value, onChange }: { label: string; required?: boolean; icon: "list" | "hash" | "grid" | "star" | "cart"; value: string; onChange: (v: string) => void }) => (
+  <div>
+    <label className="mb-1 block text-sm font-medium text-dark dark:text-white">
+      {label}{required && <span className="ml-0.5 text-red-500">*</span>}
+    </label>
+    <div className="flex items-center gap-2 rounded border border-stroke bg-transparent px-3 py-2 dark:border-dark-3">
+      <FieldIcon type={icon} />
+      <select className="w-full bg-transparent text-sm text-dark outline-none dark:text-white" value={value} onChange={(e) => onChange(e.target.value)}>
+        <option value="">Select</option>
+      </select>
+    </div>
+  </div>
+);
+
+const InputField = ({ label, required, icon, value, onChange, placeholder, readOnly, type = "text" }: { label: string; required?: boolean; icon: "hash" | "rupee" | "cart" | "doc"; value: string; onChange?: (v: string) => void; placeholder?: string; readOnly?: boolean; type?: string }) => (
+  <div>
+    <label className="mb-1 block text-sm font-medium text-dark dark:text-white">
+      {label}{required && <span className="ml-0.5 text-red-500">*</span>}
+    </label>
+    <div className={`flex items-center gap-2 rounded border border-stroke px-3 py-2 dark:border-dark-3 ${readOnly ? "bg-[#f5f5f5] dark:bg-[#1a2232]" : "bg-transparent"}`}>
+      <FieldIcon type={icon} />
+      <input
+        type={type}
+        readOnly={readOnly}
+        placeholder={placeholder}
+        className="w-full bg-transparent text-sm text-dark outline-none dark:text-white"
+        value={value}
+        onChange={onChange ? (e) => onChange(e.target.value) : undefined}
+      />
+    </div>
+  </div>
+);
+
+export default function CreatePurchaseQuotationPage() {
+  const router = useRouter();
+
+  /* header */
+  const [supplierTypeCode, setSupplierTypeCode] = useState("");
+  const [supplierCode, setSupplierCode] = useState("");
+  const [gstinNumber, setGstinNumber] = useState("");
+  const [quotationRefNumber, setQuotationRefNumber] = useState("");
+  const [quotationRefDate, setQuotationRefDate] = useState("");
+  const [panNumber, setPanNumber] = useState("");
+  const [validDate, setValidDate] = useState("");
+  const [tdsPercentage, setTdsPercentage] = useState("");
+
+  /* product detail inputs */
+  const [productType, setProductType] = useState("");
+  const [productCategoryGroup, setProductCategoryGroup] = useState("");
+  const [productCategoryCode, setProductCategoryCode] = useState("");
+  const [productGroupCode, setProductGroupCode] = useState("");
+  const [productVarietyCode, setProductVarietyCode] = useState("");
+  const [uomCode, setUomCode] = useState("");
+  const [itemName, setItemName] = useState("");
+  const [itemDescription, setItemDescription] = useState("");
+  const [unitRate, setUnitRate] = useState("");
+  const [quantity, setQuantity] = useState("");
+  const [discountApplicable, setDiscountApplicable] = useState("");
+  const [discountType, setDiscountType] = useState("");
+  const [discountPct, setDiscountPct] = useState("");
+  const [discountValue, setDiscountValue] = useState("");
+  const [gstApplicable, setGstApplicable] = useState("");
+  const [gstType, setGstType] = useState("");
+  const [gstPct, setGstPct] = useState("");
+  const [gstValue, setGstValue] = useState("");
+
+  /* gst & product tables */
+  const [gstEntries, setGstEntries] = useState<GSTEntry[]>([]);
+  const [productItems, setProductItems] = useState<ProductItem[]>([]);
+
+  /* footer */
+  const [termsConditions, setTermsConditions] = useState("");
+  const [remarks, setRemarks] = useState("");
+  const [skipApproval, setSkipApproval] = useState("No");
+  const [forwardTo, setForwardTo] = useState("");
+  const [forwardFor, setForwardFor] = useState("Approval");
+
+  /* modals */
+  const [showNoteModal, setShowNoteModal] = useState(false);
+  const [noteText, setNoteText] = useState("");
+
+  /* computed */
+  const computedItemTotal = unitRate && quantity ? (parseFloat(unitRate || "0") * parseFloat(quantity || "0")).toFixed(2) : "";
+
+  const handleAddGst = () => {
+    if (!gstType || !gstPct || !gstValue) return;
+    setGstEntries((p) => [...p, { id: Date.now(), gstType, gstPercentage: gstPct, gstValue }]);
+    setGstType(""); setGstPct(""); setGstValue("");
+  };
+
+  const handleClearProduct = () => {
+    setProductType(""); setProductCategoryGroup(""); setProductCategoryCode(""); setProductGroupCode("");
+    setProductVarietyCode(""); setUomCode(""); setItemName(""); setItemDescription("");
+    setUnitRate(""); setQuantity(""); setDiscountApplicable(""); setDiscountType(""); setDiscountPct("");
+    setDiscountValue(""); setGstApplicable(""); setGstType(""); setGstPct(""); setGstValue("");
+    setGstEntries([]);
+  };
+
+  const handleAddProduct = () => {
+    if (!productVarietyCode || !uomCode || !unitRate || !quantity) return;
+    const tot = (parseFloat(unitRate) * parseFloat(quantity)).toFixed(2);
+    setProductItems((p) => [...p, { id: Date.now(), itemName, itemDescription, quantity, unitRate, total: tot, discountValue: discountValue || "0.00", cgst: "0.00", sgst: "0.00", netAmount: tot }]);
+    handleClearProduct();
+  };
+
+  const totals = productItems.reduce((acc, p) => ({
+    qty: acc.qty + parseFloat(p.quantity || "0"),
+    rate: acc.rate + parseFloat(p.unitRate || "0"),
+    total: acc.total + parseFloat(p.total || "0"),
+    disc: acc.disc + parseFloat(p.discountValue || "0"),
+    cgst: acc.cgst + parseFloat(p.cgst || "0"),
+    sgst: acc.sgst + parseFloat(p.sgst || "0"),
+    net: acc.net + parseFloat(p.netAmount || "0"),
+  }), { qty: 0, rate: 0, total: 0, disc: 0, cgst: 0, sgst: 0, net: 0 });
+
+  /* ───────────────────────────────────── render ── */
+  return (
+    <div className="mx-auto">
+      {/* Breadcrumb */}
+      <div className="mb-4 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+        <h2 className="text-[22px] font-bold leading-tight text-dark dark:text-white">Create Purchase Quotation</h2>
+        <nav>
+          <ol className="flex flex-wrap items-center gap-1.5 text-sm">
+            <li><Link href="/" className="font-medium text-dark hover:text-primary dark:text-gray-400">Home</Link></li>
+            <li className="text-gray-400">/</li>
+            <li className="text-gray-500 dark:text-gray-400">Operational</li>
+            <li className="text-gray-400">/</li>
+            <li className="text-gray-500 dark:text-gray-400">Quotation/Order/Invoice</li>
+            <li className="text-gray-400">/</li>
+            <li className="text-gray-500 dark:text-gray-400">Purchase</li>
+            <li className="text-gray-400">/</li>
+            <li className="font-medium text-primary">Create Purchase Quotation</li>
+          </ol>
+        </nav>
+      </div>
+
+      <div className="rounded-[10px] border border-stroke bg-white shadow-1 dark:border-dark-3 dark:bg-gray-dark dark:shadow-card">
+        {/* Section header */}
+        <div className="flex items-center justify-between rounded-t-[10px] bg-[#2d8f7b] px-5 py-3">
+          <span className="font-semibold text-white">Purchase Quotation</span>
+          <span className="text-xs text-white opacity-80">( * Mandatory Fields)</span>
+        </div>
+
+        <div className="p-5">
+          {/* ── Row 1: Supplier Type | Supplier Code | GSTIN ── */}
+          <div className="mb-4 grid grid-cols-1 gap-4 md:grid-cols-3">
+            <SelectField label="Supplier Type Code / Name" required icon="list" value={supplierTypeCode} onChange={setSupplierTypeCode} />
+            <SelectField label="Supplier Code / Name" required icon="list" value={supplierCode} onChange={setSupplierCode} />
+            <InputField label="GSTIN Number" icon="hash" value={gstinNumber} onChange={setGstinNumber} />
+          </div>
+
+          {/* ── Row 2: Quotation Ref# | Quotation Ref Date | PAN | Valid Date ── */}
+          <div className="mb-4 grid grid-cols-1 gap-4 md:grid-cols-4">
+            <InputField label="Quotation Reference Number" required icon="hash" value={quotationRefNumber} onChange={setQuotationRefNumber} />
+            <div>
+              <label className="mb-1 block text-sm font-medium text-dark dark:text-white">Quotation Reference Date</label>
+              <div className="flex items-center gap-2 rounded border border-stroke bg-transparent px-3 py-2 dark:border-dark-3">
+                <input type="text" placeholder="dd-MMM-yyyy" className="w-full bg-transparent text-sm text-dark outline-none dark:text-white" value={quotationRefDate} onChange={(e) => setQuotationRefDate(e.target.value)} />
+                <svg className="size-4 shrink-0 text-[#17a2b8]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><rect x="3" y="4" width="18" height="18" rx="2" /><line x1="16" y1="2" x2="16" y2="6" /><line x1="8" y1="2" x2="8" y2="6" /><line x1="3" y1="10" x2="21" y2="10" /></svg>
+              </div>
+            </div>
+            <InputField label="PAN Number" icon="hash" value={panNumber} onChange={setPanNumber} />
+            <div>
+              <label className="mb-1 block text-sm font-medium text-dark dark:text-white">Valid Date <span className="text-red-500">*</span></label>
+              <div className="flex items-center gap-2 rounded border border-stroke bg-transparent px-3 py-2 dark:border-dark-3">
+                <input type="text" placeholder="dd-MMM-yyyy" className="w-full bg-transparent text-sm text-dark outline-none dark:text-white" value={validDate} onChange={(e) => setValidDate(e.target.value)} />
+                <svg className="size-4 shrink-0 text-[#17a2b8]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><rect x="3" y="4" width="18" height="18" rx="2" /><line x1="16" y1="2" x2="16" y2="6" /><line x1="8" y1="2" x2="8" y2="6" /><line x1="3" y1="10" x2="21" y2="10" /></svg>
+              </div>
+            </div>
+          </div>
+
+          {/* ── TDS ── */}
+          <div className="mb-6 grid grid-cols-1 gap-4 md:grid-cols-4">
+            <InputField label="TDS Percentage" icon="cart" value={tdsPercentage} onChange={setTdsPercentage} />
+          </div>
+
+          {/* ── Product Details heading ── */}
+          <div className="mb-4 flex items-center gap-2">
+            <svg className="size-5 text-dark dark:text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><rect x="3" y="3" width="7" height="7" /><rect x="14" y="3" width="7" height="7" /><rect x="3" y="14" width="7" height="7" /><rect x="14" y="14" width="7" height="7" /></svg>
+            <h3 className="text-base font-semibold text-dark dark:text-white">Product Details</h3>
+          </div>
+
+          {/* ── Row: Product Type | Category Group | Category Code | Group Code ── */}
+          <div className="mb-4 grid grid-cols-1 gap-4 md:grid-cols-4">
+            <SelectField label="Product Type" icon="list" value={productType} onChange={setProductType} />
+            <SelectField label="Product Category Group" icon="grid" value={productCategoryGroup} onChange={setProductCategoryGroup} />
+            <SelectField label="Product Category Code / Name" icon="star" value={productCategoryCode} onChange={setProductCategoryCode} />
+            <SelectField label="Product Group Code / Name" icon="grid" value={productGroupCode} onChange={setProductGroupCode} />
+          </div>
+
+          {/* ── Row: Product Variety | UOM | Item Name | Item Description ── */}
+          <div className="mb-4 grid grid-cols-1 gap-4 md:grid-cols-4">
+            <SelectField label="Product Variety Code / Name" required icon="list" value={productVarietyCode} onChange={setProductVarietyCode} />
+            <div>
+              <label className="mb-1 block text-sm font-medium text-dark dark:text-white">UOM Code / Name <span className="text-red-500">*</span></label>
+              <div className="flex items-center gap-2 rounded border border-stroke bg-transparent px-3 py-2 dark:border-dark-3">
+                <span className="text-sm text-gray-400">#</span>
+                <select className="w-full bg-transparent text-sm text-dark outline-none dark:text-white" value={uomCode} onChange={(e) => setUomCode(e.target.value)}><option value="">Select</option></select>
+              </div>
+            </div>
+            <InputField label="Item Name" icon="cart" value={itemName} onChange={setItemName} />
+            <InputField label="Item Description" icon="doc" value={itemDescription} onChange={setItemDescription} />
+          </div>
+
+          {/* ── Row: Unit Rate | Quantity | Item Total | Discount Applicable ── */}
+          <div className="mb-4 grid grid-cols-1 gap-4 md:grid-cols-4">
+            <InputField label="Unit Rate" required icon="rupee" type="number" value={unitRate} onChange={setUnitRate} />
+            <InputField label="Quantity" required icon="hash" type="number" value={quantity} onChange={setQuantity} />
+            <InputField label="Item Total" required icon="rupee" value={computedItemTotal} readOnly />
+            <SelectField label="Discount Applicable" icon="list" value={discountApplicable} onChange={setDiscountApplicable} />
+          </div>
+
+          {/* ── Row: Discount Type | Discount % | Discount Value | Balanced Amount ── */}
+          <div className="mb-4 grid grid-cols-1 gap-4 md:grid-cols-4">
+            <SelectField label="Discount Type" icon="list" value={discountType} onChange={setDiscountType} />
+            <div>
+              <label className="mb-1 block text-sm font-medium text-dark dark:text-white">Discount (%)</label>
+              <div className="flex items-center gap-2 rounded border border-stroke bg-transparent px-3 py-2 dark:border-dark-3">
+                <svg className="size-4 shrink-0 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" /></svg>
+                <input type="number" className="w-full bg-transparent text-sm text-dark outline-none dark:text-white" value={discountPct} onChange={(e) => setDiscountPct(e.target.value)} />
+              </div>
+            </div>
+            <InputField label="Discount Value" icon="rupee" type="number" value={discountValue} onChange={setDiscountValue} />
+            <InputField label="Balanced Amount" icon="rupee" value="" readOnly />
+          </div>
+
+          {/* ── GST: two-column layout (left: fields, right: GST table) ── */}
+          <div className="mb-2 grid grid-cols-1 gap-4 md:grid-cols-2">
+            {/* Left col: GST Applicable + GST Type + GST% + GST Value + Net Amount + Add btn */}
+            <div className="grid grid-cols-2 gap-4">
+              <SelectField label="GST Applicable" icon="list" value={gstApplicable} onChange={setGstApplicable} />
+              <div>
+                <label className="mb-1 block text-sm font-medium text-dark dark:text-white">GST Type <span className="text-red-500">*</span></label>
+                <div className="flex items-center gap-2 rounded border border-stroke bg-transparent px-3 py-2 dark:border-dark-3">
+                  <FieldIcon type="list" />
+                  <select className="w-full bg-transparent text-sm text-dark outline-none dark:text-white" value={gstType} onChange={(e) => setGstType(e.target.value)}>
+                    <option value="">Select</option>
+                    <option value="CGST">CGST</option>
+                    <option value="SGST">SGST</option>
+                    <option value="IGST">IGST</option>
+                  </select>
+                </div>
+              </div>
+              <div>
+                <label className="mb-1 block text-sm font-medium text-dark dark:text-white">GST (%) <span className="text-red-500">*</span></label>
+                <div className="flex items-center gap-2 rounded border border-stroke bg-transparent px-3 py-2 dark:border-dark-3">
+                  <svg className="size-4 shrink-0 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" /></svg>
+                  <input type="number" className="w-full bg-transparent text-sm text-dark outline-none dark:text-white" value={gstPct} onChange={(e) => setGstPct(e.target.value)} />
+                </div>
+              </div>
+              <div>
+                <label className="mb-1 block text-sm font-medium text-dark dark:text-white">GST Value <span className="text-red-500">*</span></label>
+                <div className="flex items-center gap-2 rounded border border-stroke bg-transparent px-3 py-2 dark:border-dark-3">
+                  <span className="text-sm text-gray-400">₹</span>
+                  <input type="number" className="w-full bg-transparent text-sm text-dark outline-none dark:text-white" value={gstValue} onChange={(e) => setGstValue(e.target.value)} />
+                </div>
+              </div>
+              <div>
+                <label className="mb-1 block text-sm font-medium text-dark dark:text-white">Net Amount <span className="text-red-500">*</span></label>
+                <div className="flex items-center gap-2 rounded border border-stroke bg-[#f5f5f5] px-3 py-2 dark:border-dark-3 dark:bg-[#1a2232]">
+                  <span className="text-sm text-gray-400">₹</span>
+                  <input type="text" readOnly className="w-full bg-transparent text-sm text-dark outline-none dark:text-white" value="" />
+                </div>
+              </div>
+              <div className="flex items-end">
+                <button onClick={handleAddGst} className="flex items-center gap-1.5 rounded bg-[#28a745] px-4 py-2 text-sm font-medium text-white hover:opacity-90">
+                  <svg className="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><polyline points="20 6 9 17 4 12" /></svg>
+                  Add
+                </button>
+              </div>
+            </div>
+
+            {/* Right col: GST table */}
+            <div className="overflow-x-auto rounded border border-stroke dark:border-dark-3">
+              <table className="w-full border-collapse text-sm">
+                <thead>
+                  <tr className="bg-[#2d8f7b] text-white">
+                    <th className="border border-[#3aa88f] px-3 py-2 text-center font-semibold">#</th>
+                    <th className="border border-[#3aa88f] px-3 py-2 text-center font-semibold">GST Type</th>
+                    <th className="border border-[#3aa88f] px-3 py-2 text-center font-semibold">GST Percentage</th>
+                    <th className="border border-[#3aa88f] px-3 py-2 text-center font-semibold">GST Value (₹)</th>
+                    <th className="border border-[#3aa88f] px-3 py-2 text-center font-semibold">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {gstEntries.length === 0 ? (
+                    <tr><td colSpan={5} className="py-4 text-center text-xs text-gray-400">No records found.</td></tr>
+                  ) : gstEntries.map((g, i) => (
+                    <tr key={g.id} className="border-b border-stroke dark:border-dark-3">
+                      <td className="border-r border-stroke px-3 py-2 text-center dark:border-dark-3">{i + 1}</td>
+                      <td className="border-r border-stroke px-3 py-2 text-center dark:border-dark-3">{g.gstType}</td>
+                      <td className="border-r border-stroke px-3 py-2 text-center dark:border-dark-3">{g.gstPercentage}</td>
+                      <td className="border-r border-stroke px-3 py-2 text-center dark:border-dark-3">{g.gstValue}</td>
+                      <td className="px-3 py-2 text-center">
+                        <button onClick={() => setGstEntries((p) => p.filter((x) => x.id !== g.id))} className="rounded bg-[#dc3545] p-1 text-white hover:opacity-90">
+                          <svg className="size-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><polyline points="3,6 5,6 21,6" /><path d="M19,6v14a2,2,0,0,1-2,2H7a2,2,0,0,1-2-2V6m3,0V4a2,2,0,0,1,2-2h4a2,2,0,0,1,2,2v2" /></svg>
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                  {gstEntries.length > 0 && (
+                    <tr className="bg-[#f0f0f0] dark:bg-[#1a2232]">
+                      <td colSpan={4} className="border-r border-stroke px-3 py-2 text-right font-semibold dark:border-dark-3">Total</td>
+                      <td></td>
+                    </tr>
+                  )}
+                  {gstEntries.length === 0 && (
+                    <tr className="bg-[#f0f0f0] dark:bg-[#1a2232]">
+                      <td colSpan={4} className="border-r border-stroke px-3 py-2 text-right font-semibold dark:border-dark-3">Total</td>
+                      <td></td>
+                    </tr>
+                  )}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          {/* ── Clear & Add product buttons ── */}
+          <div className="mb-6 flex gap-2">
+            <button onClick={handleClearProduct} className="flex items-center gap-1.5 rounded bg-[#6c757d] px-4 py-2 text-sm font-medium text-white hover:opacity-90">
+              <svg className="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><path d="M12 20h9" /><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z" /></svg>
+              Clear
+            </button>
+            <button onClick={handleAddProduct} className="flex items-center gap-1.5 rounded bg-[#28a745] px-4 py-2 text-sm font-medium text-white hover:opacity-90">
+              <svg className="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><polyline points="20 6 9 17 4 12" /></svg>
+              Add
+            </button>
+          </div>
+
+          {/* ── Product Variety Details ── */}
+          <div className="mb-4 flex items-center gap-2">
+            <svg className="size-5 text-dark dark:text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><rect x="3" y="3" width="7" height="7" /><rect x="14" y="3" width="7" height="7" /><rect x="3" y="14" width="7" height="7" /><rect x="14" y="14" width="7" height="7" /></svg>
+            <h3 className="text-base font-semibold text-dark dark:text-white">Product Variety Details</h3>
+          </div>
+
+          <div className="mb-6 overflow-x-auto rounded border border-stroke dark:border-dark-3">
+            <table className="w-full border-collapse text-sm">
+              <thead>
+                <tr className="bg-[#2d8f7b] text-white">
+                  {["#","Item Name","Item Description","Quantity","Unit Rate (₹)","Total (₹)","Discount Value (₹)","CGST (₹)","SGST (₹)","Net Amount (₹)","Action"].map((h) => (
+                    <th key={h} className="border border-[#3aa88f] px-3 py-2 text-center font-semibold whitespace-nowrap">{h}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {productItems.length === 0 ? (
+                  <>
+                    <tr><td colSpan={11} className="py-3 text-center text-xs text-gray-400">No records found.</td></tr>
+                    <tr className="bg-[#f0f0f0] dark:bg-[#1a2232]">
+                      <td colSpan={3} className="border-r border-stroke px-3 py-2 text-right font-semibold dark:border-dark-3">Total</td>
+                      {Array(7).fill(null).map((_, i) => <td key={i} className="border-r border-stroke px-3 py-2 text-center dark:border-dark-3"></td>)}
+                      <td></td>
+                    </tr>
+                  </>
+                ) : (
+                  <>
+                    {productItems.map((item, idx) => (
+                      <tr key={item.id} className={`border-b border-stroke dark:border-dark-3 ${idx % 2 === 0 ? "bg-white dark:bg-gray-dark" : "bg-[#f9fafb] dark:bg-[#1a2232]"}`}>
+                        <td className="border-r border-stroke px-3 py-2 text-center text-primary dark:border-dark-3">{idx + 1}</td>
+                        <td className="border-r border-stroke px-3 py-2 dark:border-dark-3">{item.itemName}</td>
+                        <td className="border-r border-stroke px-3 py-2 dark:border-dark-3">{item.itemDescription}</td>
+                        <td className="border-r border-stroke px-3 py-2 text-center dark:border-dark-3">{item.quantity}</td>
+                        <td className="border-r border-stroke px-3 py-2 text-right dark:border-dark-3">{item.unitRate}</td>
+                        <td className="border-r border-stroke px-3 py-2 text-right dark:border-dark-3">{item.total}</td>
+                        <td className="border-r border-stroke px-3 py-2 text-right dark:border-dark-3">{item.discountValue}</td>
+                        <td className="border-r border-stroke px-3 py-2 text-right dark:border-dark-3">{item.cgst}</td>
+                        <td className="border-r border-stroke px-3 py-2 text-right dark:border-dark-3">{item.sgst}</td>
+                        <td className="border-r border-stroke px-3 py-2 text-right text-primary dark:border-dark-3">{item.netAmount}</td>
+                        <td className="px-3 py-2 text-center">
+                          <button onClick={() => setProductItems((p) => p.filter((x) => x.id !== item.id))} className="rounded bg-[#dc3545] p-1 text-white hover:opacity-90">
+                            <svg className="size-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><polyline points="3,6 5,6 21,6" /><path d="M19,6v14a2,2,0,0,1-2,2H7a2,2,0,0,1-2-2V6m3,0V4a2,2,0,0,1,2-2h4a2,2,0,0,1,2,2v2" /></svg>
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                    <tr className="bg-[#f0f0f0] font-semibold dark:bg-[#1a2232]">
+                      <td colSpan={3} className="border-r border-stroke px-3 py-2 text-right dark:border-dark-3">Total</td>
+                      <td className="border-r border-stroke px-3 py-2 text-center dark:border-dark-3">{totals.qty.toFixed(2)}</td>
+                      <td className="border-r border-stroke px-3 py-2 text-right dark:border-dark-3">{totals.rate.toFixed(2)}</td>
+                      <td className="border-r border-stroke px-3 py-2 text-right dark:border-dark-3">{totals.total.toFixed(2)}</td>
+                      <td className="border-r border-stroke px-3 py-2 text-right dark:border-dark-3">{totals.disc.toFixed(2)}</td>
+                      <td className="border-r border-stroke px-3 py-2 text-right dark:border-dark-3">{totals.cgst.toFixed(2)}</td>
+                      <td className="border-r border-stroke px-3 py-2 text-right dark:border-dark-3">{totals.sgst.toFixed(2)}</td>
+                      <td className="border-r border-stroke px-3 py-2 text-right dark:border-dark-3">{totals.net.toFixed(2)}</td>
+                      <td></td>
+                    </tr>
+                  </>
+                )}
+              </tbody>
+            </table>
+          </div>
+
+          {/* ── Terms & Remarks ── */}
+          <div className="mb-4 grid grid-cols-1 gap-4 md:grid-cols-2">
+            <div>
+              <label className="mb-1 block text-sm font-medium text-dark dark:text-white">Terms &amp; Conditions</label>
+              <textarea rows={3} className="w-full rounded border border-stroke bg-transparent px-3 py-2 text-sm text-dark outline-none focus:border-primary dark:border-dark-3 dark:text-white" value={termsConditions} onChange={(e) => setTermsConditions(e.target.value)} />
+            </div>
+            <div>
+              <label className="mb-1 block text-sm font-medium text-dark dark:text-white">Remarks</label>
+              <textarea rows={3} className="w-full rounded border border-stroke bg-transparent px-3 py-2 text-sm text-dark outline-none focus:border-primary dark:border-dark-3 dark:text-white" value={remarks} onChange={(e) => setRemarks(e.target.value)} />
+            </div>
+          </div>
+
+          {/* ── Skip Approval / Forward To / Forward For ── */}
+          <div className="mb-4 grid grid-cols-1 gap-4 md:grid-cols-3">
+            <div>
+              <label className="mb-1 block text-sm font-medium text-dark dark:text-white">Skip Approval</label>
+              <div className="flex items-center gap-2 rounded border border-stroke bg-transparent px-3 py-2 dark:border-dark-3">
+                <FieldIcon type="play" />
+                <select className="w-full bg-transparent text-sm text-dark outline-none dark:text-white" value={skipApproval} onChange={(e) => setSkipApproval(e.target.value)}>
+                  <option value="No">No</option>
+                  <option value="Yes">Yes</option>
+                </select>
+              </div>
+            </div>
+            <div>
+              <label className="mb-1 block text-sm font-medium text-dark dark:text-white">Forward To</label>
+              <div className="flex items-center gap-2 rounded border border-stroke bg-transparent px-3 py-2 dark:border-dark-3">
+                <FieldIcon type="play" />
+                <input type="text" className="w-full bg-transparent text-sm text-dark outline-none dark:text-white" value={forwardTo} onChange={(e) => setForwardTo(e.target.value)} />
+              </div>
+            </div>
+            <div>
+              <label className="mb-1 block text-sm font-medium text-dark dark:text-white">Forward For</label>
+              <div className="flex items-center gap-2 rounded border border-stroke bg-transparent px-3 py-2 dark:border-dark-3">
+                <FieldIcon type="play" />
+                <select className="w-full bg-transparent text-sm text-dark outline-none dark:text-white" value={forwardFor} onChange={(e) => setForwardFor(e.target.value)}>
+                  <option value="Approval">Approval</option>
+                  <option value="Review">Review</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          {/* ── Create Note button ── */}
+          <div className="mb-2">
+            <button onClick={() => setShowNoteModal(true)} className="flex items-center gap-1.5 rounded bg-[#28a745] px-4 py-2 text-sm font-medium text-white hover:opacity-90">
+              <svg className="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><line x1="12" y1="5" x2="12" y2="19" /><line x1="5" y1="12" x2="19" y2="12" /></svg>
+              Create Note
+            </button>
+          </div>
+        </div>
+
+        {/* ── Footer actions ── */}
+        <div className="flex items-center justify-end gap-3 rounded-b-[10px] border-t border-stroke px-5 py-4 dark:border-dark-3">
+          <button
+            onClick={() => router.push("/operational/quotation-order-invoice/purchase/purchase-quotation/list")}
+            className="flex items-center gap-1.5 rounded border border-stroke bg-white px-5 py-2 text-sm font-medium text-dark hover:bg-gray-100 dark:border-dark-3 dark:bg-gray-dark dark:text-white dark:hover:bg-dark-2"
+          >
+            <svg className="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>
+            Cancel
+          </button>
+          <button className="flex items-center gap-1.5 rounded bg-[#28a745] px-5 py-2 text-sm font-medium text-white hover:opacity-90">
+            <svg className="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><polyline points="20 6 9 17 4 12" /></svg>
+            Submit
+          </button>
+        </div>
+      </div>
+
+      {/* ── Create Note Modal ── */}
+      {showNoteModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+          <div className="w-full max-w-2xl rounded-lg bg-white shadow-xl dark:bg-gray-dark">
+            <div className="flex items-center justify-between rounded-t-lg bg-[#17a2b8] px-5 py-3">
+              <span className="font-semibold text-white">Create Note</span>
+              <button onClick={() => setShowNoteModal(false)} className="text-white hover:opacity-80">
+                <svg className="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>
+              </button>
+            </div>
+            <div className="p-5">
+              {/* Toolbar */}
+              <div className="mb-2 flex flex-wrap items-center gap-1 rounded border border-stroke bg-[#f8f9fa] px-2 py-1.5 dark:border-dark-3 dark:bg-[#1a2232]">
+                <select className="rounded border border-stroke bg-white px-1.5 py-0.5 text-xs dark:border-dark-3 dark:bg-gray-dark dark:text-white"><option>Sans Serif</option></select>
+                <select className="rounded border border-stroke bg-white px-1.5 py-0.5 text-xs dark:border-dark-3 dark:bg-gray-dark dark:text-white"><option>Normal</option></select>
+                <span className="mx-1 text-gray-300">|</span>
+                {["B","I","U","S"].map((f) => (
+                  <button key={f} className={`flex size-6 items-center justify-center rounded border border-stroke bg-white text-xs hover:bg-gray-100 dark:border-dark-3 dark:bg-gray-dark dark:text-white ${f === "B" ? "font-bold" : f === "I" ? "italic" : f === "U" ? "underline" : "line-through"}`}>{f}</button>
+                ))}
+                <span className="mx-1 text-gray-300">|</span>
+                {/* font colour & highlight placeholder */}
+                <button className="flex size-6 items-center justify-center rounded border border-stroke bg-white text-xs hover:bg-gray-100 dark:border-dark-3 dark:bg-gray-dark dark:text-white">A</button>
+                <button className="flex size-6 items-center justify-center rounded border border-stroke bg-white text-xs hover:bg-gray-100 dark:border-dark-3 dark:bg-gray-dark dark:text-white">
+                  <svg className="size-3" viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="3" width="18" height="18" rx="2" /></svg>
+                </button>
+              </div>
+              <textarea
+                rows={7}
+                placeholder="Enter text ..."
+                className="w-full rounded border border-stroke bg-transparent px-3 py-2 text-sm text-dark outline-none focus:border-primary dark:border-dark-3 dark:text-white"
+                value={noteText}
+                onChange={(e) => setNoteText(e.target.value)}
+              />
+              {/* Prev / Next navigator + Created By card */}
+              <div className="mt-4 flex items-start justify-between">
+                <div className="rounded border border-stroke p-4 text-sm dark:border-dark-3">
+                  <p className="mb-2 font-semibold text-dark dark:text-white">Created By</p>
+                  <p className="text-gray-600 dark:text-gray-400">Name : CURRENT USER</p>
+                  <p className="text-gray-600 dark:text-gray-400">Designation :</p>
+                  <p className="text-gray-600 dark:text-gray-400">Date : {new Date().toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" }).replace(/ /g, "-")}</p>
+                </div>
+                <div className="flex gap-1">
+                  <button className="flex size-8 items-center justify-center rounded border border-stroke hover:bg-gray-100 dark:border-dark-3 dark:hover:bg-dark-2">&#8249;</button>
+                  <button className="flex size-8 items-center justify-center rounded border border-stroke hover:bg-gray-100 dark:border-dark-3 dark:hover:bg-dark-2">&#8250;</button>
+                </div>
+              </div>
+            </div>
+            <div className="flex justify-end gap-3 border-t border-stroke px-5 py-4 dark:border-dark-3">
+              <button onClick={() => setShowNoteModal(false)} className="flex items-center gap-1.5 rounded border border-stroke bg-white px-4 py-2 text-sm font-medium text-dark hover:bg-gray-100 dark:border-dark-3 dark:bg-gray-dark dark:text-white">
+                <svg className="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>
+                Cancel
+              </button>
+              <button onClick={() => setShowNoteModal(false)} className="flex items-center gap-1.5 rounded bg-[#28a745] px-4 py-2 text-sm font-medium text-white hover:opacity-90">
+                <svg className="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><polyline points="20 6 9 17 4 12" /></svg>
+                Submit
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
