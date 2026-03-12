@@ -100,7 +100,27 @@ export const NAV_DATA = [
               },
             ],
           },
-
+  {
+            title: "Printing & Stationary",
+            items: [
+              {
+                title: "Request",
+                url: "/operational/printing-stationary/request/list",
+              },
+              {
+                title: "Requirement",
+                url: "/operational/printing-stationary/requirement/list",
+              },
+              {
+                title: "Consolidate Requirement",
+                url: "/operational/printing-stationary/consolidate-requirement/list",
+              },
+              {
+                title: "Disposal",
+                url: "/operational/printing-stationary/disposal/list",
+              },
+            ],
+          },
           {
             title: "Procurement",
             url: "/operational/procurement",
