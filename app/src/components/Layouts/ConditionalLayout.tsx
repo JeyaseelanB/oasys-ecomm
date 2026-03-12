@@ -18,7 +18,7 @@ export function ConditionalLayout({ children }: PropsWithChildren) {
   const sidebarWidth = !isMobile && isOpen ? (isMinimized ? 70 : 290) : 0;
 
   return (
-    <div className="flex min-h-screen bg-gray-2 dark:bg-[#020d1a]">
+    <div className="flex h-screen bg-gray-2 dark:bg-[#020d1a]">
       {/* Fixed Sidebar */}
       <Sidebar />
 
