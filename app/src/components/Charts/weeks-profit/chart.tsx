@@ -56,6 +56,12 @@ export function WeeksProfitChart({ data }: PropsType) {
 
     grid: {
       strokeDashArray: 5,
+      padding: {
+        top: 0,
+        right: 5,
+        bottom: 0,
+        left: 5,
+      },
       xaxis: {
         lines: {
           show: false,
@@ -92,7 +98,7 @@ export function WeeksProfitChart({ data }: PropsType) {
     },
   };
   return (
-    <div className="-ml-3.5 mt-3">
+    <div className="mt-3 w-full overflow-hidden">
       <Chart
         options={options}
         series={[
@@ -106,6 +112,7 @@ export function WeeksProfitChart({ data }: PropsType) {
           },
         ]}
         type="bar"
+        width="100%"
         height={370}
       />
     </div>

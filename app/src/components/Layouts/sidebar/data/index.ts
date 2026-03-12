@@ -70,6 +70,64 @@ export const NAV_DATA = [
         icon: Icons.Operational,
         items: [
           {
+            title: "Stock Management",
+            url: "/operational/stock-management",
+            items: [
+              {
+                title: "Item Inward",
+                url: "/operational/stock-management/stock-item-inward/list",
+              },
+              {
+                title: "Item Outward",
+                url: "/operational/stock-management/item-outward/list",
+              },
+              {
+                title: "Inventory Closing",
+                url: "/operational/stock-management/inventory-closing",
+              },
+              {
+                title: "Stock Upload",
+                url: "/operational/stock-management/stock-upload",
+              },
+              {
+                title: "Stock Verification",
+                url: "/operational/stock-management/stock-verification",
+              },
+            ],
+          },
+          {
+            title: "Procurement",
+            url: "/operational/procurement",
+            items: [
+              {
+                title: "Procurement Costing",
+                url: "/operational/procurement/procurement-costing/list",
+              },
+              {
+                title: "Retail Procurement",
+                url: "/operational/procurement/retail-procurement",
+                items: [
+                  {
+                    title: "Society Wise Production Plan",
+                    url: "/operational/procurement/retail-procurement/society-wise-production-plan/list",
+                  },
+                  {
+                    title: "Procurement Order",
+                    url: "/operational/procurement/retail-procurement/procurement-order/list",
+                  },
+                  {
+                    title: "Retail Purchase Order",
+                    url: "/operational/procurement/retail-procurement/purchase-order/list",
+                  },
+                  {
+                    title: "D&P Procurement Plan",
+                    url: "/operational/procurement/retail-procurement/dnp-procurement-plan/list",
+                  },
+                ],
+              },
+            ],
+          },
+          {
             title: "Warehouse Management",
             url: "/operational/warehouse-management",
             items: [
