@@ -143,6 +143,33 @@ export const NAV_DATA = [
             ],
           },
           {
+            title: "Tender",
+            icon: Icons.Operational,
+
+            items: [
+              {
+                title: "Create Tender",
+                url: "/operational/tender/create-tender/list",
+              },
+              {
+                title: "Apply Tender",
+                url: "/operational/tender/apply-tender/list",
+              },
+              {
+                title: "Tender Evaluation",
+                url: "/operational/tender/tender-evaluation/list",
+              },
+              {
+                title: "Tender Negotation",
+                url: "/operational/tender/tender-negotiation/list",
+              },
+              {
+                title: "Tender Awarding",
+                url: "/operational/tender/tender-awarding/list",
+              },
+            ],
+          },
+          {
             title: "Printing & Stationary",
             items: [
               {
