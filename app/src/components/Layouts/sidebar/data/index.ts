@@ -305,6 +305,24 @@ export const NAV_DATA = [
                   },
                 ],
               },
+              {
+                title: "Inspection Center",
+                url: "/operational/warehouse-management/inspection-center",
+                items: [
+                  {
+                    title: "Quality Checking",
+                    url: "/operational/warehouse-management/inspection-center/quality-check/list",
+                  },
+                  {
+                    title: "Stock Inward",
+                    url: "/operational/warehouse-management/inspection-center/stock-inward/list",
+                  },
+                  {
+                    title: "Stock Outward",
+                    url: "/operational/warehouse-management/inspection-center/stock-outward/list",
+                  },
+                ],
+              },
             ],
           },
 
