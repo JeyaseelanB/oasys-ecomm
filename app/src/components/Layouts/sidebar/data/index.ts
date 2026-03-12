@@ -66,6 +66,56 @@ export const NAV_DATA = [
         ],
       },
       {
+        title: "Operational",
+        icon: Icons.Table,
+        items: [
+          {
+            title: "Warehouse Management",
+            children: [
+              {
+                title: "ISSR",
+                children: [
+                  {
+                    title: "Stock Inward",
+                    url: "/operational/warehouse-management/issr/stock-inward/list",
+                  },
+                  {
+                    title: "Stock Outward",
+                    url: "/operational/warehouse-management/issr/stock-outward/list",
+                  },
+                ],
+              },
+              {
+                title: "Export Warehouse",
+                children: [
+                  {
+                    title: "Stock Inward",
+                    url: "/operational/warehouse-management/export-warehouse/stock-inward/list",
+                  },
+                  {
+                    title: "Stock Outward",
+                    url: "/operational/warehouse-management/export-warehouse/stock-outward/list",
+                  },
+                ],
+              },
+              {
+                title: "Printing Warehouse",
+                children: [
+                  {
+                    title: "Stock Inward",
+                    url: "/operational/warehouse-management/printing-warehouse/stock-inward/list",
+                  },
+                  {
+                    title: "Stock Outward",
+                    url: "/operational/warehouse-management/printing-warehouse/stock-outward/list",
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+      {
         title: "Pages",
         icon: Icons.Alphabet,
         items: [
