@@ -63,127 +63,21 @@ export const NAV_DATA = [
             title: "Stock Acknowledgement",
             url: "/weavers/stock-acknowledgement/list",
           },
-        ],
-      },
-      {
-        title: "Operational",
-        icon: Icons.Operational,
-        items: [
           {
-            title: "Stock Management",
-            url: "/operational/stock-management",
-            items: [
-              {
-                title: "Item Inward",
-                url: "/operational/stock-management/stock-item-inward/list",
-              },
-              {
-                title: "Item Outward",
-                url: "/operational/stock-management/item-outward/list",
-              },
-              {
-                title: "Inventory Closing",
-                url: "/operational/stock-management/inventory-closing",
-              },
-              {
-                title: "Stock Upload",
-                url: "/operational/stock-management/stock-upload",
-              },
-              {
-                title: "Stock Verification",
-                url: "/operational/stock-management/stock-verification",
-              },
-            ],
+            title: "Procurement Costing Society",
+            url: "/weavers/procurement-costing-society/list",
           },
           {
-            title: "Procurement",
-            url: "/operational/procurement",
-            items: [
-              {
-                title: "Procurement Costing",
-                url: "/operational/procurement/procurement-costing/list",
-              },
-              {
-                title: "Retail Procurement",
-                url: "/operational/procurement/retail-procurement",
-                items: [
-                  {
-                    title: "Society Wise Production Plan",
-                    url: "/operational/procurement/retail-procurement/society-wise-production-plan/list",
-                  },
-                  {
-                    title: "Procurement Order",
-                    url: "/operational/procurement/retail-procurement/procurement-order/list",
-                  },
-                  {
-                    title: "Retail Purchase Order",
-                    url: "/operational/procurement/retail-procurement/purchase-order/list",
-                  },
-                  {
-                    title: "D&P Procurement Plan",
-                    url: "/operational/procurement/retail-procurement/dnp-procurement-plan/list",
-                  },
-                ],
-              },
-            ],
+            title: "Society Product Appraisal",
+            url: "/weavers/society-product-appraisal/list",
           },
           {
-            title: "Warehouse Management",
-            url: "/operational/warehouse-management",
-            items: [
-              {
-                title: "Product Warehouse",
-                url: "/operational/warehouse-management/product-warehouse",
-                items: [
-                  {
-                    title: "Quality Checking",
-                    url: "/operational/warehouse-management/product-warehouse/quality-check/list",
-                  },
-                  {
-                    title: "QR Code",
-                    url: "/operational/warehouse-management/product-warehouse/qr-code/list",
-                  },
-                  {
-                    title: "Stock Outward",
-                    url: "/operational/warehouse-management/product-warehouse/stock-outward/list",
-                  },
-                ],
-              },
-              {
-                title: "Distribution Warehouse",
-                url: "/operational/warehouse-management/distribution-warehouse",
-                items: [
-                  {
-                    title: "Stock Inward",
-                    url: "/operational/warehouse-management/distribution-warehouse/stock-inward/list",
-                  },
-                  {
-                    title: "Stock Outward",
-                    url: "/operational/warehouse-management/distribution-warehouse/stock-outward/list",
-                  },
-                ],
-              },
-              {
-                title: "Inspection Center",
-                url: "/operational/warehouse-management/inspection-center",
-                items: [
-                  {
-                    title: "Quality Checking",
-                    url: "/operational/warehouse-management/inspection-center/quality-check/list",
-                  },
-                  {
-                    title: "Stock Inward",
-                    url: "/operational/warehouse-management/inspection-center/stock-inward/list",
-                  },
-                  {
-                    title: "Stock Outward",
-                    url: "/operational/warehouse-management/inspection-center/stock-outward/list",
-                  },
-                ],
-              },
-            ],
+            title: "Supply Rate Confirmation",
+            url: "/weavers/supply-rate-confirmation/list",
           },
+
           {
+<<<<<<< HEAD
             title: "Production Planning",
             url: "/operational/production-planning",
             items: [
@@ -277,6 +171,10 @@ export const NAV_DATA = [
                 url: "/close-sales/issr/district-taluk-wise-distribution/list",
               },
             ],
+=======
+            title: "Society Stock Outward",
+            url: "/weavers/society-stock-outward/list",
+>>>>>>> e0c571896e22946d1af973f349c33922f722a1da
           },
         ],
       },

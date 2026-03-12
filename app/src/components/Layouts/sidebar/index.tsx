@@ -10,11 +10,6 @@ import { ArrowLeftIcon, ChevronLeft, ChevronRight, ChevronUp } from "./icons";
 import { MenuItem } from "./menu-item";
 import { useSidebarContext } from "./sidebar-context";
 
-<<<<<<< HEAD
-function NestedMenu({
-  title,
-  children,
-=======
 // Check if any descendant URL matches the current pathname
 function hasActiveChild(items: any[], pathname: string): boolean {
   return items.some(
@@ -41,69 +36,16 @@ function getExpandedTitles(items: any[], pathname: string): string[] {
 // Recursive sub-menu component
 function SubMenuItems({
   items,
->>>>>>> a22f03293d02fb793bae480f8a971bddaa75eedb
   pathname,
   expandedItems,
   toggleExpanded,
   depth,
-<<<<<<< HEAD
-  toggleSidebar,
-  isMobile,
-}: {
-  title: string;
-  children: any[];
-=======
 }: {
   items: any[];
->>>>>>> a22f03293d02fb793bae480f8a971bddaa75eedb
   pathname: string;
   expandedItems: string[];
   toggleExpanded: (title: string) => void;
   depth: number;
-<<<<<<< HEAD
-  toggleSidebar: () => void;
-  isMobile: boolean;
-}) {
-  const isExpanded = expandedItems.includes(title);
-
-  const hasActiveChild = (items: any[]): boolean => {
-    return items.some((item: any) => {
-      if (item.url && item.url === pathname) return true;
-      if (item.children) return hasActiveChild(item.children);
-      return false;
-    });
-  };
-
-  return (
-    <div>
-      <button
-        onClick={() => toggleExpanded(title)}
-        className={cn(
-          "flex w-full items-center justify-between rounded-lg px-3 py-2 text-sm font-medium transition-all duration-200",
-          hasActiveChild(children)
-            ? "text-primary dark:text-white"
-            : "text-dark-4 hover:text-dark dark:text-dark-6 dark:hover:text-white",
-        )}
-      >
-        <span>{title}</span>
-        <ChevronUp
-          className={cn(
-            "size-4 rotate-180 transition-transform duration-200",
-            isExpanded && "rotate-0",
-          )}
-          aria-hidden="true"
-        />
-      </button>
-
-      {isExpanded && (
-        <ul className={cn("ml-4 space-y-1 pt-1", depth > 0 && "ml-3")}>
-          {children.map((child: any) => (
-            <li key={child.title}>
-              {child.children ? (
-                <NestedMenu
-                  title={child.title}
-                  children={child.children}
-=======
 }) {
   return (
     <ul
@@ -143,35 +85,10 @@ function SubMenuItems({
               {isExpanded && (
                 <SubMenuItems
                   items={subItem.items}
->>>>>>> a22f03293d02fb793bae480f8a971bddaa75eedb
                   pathname={pathname}
                   expandedItems={expandedItems}
                   toggleExpanded={toggleExpanded}
                   depth={depth + 1}
-<<<<<<< HEAD
-                  toggleSidebar={toggleSidebar}
-                  isMobile={isMobile}
-                />
-              ) : (
-                <Link
-                  href={child.url}
-                  onClick={() => isMobile && toggleSidebar()}
-                  className={cn(
-                    "block rounded-lg px-3 py-2 text-sm font-medium transition-all duration-200",
-                    pathname === child.url
-                      ? "bg-[rgba(87,80,241,0.07)] text-primary dark:bg-[#FFFFFF1A] dark:text-white"
-                      : "text-dark-4 hover:bg-gray-100 hover:text-dark dark:text-dark-6 dark:hover:bg-[#FFFFFF1A] dark:hover:text-white",
-                  )}
-                >
-                  {child.title}
-                </Link>
-              )}
-            </li>
-          ))}
-        </ul>
-      )}
-    </div>
-=======
                 />
               )}
             </li>
@@ -191,7 +108,6 @@ function SubMenuItems({
         );
       })}
     </ul>
->>>>>>> a22f03293d02fb793bae480f8a971bddaa75eedb
   );
 }
 
@@ -204,57 +120,6 @@ export function Sidebar() {
     setExpandedItems((prev) =>
       prev.includes(title) ? prev.filter((t) => t !== title) : [...prev, title],
     );
-<<<<<<< HEAD
-  };
-
-  // Recursively check if a URL exists within nested children
-  const hasActiveUrl = (items: any[]): boolean => {
-    return items.some((item: any) => {
-      if (item.url && item.url === pathname) return true;
-      if (item.children) return hasActiveUrl(item.children);
-      return false;
-    });
-  };
-
-  // Recursively collect parent titles for active path
-  const getExpandedTitles = (items: any[], parents: string[] = []): string[] => {
-    for (const item of items) {
-      if (item.url && item.url === pathname) return parents;
-      if (item.children) {
-        const result = getExpandedTitles(item.children, [...parents, item.title]);
-        if (result.length > 0) return result;
-      }
-    }
-    return [];
-  };
-
-  useEffect(() => {
-    // Keep collapsible open, when its subpage is active
-    NAV_DATA.some((section) => {
-      return section.items.some((item) => {
-        // Check flat sub-items
-        const flatMatch = item.items.some((subItem: any) => {
-          if (subItem.url === pathname) return true;
-          if (subItem.children && hasActiveUrl(subItem.children)) return true;
-          return false;
-        });
-
-        if (flatMatch) {
-          if (!expandedItems.includes(item.title)) {
-            const nestedTitles: string[] = [];
-            item.items.forEach((subItem: any) => {
-              if (subItem.children) {
-                nestedTitles.push(...getExpandedTitles(subItem.children, [subItem.title]));
-              }
-            });
-            setExpandedItems((prev) => [...new Set([...prev, item.title, ...nestedTitles])]);
-          }
-          return true;
-        }
-        return false;
-      });
-    });
-=======
   };
 
   useEffect(() => {
@@ -281,7 +146,6 @@ export function Sidebar() {
     if (titlesToExpand.length > 0) {
       setExpandedItems((prev) => [...new Set([...prev, ...titlesToExpand])]);
     }
->>>>>>> a22f03293d02fb793bae480f8a971bddaa75eedb
   }, [pathname]);
 
   return (
@@ -394,12 +258,6 @@ export function Sidebar() {
                         {item.items.length ? (
                           <div>
                             <MenuItem
-<<<<<<< HEAD
-                              isActive={item.items.some(
-                                (sub: any) => sub.url === pathname || (sub.children && hasActiveUrl(sub.children)),
-                              )}
-                              onClick={() => toggleExpanded(item.title)}
-=======
                               isActive={hasActiveChild(item.items, pathname)}
                               onClick={() =>
                                 !isMinimized && toggleExpanded(item.title)
@@ -409,7 +267,6 @@ export function Sidebar() {
                                   ? "justify-center px-2"
                                   : ""
                               }
->>>>>>> a22f03293d02fb793bae480f8a971bddaa75eedb
                             >
                               <item.icon
                                 className="size-6 shrink-0"
@@ -431,39 +288,6 @@ export function Sidebar() {
                               )}
                             </MenuItem>
 
-<<<<<<< HEAD
-                            {expandedItems.includes(item.title) && (
-                              <ul
-                                className="ml-9 mr-0 space-y-1.5 pb-[15px] pr-0 pt-2"
-                                role="menu"
-                              >
-                                {item.items.map((subItem: any) => (
-                                  <li key={subItem.title} role="none">
-                                    {subItem.children ? (
-                                      <NestedMenu
-                                        title={subItem.title}
-                                        children={subItem.children}
-                                        pathname={pathname}
-                                        expandedItems={expandedItems}
-                                        toggleExpanded={toggleExpanded}
-                                        depth={0}
-                                        toggleSidebar={toggleSidebar}
-                                        isMobile={isMobile}
-                                      />
-                                    ) : (
-                                      <MenuItem
-                                        as="link"
-                                        href={subItem.url}
-                                        isActive={pathname === subItem.url}
-                                      >
-                                        <span>{subItem.title}</span>
-                                      </MenuItem>
-                                    )}
-                                  </li>
-                                ))}
-                              </ul>
-                            )}
-=======
                             {(!isMinimized || isMobile) &&
                               expandedItems.includes(item.title) && (
                                 <SubMenuItems
@@ -474,7 +298,6 @@ export function Sidebar() {
                                   depth={0}
                                 />
                               )}
->>>>>>> a22f03293d02fb793bae480f8a971bddaa75eedb
                           </div>
                         ) : (
                           (() => {
