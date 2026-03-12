@@ -19,33 +19,41 @@ function Field({ label, value }: { label: string; value?: string }) {
   );
 }
 
+const ITEMS = Array.from({ length: 20 }, (_, i) => ({
+  id: i + 1,
+  productVariety: "LHS2 / LUNGHIES CHENGALPATTU 60S X 60S-2 MTS",
+  purchaseOrderNumber: "-",
+  uom: "NOS",
+  orderedUnit: "",
+  dispatchedQty: "1",
+  currentDispatchedQty: "",
+  value: "0.00",
+}));
+
 const DATA = {
-  dpOffice:         "1301 / D&P OFFICE ERODE",
-  shippingTo:       "2381 / PWH CHENNIMALAI",
+  dpOffice:            "/",
+  shippingTo:          "2181 / PWH-KANCHIPURAM",
   purchaseOrderNumber: "",
-  createdDate:      "09-Mar-2026",
-  createdBy:        "",
-  status:           "SUBMITTED",
-  societyCode:      "353313 / T(H) 110, ARINGNAR ANNA P.W.C.S.LTD.,",
-  societyAddress:   "NO.39,B-6,K.O.N.THRATRE ROAD, KOMARAPALAYAM-638 183, NAMAKKAL DISTRICT, SALEM, TAMIL NADUIndia",
-  societyGstin:     "33AAAA9242K 1ZU",
-  warehouseCode:    "2381 / PWH CHENNIMALAI",
-  warehouseAddress: "15&17 PATEL STREET, INGUR ROAD, CHENNIMALAI, NAMAKKAL, TAMIL NADU - 637001",
-  warehouseGstin:   "33AAAAH2788P1Z8",
-  totalBundles:     "",
-  totalBundleWeight:"",
-  bundleNumber:     "",
+  createdDate:         "12-Oct-2021",
+  createdBy:           "",
+  status:              "SUBMITTED",
+  societyCode:         "111111 / AYYANPETTAI KANDAPPAR WEAVERS COOP.SOCIETY G.2067",
+  societyAddress:      "21/2, KANDAPPAR STREET, AYYAMPET PO, 631 601, KANCHEEPURAM DIST, TAMIL NADUIndia",
+  societyGstin:        "33AAAT7421P1Z8",
+  warehouseCode:       "2181 / PWH-KANCHIPURAM",
+  warehouseAddress:    "Cooptex PWH Kanchipuram, 84,ThiruKachi Nambi Street, KANCHIPURAM, KANCHIPURAM, TAMIL NADU - 631501",
+  warehouseGstin:      "33AAAAH2788P1Z8",
+  totalBundles:        "",
+  totalBundleWeight:   "",
+  bundleNumber:        "",
   transportServiceType:     "",
-  transportServiceName:     "ABT Lorry Service",
-  waybillAvailable:         "Yes",
-  waybillNumber:            "7892",
-  transportChargeAvailable: "Yes",
-  transportChargeType:      "ToPay",
-  transportChargeAmount:    "200.0",
-  items: [
-    { id: 1, productVariety: "ASWS / ANGAVAS SALEM WOVEN SILK PURE SILK", purchaseOrderNumber: "-", uom: "NOS", orderedUnit: "", dispatchedQty: "1", currentDispatchedQty: "", value: "0.00" },
-    { id: 2, productVariety: "SALB / ARNI SILK HALF FINE ZARI SAREE WITH BLOUSE", purchaseOrderNumber: "-", uom: "NOS", orderedUnit: "", dispatchedQty: "1", currentDispatchedQty: "", value: "0.00" },
-  ],
+  transportServiceName:     "Personal Delivery",
+  waybillAvailable:         "No",
+  waybillNumber:            "",
+  transportChargeAvailable: "No",
+  transportChargeType:      "",
+  transportChargeAmount:    "",
+  items: ITEMS,
 };
 
 export default function ViewSocietyStockOutwardPage() {
@@ -151,7 +159,7 @@ export default function ViewSocietyStockOutwardPage() {
                   <tr className="bg-[#f0f0f0] font-semibold">
                     <td colSpan={4} className="border-r border-t border-stroke px-3 py-2.5 text-right">Total</td>
                     <td className="border-r border-t border-stroke px-3 py-2.5 text-center">0</td>
-                    <td className="border-r border-t border-stroke px-3 py-2.5 text-center">2</td>
+                    <td className="border-r border-t border-stroke px-3 py-2.5 text-center">20</td>
                     <td className="border-r border-t border-stroke px-3 py-2.5 text-center">0</td>
                     <td className="border-r border-t border-stroke px-3 py-2.5 text-right">0.00</td>
                     <td className="border-t border-stroke"></td>
@@ -178,16 +186,13 @@ export default function ViewSocietyStockOutwardPage() {
             <h3 className="mb-3 flex items-center gap-2 text-base font-semibold text-dark dark:text-white">
               <SectionIcon/> Transport Details
             </h3>
-            <div className="grid grid-cols-1 gap-x-6 sm:grid-cols-2 xl:grid-cols-4">
+            <div className="grid grid-cols-1 gap-x-6 sm:grid-cols-2 xl:grid-cols-3">
               <Field label="Transport Service Type" value={DATA.transportServiceType}/>
               <Field label="Transport Service Name" value={DATA.transportServiceName}/>
               <Field label="Waybill Available"      value={DATA.waybillAvailable}/>
-              <Field label="Waybill Number"         value={DATA.waybillNumber}/>
             </div>
-            <div className="grid grid-cols-1 gap-x-6 sm:grid-cols-2 xl:grid-cols-4">
+            <div className="grid grid-cols-1 gap-x-6 sm:grid-cols-2 xl:grid-cols-3">
               <Field label="Transport Charge Available" value={DATA.transportChargeAvailable}/>
-              <Field label="Transport Charge Type"     value={DATA.transportChargeType}/>
-              <Field label="Transport Charge Amount"   value={DATA.transportChargeAmount}/>
             </div>
           </div>
         </div>
