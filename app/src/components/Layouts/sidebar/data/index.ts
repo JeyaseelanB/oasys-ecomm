@@ -77,8 +77,104 @@ export const NAV_DATA = [
           },
 
           {
+<<<<<<< HEAD
+            title: "Production Planning",
+            url: "/operational/production-planning",
+            items: [
+              {
+                title: "Contract / Export",
+                url: "/operational/production-planning/contract-export",
+                items: [
+                  {
+                    title: "Production Plan",
+                    url: "/operational/production-planning/contract-export/list",
+                  },
+                ],
+              },
+              {
+                title: "Additional Production Plan",
+                url: "/operational/production-planning/additional-production-plan/list",
+                items: [],
+              },
+              {
+                title: "Government Scheme",
+                url: "/operational/production-planning/government-scheme",
+                items: [
+                  {
+                    title: "Production Plan",
+                    url: "/operational/production-planning/government-scheme/list",
+                  },
+                  {
+                    title: "District / Taluk Wise Requirement",
+                    url: "/operational/production-planning/government-scheme/district-taluk-wise-requirement/list",
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            title: "Advertisement",
+            url: "/operational/advertisement/list",
+            items: [],
+          },
+          {
+            title: "Testing Lab",
+            url: "/operational/testing-lab",
+            items: [
+              {
+                title: " Test Report ",
+                url: "/operational/testing-lab/list",
+              },
+            ],
+          },
+          {
+            title: "Textile Library",
+            url: "/operational/textile-library/list",
+            items: [],
+          },
+          {
+            title: "Quotation/Order/Invoice",
+            url: "/operational/quotation-order-invoice",
+            items: [
+              {
+                title: "Purchase",
+                url: "/operational/quotation-order-invoice/purchase",
+                items: [
+                  {
+                    title: "Purchase Quotation",
+                    url: "/operational/quotation-order-invoice/purchase/purchase-quotation/list",
+                  },
+                  {
+                    title: "Purchase Order",
+                    url: "/operational/quotation-order-invoice/purchase/purchase-order/list",
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+      {
+        title: "Close Sales",
+        icon: Icons.CloseSales,
+        items: [
+          {
+            title: "ISSR",
+            url: "/close-sales/issr",
+            items: [
+              {
+                title: "System Notification List",
+                url: "/close-sales/issr/system-notification-list",
+              },
+              {
+                title: "District / Taluk Wise Distribution",
+                url: "/close-sales/issr/district-taluk-wise-distribution/list",
+              },
+            ],
+=======
             title: "Society Stock Outward",
             url: "/weavers/society-stock-outward/list",
+>>>>>>> e0c571896e22946d1af973f349c33922f722a1da
           },
         ],
       },
