@@ -461,10 +461,45 @@ export const NAV_DATA = [
         ]
       },
 
+              {
+        title: "E-Commerce",
+        icon: Icons.FourCircle,
+        items: [
+          {
+            title: "Admin",
+            url: "/ecommerce/admin",
+            items: [
+              {
+                title: "E-Shopping to E-Commerce",
+                url: "/ecommerce/admin/eshopping-to-ecommerce/list",
+              },
+              {
+                title: "E-Commerce Rate Configuration",
+                url: "/ecommerce/admin/ecommerce-rate-configuration/list",
+              },
+            ],
+          },
+        ],
+      },
+
       {
         title: "Personnel",
         icon: Icons.Weavers,
         items: [
+           {
+                title: "Admin",
+                url: "/personnel/human-resource/admin",
+                items: [
+                  {
+                    title: "File Movement",
+                    url: "/personnel/human-resource/admin/file-movement/list",
+                  },
+                  {
+                    title: "Court Case",
+                    url: "/personnel/human-resource/admin/court-case/list",
+                  },
+                ],
+              },
           {
             title: "Human Resource",
             items: [
