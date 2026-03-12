@@ -216,6 +216,24 @@ export const NAV_DATA = [
                   },
                 ],
               },
+              {
+                title: "Retail Production Plan",
+                url: "/operational/production-planning/retail-production-plan",
+                items: [
+                  {
+                    title: "Production Plan-HO",
+                    url: "/operational/production-planning/retail-production-plan/production-plan-ho/list",
+                  },
+                  {
+                    title: "Production Plan-RO",
+                    url: "/operational/production-planning/retail-production-plan/production-plan-ro/list",
+                  },
+                  {
+                    title: "Production Plan-SR",
+                    url: "/operational/production-planning/retail-production-plan/production-plan-sr/list",
+                  },
+                ],
+              },
             ],
           },
         ],
