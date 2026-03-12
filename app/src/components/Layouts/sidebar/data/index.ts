@@ -527,6 +527,16 @@ export const NAV_DATA = [
                 url: "/personnel/human-resource/admin",
                 items: [
                   {
+                title: "Suspension Details",
+                url: "/personnel/admin/suspension-details",
+                items: [
+                  {
+                    title: "Suspension Details List",
+                    url: "/personnel/admin/suspension-details/list",
+                  },
+                ],
+              },
+                  {
                     title: "File Movement",
                     url: "/personnel/human-resource/admin/file-movement/list",
                   },
@@ -563,6 +573,12 @@ export const NAV_DATA = [
                     title: "View Biometric Attendance",
                     url: "/personnel/human-resource/attendance/view-biometric-attendance",
                   },
+                   {
+                title: "Employee Service Register",
+                url: "/personnel/human-resource/employee-service-register/list",
+                items: [],
+              },
+
                 ],
               },
               {
