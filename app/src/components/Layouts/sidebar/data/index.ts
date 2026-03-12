@@ -498,6 +498,23 @@ export const NAV_DATA = [
                     title: "Court Case",
                     url: "/personnel/human-resource/admin/court-case/list",
                   },
+                   {
+                title: "Vehicle Management",
+                items: [
+                  {
+                    title: "Vehicle Departure",
+                    url: "/personnel/human-resource/admin/vehicle-management/vehicle-departure/list",
+                  },
+                  {
+                    title: "Vehicle Arrival",
+                    url: "/personnel/human-resource/admin/vehicle-management/vehicle-arrival/list",
+                  },
+                  {
+                    title: "Fuel Filling Register",
+                    url: "/personnel/human-resource/admin/vehicle-management/fuel-filling-register/list",
+                  },
+                ],
+              },
                 ],
               },
           {
@@ -522,28 +539,6 @@ export const NAV_DATA = [
                   {
                     title: "Income Tax Worksheet",
                     url: "/personnel/human-resource/pay-roll/income-tax-worksheet/list",
-                  },
-                ],
-              },
-            ],
-          },
-          {
-            title: "Admin",
-            items: [
-              {
-                title: "Vehicle Management",
-                items: [
-                  {
-                    title: "Vehicle Departure",
-                    url: "/personnel/human-resource/admin/vehicle-management/vehicle-departure/list",
-                  },
-                  {
-                    title: "Vehicle Arrival",
-                    url: "/personnel/human-resource/admin/vehicle-management/vehicle-arrival/list",
-                  },
-                  {
-                    title: "Fuel Filling Register",
-                    url: "/personnel/human-resource/admin/vehicle-management/fuel-filling-register/list",
                   },
                 ],
               },
