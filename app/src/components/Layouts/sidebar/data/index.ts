@@ -526,16 +526,12 @@ export const NAV_DATA = [
                 title: "Admin",
                 url: "/personnel/human-resource/admin",
                 items: [
-                  {
-                title: "Suspension Details",
-                url: "/personnel/admin/suspension-details",
-                items: [
+                
                   {
                     title: "Suspension Details List",
                     url: "/personnel/admin/suspension-details/list",
                   },
-                ],
-              },
+              
                   {
                     title: "File Movement",
                     url: "/personnel/human-resource/admin/file-movement/list",
