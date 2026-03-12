@@ -477,6 +477,138 @@ export const NAV_DATA = [
         ],
       },
       {
+        title: "Personnel",
+        icon: Icons.Personnel,
+        items: [
+          {
+            title: "Human Resource",
+            items: [
+              {
+                title: "Attendance",
+                items: [
+                  {
+                    title: "View Biometric Attendance",
+                    url: "/personnel/human-resource/attendance/view-biometric-attendance",
+                  },
+                ],
+              },
+              {
+                title: "Pay Roll",
+                items: [
+                  {
+                    title: "Employee Payment Details",
+                    url: "/personnel/human-resource/pay-roll/employee-payment-details/list",
+                  },
+                  {
+                    title: "Income Tax Worksheet",
+                    url: "/personnel/human-resource/pay-roll/income-tax-worksheet/list",
+                  },
+                  {
+                    title: "Payslip Generation",
+                    url: "/personnel/human-resource/pay-roll/payslip-generation",
+                  },
+                  {
+                    title: "Pay Master",
+                    url: "/personnel/human-resource/pay-roll/pay-master",
+                  },
+                  {
+                    title: "Pay Roll Configuration",
+                    url: "/personnel/human-resource/pay-roll/pay-roll-configuration",
+                    items: [
+                      {
+                        title: "Cadrewise Pay Head Config",
+                        url: "/personnel/human-resource/pay-roll/pay-roll-configuration/cadrewise-pay-head-config/list",
+                      },
+                      {
+                        title: "DA Arrear Configuration",
+                        url: "/personnel/human-resource/pay-roll/pay-roll-configuration/da-arrear-configuration/list",
+                      },
+                      {
+                        title: "Grade Wise Pay Allowance",
+                        url: "/personnel/human-resource/pay-roll/pay-roll-configuration/grade-wise-pay-allowance/list",
+                      },
+                      {
+                        title: "OT Register",
+                        url: "/personnel/human-resource/pay-roll/pay-roll-configuration/ot-register/list",
+                      },
+                      {
+                        title: "Tax Config",
+                        url: "/personnel/human-resource/pay-roll/pay-roll-configuration/tax-config/list",
+                      },
+                      {
+                        title: "Gradewise Pay Config",
+                        url: "/personnel/human-resource/pay-roll/pay-roll-configuration/gradewise-pay-config/list",
+                      },
+                      {
+                        title: "Gradewise City Config",
+                        url: "/personnel/human-resource/pay-roll/pay-roll-configuration/gradewise-city-config/list",
+                      },
+                    ],
+                  },
+                  {
+                    title: "Additional Earnings / Deduction",
+                    url: "/personnel/human-resource/pay-roll/additional-earnings-deduction/list",
+                  },
+                  {
+                    title: "Loan Disbursement",
+                    url: "/personnel/human-resource/pay-roll/pay-roll-configuration/loan-disbursement/list",
+                  },
+                  {
+                    title: "Payroll Verification",
+                    url: "/personnel/human-resource/pay-roll/payroll-verification/list",
+                  },
+                  
+                ],
+              },
+              {
+                title: "Leave Management",
+                items: [
+                  {
+                    title: "Leave Request",
+                    url: "/personnel/human-resource/leave-management/leave-request/list",
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            title: "Admin",
+            items: [
+              {
+                title: "Vehicle Management",
+                items: [
+                  {
+                    title: "Vehicle Departure",
+                    url: "/personnel/human-resource/admin/vehicle-management/vehicle-departure/list",
+                  },
+                  {
+                    title: "Vehicle Arrival",
+                    url: "/personnel/human-resource/admin/vehicle-management/vehicle-arrival/list",
+                  },
+                  {
+                    title: "Fuel Filling Register",
+                    url: "/personnel/human-resource/admin/vehicle-management/fuel-filling-register/list",
+                  },
+                ],
+              },
+              {
+                title: "Training",
+                items: [
+                  {
+                    title: "Student Training",
+                    url: "/personnel/human-resource/admin/training/student-training/list",
+                  },
+                  {
+                    title: "Internal / External Training",
+                    url: "/personnel/human-resource/admin/training/internal-external-training/list",
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+      {
         title: "Asset Management",
         icon: Icons.AssetManagement,
         items: [
@@ -518,82 +650,6 @@ export const NAV_DATA = [
         ],
       },
 
-      {
-        title: "Personnel",
-        icon: Icons.Weavers,
-        items: [
-           {
-                title: "Admin",
-                url: "/personnel/human-resource/admin",
-                items: [
-                
-                  {
-                    title: "Suspension Details List",
-                    url: "/personnel/admin/suspension-details/list",
-                  },
-              
-                  {
-                    title: "File Movement",
-                    url: "/personnel/human-resource/admin/file-movement/list",
-                  },
-                  {
-                    title: "Court Case",
-                    url: "/personnel/human-resource/admin/court-case/list",
-                  },
-                   {
-                title: "Vehicle Management",
-                items: [
-                  {
-                    title: "Vehicle Departure",
-                    url: "/personnel/human-resource/admin/vehicle-management/vehicle-departure/list",
-                  },
-                  {
-                    title: "Vehicle Arrival",
-                    url: "/personnel/human-resource/admin/vehicle-management/vehicle-arrival/list",
-                  },
-                  {
-                    title: "Fuel Filling Register",
-                    url: "/personnel/human-resource/admin/vehicle-management/fuel-filling-register/list",
-                  },
-                ],
-              },
-                ],
-              },
-          {
-            title: "Human Resource",
-            items: [
-              {
-                title: "Attendance",
-                items: [
-                  {
-                    title: "View Biometric Attendance",
-                    url: "/personnel/human-resource/attendance/view-biometric-attendance",
-                  },
-                   {
-                title: "Employee Service Register",
-                url: "/personnel/human-resource/employee-service-register/list",
-                items: [],
-              },
-
-                ],
-              },
-              {
-                title: "Pay Roll",
-                items: [
-                  {
-                    title: "Employee Payment Details",
-                    url: "/personnel/human-resource/pay-roll/employee-payment-details/list",
-                  },
-                  {
-                    title: "Income Tax Worksheet",
-                    url: "/personnel/human-resource/pay-roll/income-tax-worksheet/list",
-                  },
-                ],
-              },
-            ],
-          },
-        ],
-      },
 
       {
         title: "Pages",
