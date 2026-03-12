@@ -51,22 +51,64 @@ export const NAV_DATA = [
           },
         ],
       },
-      {
+     {
         title: "Weavers",
         icon: Icons.Weavers,
         items: [
           {
-            title: "Society Invoice",
-            url: "/weavers/society-invoice/",
+            title: "Procurement Costing Society",
+            url: "/weavers/procurement-costing-society/list",
           },
           {
-            title: "Stock Acknowledgement",
-            url: "/weavers/stock-acknowledgement/list",
+            title: "Society Product Appraisal",
+            url: "/weavers/society-product-appraisal/list",
+          },
+
+          {
+            title: "Supply Rate Confirmation",
+            url: "/weavers/supply-rate-confirmation/list",
+          },
+          {
+            title: "Society Enrollment",
+            items: [
+              {
+                title: "Request For Society Enrollment",
+                url: "/weavers/society-enrollment/request-for-society-enrollment/list",
+              }, {
+                title: "Society Enrollment",
+                url: "/weavers/society-enrollment/list",
+              }, {
+                title: "Field Verification",
+                url: "/weavers/society-enrollment/field-verification/list",
+              },
+              {
+                title: "Department Approval",
+                url: "/weavers/society-enrollment/department-approval/list",
+              },
+              {
+                title: "Board Approval",
+                url: "/weavers/society-enrollment/board-approval/list",
+              },
+              {
+                title: "Code Allotment",
+                url: "/weavers/society-enrollment/code-allotment/list",
+              }
+            ]
           },
           {
             title: "Society Stock Outward",
             url: "/weavers/society-stock-outward/list",
           },
+          {
+            title: "Society Invoice",
+            url: "/weavers/society-invoice/",
+          },
+
+          {
+            title: "Stock Acknowledgement",
+            url: "/weavers/stock-acknowledgement/list",
+          },
+
         ],
       },
 
