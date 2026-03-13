@@ -51,7 +51,7 @@ export const NAV_DATA = [
           },
         ],
       },
-     {
+      {
         title: "Weavers",
         icon: Icons.Weavers,
         items: [
@@ -258,7 +258,7 @@ export const NAV_DATA = [
               },
             ],
           },
-           {
+          {
             title: "Revised Retail Price",
             url: "/operational/revised-retail-price/list",
           },
@@ -493,7 +493,15 @@ export const NAV_DATA = [
           {
             title: "Human Resource",
             items: [
-                {
+              {
+                title: "TA Bill",
+                url: "/personnel/human-resource/ta-bill/list",
+              },
+              {
+                title: "Loan and Advance",
+                url: "/personnel/human-resource/loan-and-advance/list",
+              },
+              {
                 title: "Employee Service Register",
                 url: "/personnel/human-resource/employee-service-register/list",
                 items: [],
@@ -505,7 +513,7 @@ export const NAV_DATA = [
                     title: "View Biometric Attendance",
                     url: "/personnel/human-resource/attendance/view-biometric-attendance",
                   },
-                  
+
                 ],
               },
               {
@@ -573,7 +581,7 @@ export const NAV_DATA = [
                     title: "Payroll Verification",
                     url: "/personnel/human-resource/pay-roll/payroll-verification/list",
                   },
-                  
+
                 ],
               },
               {
@@ -591,17 +599,17 @@ export const NAV_DATA = [
             title: "Admin",
             items: [
               {
-                    title: "File Movement",
-                    url: "/personnel/human-resource/admin/file-movement/list",
-                  },
-                  {
-                    title: "Court Case",
-                    url: "/personnel/human-resource/admin/court-case/list",
-                  },
+                title: "File Movement",
+                url: "/personnel/human-resource/admin/file-movement/list",
+              },
               {
-                    title: "Suspension Details List",
-                    url: "/personnel/admin/suspension-details/list",
-                  },
+                title: "Court Case",
+                url: "/personnel/human-resource/admin/court-case/list",
+              },
+              {
+                title: "Suspension Details List",
+                url: "/personnel/admin/suspension-details/list",
+              },
               {
                 title: "Vehicle Management",
                 items: [
@@ -657,7 +665,7 @@ export const NAV_DATA = [
         ]
       },
 
-              {
+      {
         title: "E-Commerce",
         icon: Icons.FourCircle,
         items: [
