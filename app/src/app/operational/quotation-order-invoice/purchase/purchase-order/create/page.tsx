@@ -625,48 +625,91 @@ export default function CreatePurchaseOrderPage() {
               style={{ backgroundColor: "#17a2b8" }}
             >
               <span>Create Note</span>
-              <button className="text-white hover:opacity-70" onClick={() => setShowNote(false)}>✕</button>
+              <button className="text-white hover:opacity-70 text-base leading-none" onClick={() => setShowNote(false)}>✕</button>
             </div>
             <div className="p-4 space-y-3">
               {/* Rich text toolbar */}
-              <div className="flex flex-wrap gap-1 border border-gray-200 rounded p-1.5 bg-gray-50">
+              <div className="flex flex-wrap gap-1 border border-gray-200 rounded p-1.5 bg-gray-50 items-center">
                 <select className="text-xs border border-gray-300 rounded px-1 py-0.5">
-                  <option>Font</option><option>Arial</option><option>Times New Roman</option>
+                  <option>Sans Serif</option><option>Arial</option><option>Times New Roman</option><option>Courier New</option>
                 </select>
                 <select className="text-xs border border-gray-300 rounded px-1 py-0.5">
-                  <option>Size</option>{[10,12,14,16,18].map(s => <option key={s}>{s}</option>)}
+                  <option>Normal</option>{[10,12,14,16,18,20].map(s => <option key={s}>{s}</option>)}
                 </select>
-                {[["B","bold"],["I","italic"],["U","underline"],["S","line-through"]].map(([b, style]) => (
-                  <button key={b} className="w-6 h-6 text-xs border border-gray-300 rounded hover:bg-gray-200 bg-white" style={{ fontStyle: style === "italic" ? "italic" : "normal", fontWeight: style === "bold" ? "bold" : "normal", textDecoration: style === "underline" ? "underline" : style === "line-through" ? "line-through" : "none" }}>{b}</button>
+                {[
+                  { t: "B", fw: "bold" as const },
+                  { t: "I", fi: "italic" as const },
+                  { t: "U", td: "underline" },
+                  { t: "S", td: "line-through" },
+                ].map(btn => (
+                  <button key={btn.t} className="w-6 h-6 text-xs border border-gray-300 rounded hover:bg-gray-200 bg-white"
+                    style={{ fontWeight: btn.fw, fontStyle: btn.fi, textDecoration: btn.td }}>{btn.t}</button>
+                ))}
+                <span className="border-l border-gray-300 h-5 mx-0.5" />
+                {["A","Ā","x₂","x²","H₁","H₂","❝","</>"].map(ic => (
+                  <button key={ic} className="w-6 h-6 text-xs border border-gray-300 rounded hover:bg-gray-200 bg-white">{ic}</button>
+                ))}
+                <span className="border-l border-gray-300 h-5 mx-0.5" />
+                {["≡","•","⇤","⇥","¶","—"].map(ic => (
+                  <button key={ic} className="w-6 h-6 text-xs border border-gray-300 rounded hover:bg-gray-200 bg-white">{ic}</button>
+                ))}
+                <span className="border-l border-gray-300 h-5 mx-0.5" />
+                {["🔗","🖼","⊞","Tx"].map(ic => (
+                  <button key={ic} className="w-6 h-6 text-xs border border-gray-300 rounded hover:bg-gray-200 bg-white">{ic}</button>
                 ))}
               </div>
-              <textarea
-                rows={5}
-                className="w-full border border-gray-300 rounded px-2 py-1.5 text-sm focus:outline-none focus:border-teal-500 resize-none"
-                placeholder="Enter note..."
-                value={noteText}
-                onChange={(e) => setNoteText(e.target.value)}
-              />
-              <div className="flex items-start gap-4">
-                <div className="border border-gray-300 rounded p-3 flex-1">
-                  <p className="text-xs font-semibold text-gray-500 mb-1 text-center">Created By</p>
-                  <p className="text-xs text-gray-700">Name : New User</p>
-                  <p className="text-xs text-gray-700">Designation : STAFF</p>
-                  <p className="text-xs text-gray-700">Date : 11-Mar-2026</p>
+              {/* Text area */}
+              <div className="border border-gray-200 rounded min-h-36 bg-white">
+                <textarea
+                  rows={6}
+                  className="w-full px-3 py-2 text-sm focus:outline-none resize-none bg-transparent"
+                  placeholder="Enter text ..."
+                  value={noteText}
+                  onChange={(e) => setNoteText(e.target.value)}
+                />
+              </div>
+              {/* Created By card + navigation */}
+              <div className="flex items-center gap-4">
+                {/* Prev arrow */}
+                <button disabled={noteIdx === 0} onClick={() => setNoteIdx(i => i - 1)}
+                  className="w-8 h-8 rounded-full bg-gray-400 hover:bg-gray-500 disabled:opacity-40 flex items-center justify-center text-white text-xs flex-shrink-0">
+                  ◀
+                </button>
+                {/* Created By card — orange border */}
+                <div className="border rounded p-3 flex-1 max-w-xs" style={{ borderColor: "#f97316" }}>
+                  <p className="text-xs font-semibold text-gray-600 mb-1.5 text-center">Created By</p>
+                  <p className="text-xs text-gray-700">Name : SANKARANARAYANAN</p>
+                  <p className="text-xs text-gray-700">Designation : ASSISTANT SALES MAN</p>
+                  <p className="text-xs text-gray-700">Date : 13-Mar-2026</p>
                 </div>
-                <div className="flex flex-col items-center gap-2 pt-2">
-                  <div className="flex gap-1">
-                    <span className="w-2 h-2 rounded-full bg-teal-600 inline-block"></span>
-                  </div>
-                  <div className="flex gap-1">
-                    <button disabled={noteIdx === 0} onClick={() => setNoteIdx(i => i - 1)} className="px-2 py-1 text-xs border border-gray-300 rounded disabled:opacity-40 hover:bg-gray-100">◀</button>
-                    <button disabled onClick={() => setNoteIdx(i => i + 1)} className="px-2 py-1 text-xs border border-gray-300 rounded disabled:opacity-40 hover:bg-gray-100">▶</button>
-                  </div>
-                </div>
+                {/* Next arrow */}
+                <button disabled onClick={() => setNoteIdx(i => i + 1)}
+                  className="w-8 h-8 rounded-full bg-gray-400 hover:bg-gray-500 disabled:opacity-40 flex items-center justify-center text-white text-xs flex-shrink-0">
+                  ▶
+                </button>
               </div>
             </div>
-            <div className="flex justify-end px-4 py-3 border-t border-gray-200">
-              <button className="px-4 py-1.5 bg-gray-100 text-gray-700 text-sm font-semibold rounded hover:bg-gray-200" onClick={() => setShowNote(false)}>Cancel</button>
+            <div className="flex justify-end gap-2 px-4 py-3 border-t border-gray-200">
+              <button
+                className="flex items-center gap-1.5 px-4 py-1.5 text-white text-sm font-semibold rounded"
+                style={{ backgroundColor: "#6c757d" }}
+                onClick={() => setShowNote(false)}
+              >
+                <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+                Cancel
+              </button>
+              <button
+                className="flex items-center gap-1.5 px-4 py-1.5 text-white text-sm font-semibold rounded"
+                style={{ backgroundColor: "#28a745" }}
+                onClick={() => setShowNote(false)}
+              >
+                <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+                Submit
+              </button>
             </div>
           </div>
         </div>

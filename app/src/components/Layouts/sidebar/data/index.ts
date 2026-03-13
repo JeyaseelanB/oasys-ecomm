@@ -609,6 +609,10 @@ export const NAV_DATA = [
                 url: "/personnel/human-resource/loan-and-advance/list",
               },
               {
+                title: "Promotion",
+                url: "/personnel/human-resource/promotion/list",
+              },
+              {
                 title: "All Employees List",
                 url: "/personnel/human-resource/employee-service-register/list",
                 items: [],
