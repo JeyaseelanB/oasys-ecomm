@@ -300,7 +300,7 @@ export default function EmployeeServiceRegisterListPage() {
       {/* Breadcrumb */}
       <div className="mb-4 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
         <h2 className="text-[22px] font-bold leading-tight text-dark dark:text-white">
-          Employee Service Register List
+          All Employees List
         </h2>
         <nav>
           <ol className="flex items-center gap-1.5 text-sm">
@@ -310,7 +310,7 @@ export default function EmployeeServiceRegisterListPage() {
             <li className="text-gray-400">/</li>
             <li className="text-gray-500 dark:text-gray-400">Human Resource</li>
             <li className="text-gray-400">/</li>
-            <li className="font-medium text-primary">Employee Service Register List</li>
+            <li className="font-medium text-primary">All Employees List</li>
           </ol>
         </nav>
       </div>
