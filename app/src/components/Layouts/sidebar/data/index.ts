@@ -518,22 +518,6 @@ export const NAV_DATA = [
         ],
       },
       {
-        title: "Finance",
-        icon: Icons.Alphabet,
-        items: [
-          {
-            title: "Budget",
-            items: [
-              {
-                title: "Budget Request",
-                url: "/finance/budget/budget-request/list",
-                items: [],
-              },
-            ],
-          },
-        ],
-      },
-      {
         title: "Personnel",
         icon: Icons.Personnel,
         items: [
