@@ -85,7 +85,7 @@ function TableSection({ title, headers, rows, mandatory }: { title: string; head
   );
 }
 
-export default function ViewEmployeeServiceRegisterPage() {
+export default function ViewEmployeeRegisterPage() {
   const [activeSection, setActiveSection] = useState<Section>("primary");
 
   return (
@@ -103,7 +103,7 @@ export default function ViewEmployeeServiceRegisterPage() {
             <li className="text-gray-400">/</li>
             <li className="text-gray-500 dark:text-gray-400">Human Resource</li>
             <li className="text-gray-400">/</li>
-            <li className="text-gray-500 dark:text-gray-400"><Link href="/personnel/human-resource/employee-service-register/list" className="hover:underline">All Employees List</Link></li>
+            <li className="text-gray-500 dark:text-gray-400"><Link href="/personnel/human-resource/employee-register/list" className="hover:underline">Employee Service Register List</Link></li>
             <li className="text-gray-400">/</li>
             <li className="font-medium text-primary">View Employee Service Register</li>
           </ol>
@@ -354,7 +354,7 @@ export default function ViewEmployeeServiceRegisterPage() {
             {/* Back button */}
             <div className="mt-6 flex justify-end">
               <Link
-                href="/personnel/human-resource/employee-service-register/list"
+                href="/personnel/human-resource/employee-register/list"
                 className="flex items-center gap-2 rounded bg-[#17a2b8] px-5 py-2 text-sm font-medium text-white hover:opacity-90"
               >
                 <svg className="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
