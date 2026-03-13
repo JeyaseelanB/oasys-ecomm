@@ -276,6 +276,16 @@ export const NAV_DATA = [
             url: "/operational/warehouse-management",
             items: [
               {
+                title: "Ecommerce Warehouse",
+                url: "/operational/warehouse-management/ecommerce-warehouse",
+                items: [
+                  {
+                    title: "Stock Acknowledgement",
+                    url: "/operational/warehouse-management/ecommerce-warehouse/stock-acknowledgement/list",
+                  },
+                ],
+              },
+              {
                 title: "Product Warehouse",
                 url: "/operational/warehouse-management/product-warehouse",
                 items: [
@@ -580,6 +590,14 @@ export const NAV_DATA = [
           {
             title: "Admin",
             items: [
+              {
+                    title: "File Movement",
+                    url: "/personnel/human-resource/admin/file-movement/list",
+                  },
+                  {
+                    title: "Court Case",
+                    url: "/personnel/human-resource/admin/court-case/list",
+                  },
               {
                     title: "Suspension Details List",
                     url: "/personnel/admin/suspension-details/list",
