@@ -214,7 +214,7 @@ export default function CreateAdvertisementPage() {
       {showNote && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
           <div className="bg-white rounded shadow-xl w-full max-w-3xl mx-4">
-            <div className="px-4 py-2 text-white font-semibold text-sm rounded-t flex items-center justify-between" style={{ backgroundColor: "#2d8f7b" }}>
+            <div className="px-4 py-2 text-white font-semibold text-sm rounded-t flex items-center justify-between" style={{ backgroundColor: "#17a2b8" }}>
               <span>Create Note</span>
               <button className="text-white hover:opacity-70 text-lg leading-none" onClick={() => setShowNote(false)}>✕</button>
             </div>

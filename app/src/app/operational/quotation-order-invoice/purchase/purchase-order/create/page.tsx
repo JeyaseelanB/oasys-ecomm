@@ -622,7 +622,7 @@ export default function CreatePurchaseOrderPage() {
           <div className="bg-white rounded shadow-xl w-full max-w-2xl mx-4">
             <div
               className="px-4 py-2 text-white font-semibold text-sm rounded-t flex items-center justify-between"
-              style={{ backgroundColor: "#2d8f7b" }}
+              style={{ backgroundColor: "#17a2b8" }}
             >
               <span>Create Note</span>
               <button className="text-white hover:opacity-70 text-base leading-none" onClick={() => setShowNote(false)}>✕</button>

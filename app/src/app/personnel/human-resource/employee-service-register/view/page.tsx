@@ -96,12 +96,14 @@ export default function ViewEmployeeServiceRegisterPage() {
           View Employee Service Register
         </h2>
         <nav>
-          <ol className="flex items-center gap-1.5 text-sm">
+          <ol className="flex flex-wrap items-center gap-1.5 text-sm">
             <li><Link href="/" className="font-medium text-primary hover:underline">Home</Link></li>
             <li className="text-gray-400">/</li>
             <li className="text-gray-500 dark:text-gray-400">Personnel</li>
             <li className="text-gray-400">/</li>
             <li className="text-gray-500 dark:text-gray-400">Human Resource</li>
+            <li className="text-gray-400">/</li>
+            <li className="text-gray-500 dark:text-gray-400"><Link href="/personnel/human-resource/employee-service-register/list" className="hover:underline">All Employees List</Link></li>
             <li className="text-gray-400">/</li>
             <li className="font-medium text-primary">View Employee Service Register</li>
           </ol>
