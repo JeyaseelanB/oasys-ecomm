@@ -61,26 +61,10 @@ export function DonutChart({ data }: PropsType) {
     },
     responsive: [
       {
-        breakpoint: 2600,
-        options: {
-          chart: {
-            width: 415,
-          },
-        },
-      },
-      {
-        breakpoint: 640,
+        breakpoint: 10000,
         options: {
           chart: {
             width: "100%",
-          },
-        },
-      },
-      {
-        breakpoint: 370,
-        options: {
-          chart: {
-            width: 260,
           },
         },
       },
@@ -88,10 +72,13 @@ export function DonutChart({ data }: PropsType) {
   };
 
   return (
-    <Chart
-      options={chartOptions}
-      series={data.map((item) => item.amount)}
-      type="donut"
-    />
+    <div className="w-full overflow-hidden">
+      <Chart
+        options={chartOptions}
+        series={data.map((item) => item.amount)}
+        type="donut"
+        width="100%"
+      />
+    </div>
   );
 }

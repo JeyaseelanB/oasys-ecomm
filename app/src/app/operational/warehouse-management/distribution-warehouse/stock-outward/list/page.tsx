@@ -137,15 +137,15 @@ export default function DWStockOutwardListPage() {
           <table className="w-full border-collapse text-sm">
             <thead>
               <tr className="bg-[#2d8f7b] text-white">
-                <th className="w-12 border border-[#3aa88f] px-2 py-3 text-center font-semibold">#</th>
-                <th className="cursor-pointer border border-[#3aa88f] px-2 py-3 text-center font-semibold hover:bg-[#267a68]" onClick={() => handleSort("stockOutwardNo")}>Stock Outward # <SortIcon col="stockOutwardNo" /></th>
-                <th className="cursor-pointer border border-[#3aa88f] px-2 py-3 text-center font-semibold hover:bg-[#267a68]" onClick={() => handleSort("stockMovementType")}>Stock Movement Type <SortIcon col="stockMovementType" /></th>
-                <th className="cursor-pointer border border-[#3aa88f] px-2 py-3 text-center font-semibold hover:bg-[#267a68]" onClick={() => handleSort("senderCodeName")}>Sender Code / Name <SortIcon col="senderCodeName" /></th>
-                <th className="cursor-pointer border border-[#3aa88f] px-2 py-3 text-center font-semibold hover:bg-[#267a68]" onClick={() => handleSort("receiverCodeName")}>Receiver Code / Name <SortIcon col="receiverCodeName" /></th>
-                <th className="cursor-pointer border border-[#3aa88f] px-2 py-3 text-center font-semibold hover:bg-[#267a68]" onClick={() => handleSort("stockSentDate")}>Stock Sent Date <SortIcon col="stockSentDate" /></th>
-                <th className="cursor-pointer border border-[#3aa88f] px-2 py-3 text-center font-semibold hover:bg-[#267a68]" onClick={() => handleSort("status")}>Status <SortIcon col="status" /></th>
-                <th className="cursor-pointer border border-[#3aa88f] px-2 py-3 text-center font-semibold hover:bg-[#267a68]" onClick={() => handleSort("ackStatus")}>Acknowledge Status <SortIcon col="ackStatus" /></th>
-                <th className="border border-[#3aa88f] px-2 py-3 text-center font-semibold">Select</th>
+                <th className="w-12 border border-[#3aa88f] px-2 py-3 text-center align-middle font-semibold">#</th>
+                <th className="cursor-pointer border border-[#3aa88f] px-2 py-3 text-center align-middle font-semibold hover:bg-[#267a68]" onClick={() => handleSort("stockOutwardNo")}>Stock Outward # <SortIcon col="stockOutwardNo" /></th>
+                <th className="cursor-pointer border border-[#3aa88f] px-2 py-3 text-center align-middle font-semibold hover:bg-[#267a68]" onClick={() => handleSort("stockMovementType")}>Stock Movement Type <SortIcon col="stockMovementType" /></th>
+                <th className="cursor-pointer border border-[#3aa88f] px-2 py-3 text-center align-middle font-semibold hover:bg-[#267a68]" onClick={() => handleSort("senderCodeName")}>Sender Code / Name <SortIcon col="senderCodeName" /></th>
+                <th className="cursor-pointer border border-[#3aa88f] px-2 py-3 text-center align-middle font-semibold hover:bg-[#267a68]" onClick={() => handleSort("receiverCodeName")}>Receiver Code / Name <SortIcon col="receiverCodeName" /></th>
+                <th className="cursor-pointer border border-[#3aa88f] px-2 py-3 text-center align-middle font-semibold hover:bg-[#267a68]" onClick={() => handleSort("stockSentDate")}>Stock Sent Date <SortIcon col="stockSentDate" /></th>
+                <th className="cursor-pointer border border-[#3aa88f] px-2 py-3 text-center align-middle font-semibold hover:bg-[#267a68]" onClick={() => handleSort("status")}>Status <SortIcon col="status" /></th>
+                <th className="cursor-pointer border border-[#3aa88f] px-2 py-3 text-center align-middle font-semibold hover:bg-[#267a68]" onClick={() => handleSort("ackStatus")}>Acknowledge Status <SortIcon col="ackStatus" /></th>
+                <th className="border border-[#3aa88f] px-2 py-3 text-center align-middle font-semibold">Select</th>
               </tr>
               <tr className="bg-white dark:bg-gray-dark">
                 <td className="border border-stroke px-1 py-1.5 dark:border-dark-3"></td>
@@ -163,16 +163,16 @@ export default function DWStockOutwardListPage() {
               {paginated.length === 0 ? (<tr><td colSpan={9} className="py-8 text-center text-gray-400">No records found</td></tr>) : (
                 paginated.map((row, idx) => (
                   <tr key={row.id} className={`border-b border-stroke dark:border-dark-3 ${idx % 2 === 0 ? "bg-white dark:bg-gray-dark" : "bg-[#f9fafb] dark:bg-[#1a2232]"} hover:bg-blue-50 dark:hover:bg-[#1e2d42]`}>
-                    <td className="border-r border-stroke px-2 py-3 text-center text-dark dark:border-dark-3 dark:text-white">{(currentPage - 1) * pageSize + idx + 1}</td>
-                    <td className="border-r border-stroke px-2 py-3 text-center text-dark dark:border-dark-3 dark:text-white">{row.stockOutwardNo}</td>
-                    <td className="border-r border-stroke px-2 py-3 text-center text-dark dark:border-dark-3 dark:text-white">{row.stockMovementType}</td>
-                    <td className="border-r border-stroke px-2 py-3 text-dark dark:border-dark-3 dark:text-white">{row.senderCodeName}</td>
-                    <td className="border-r border-stroke px-2 py-3 text-dark dark:border-dark-3 dark:text-white">{row.receiverCodeName}</td>
-                    <td className="border-r border-stroke px-2 py-3 text-center text-dark dark:border-dark-3 dark:text-white">{row.stockSentDate}</td>
-                    <td className="border-r border-stroke px-2 py-3 text-center dark:border-dark-3"><span className={`inline-block rounded-sm px-2 py-0.5 text-xs font-semibold ${STATUS_STYLES[row.status]}`}>{row.status}</span></td>
-                    <td className="border-r border-stroke px-2 py-3 text-center dark:border-dark-3">
+                    <td className="border-r border-stroke px-2 py-3 text-center align-middle text-dark dark:border-dark-3 dark:text-white">{(currentPage - 1) * pageSize + idx + 1}</td>
+                    <td className="border-r border-stroke px-2 py-3 text-center align-middle text-dark dark:border-dark-3 dark:text-white">{row.stockOutwardNo}</td>
+                    <td className="border-r border-stroke px-2 py-3 text-center align-middle text-dark dark:border-dark-3 dark:text-white">{row.stockMovementType}</td>
+                    <td className="border-r border-stroke px-2 py-3 align-middle text-dark dark:border-dark-3 dark:text-white">{row.senderCodeName}</td>
+                    <td className="border-r border-stroke px-2 py-3 align-middle text-dark dark:border-dark-3 dark:text-white">{row.receiverCodeName}</td>
+                    <td className="border-r border-stroke px-2 py-3 text-center align-middle text-dark dark:border-dark-3 dark:text-white">{row.stockSentDate}</td>
+                    <td className="border-r border-stroke px-2 py-3 text-center align-middle dark:border-dark-3"><span className={`inline-flex items-center justify-center rounded-sm px-2 py-0.5 text-xs font-semibold ${STATUS_STYLES[row.status]}`}>{row.status}</span></td>
+                    <td className="border-r border-stroke px-2 py-3 text-center align-middle dark:border-dark-3">
                       <div className="flex items-center justify-center gap-1.5">
-                        <span className={`inline-block rounded-sm px-2 py-0.5 text-xs font-semibold ${ACK_STYLES[row.ackStatus]}`}>{row.ackStatus}</span>
+                        <span className={`inline-flex items-center justify-center rounded-sm px-2 py-0.5 text-xs font-semibold ${ACK_STYLES[row.ackStatus]}`}>{row.ackStatus}</span>
                         <button onClick={() => { setAckRow(row); setShowAckModal(true); }} className="inline-flex items-center justify-center rounded bg-[#17a2b8] p-1 text-white hover:opacity-90" title="Acknowledgement Status">
                           <svg className="size-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
                         </button>
@@ -181,7 +181,7 @@ export default function DWStockOutwardListPage() {
                         </button>
                       </div>
                     </td>
-                    <td className="px-2 py-3 text-center"><input type="radio" name="selectRow" checked={selectedId === row.id} onChange={() => setSelectedId(row.id)} className="size-4 cursor-pointer accent-primary" /></td>
+                    <td className="px-2 py-3 text-center align-middle"><input type="radio" name="selectRow" checked={selectedId === row.id} onChange={() => setSelectedId(row.id)} className="size-4 cursor-pointer accent-primary" /></td>
                   </tr>
                 ))
               )}

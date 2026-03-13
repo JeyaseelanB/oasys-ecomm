@@ -19,23 +19,28 @@ const IconBox = ({ children }: { children: React.ReactNode }) => (
   </div>
 );
 
+const CalendarIconBox = () => (
+  <div className="flex size-10 shrink-0 items-center justify-center rounded-r border border-l-0 border-stroke bg-[#17a2b8] text-white">
+    <svg className="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
+      <rect x="3" y="4" width="18" height="18" rx="2" /><line x1="16" y1="2" x2="16" y2="6" /><line x1="8" y1="2" x2="8" y2="6" /><line x1="3" y1="10" x2="21" y2="10" />
+    </svg>
+  </div>
+);
+
 export default function CreateAdditionalProductionPlanPage() {
   const router = useRouter();
   const basePath = "/operational/production-planning/additional-production-plan";
 
-  // Plan Details
   const [planName, setPlanName] = useState("");
   const [planFrom, setPlanFrom] = useState("");
   const [planTo, setPlanTo] = useState("");
   const [planFor, setPlanFor] = useState("");
   const [planDueDate, setPlanDueDate] = useState("");
 
-  // Plan Request Details
   const [requestFrom, setRequestFrom] = useState("");
   const [requestDate, setRequestDate] = useState("");
   const [reason, setReason] = useState("");
 
-  // Product Details
   const [productCategory, setProductCategory] = useState("");
   const [productGroupCode, setProductGroupCode] = useState("");
   const [productVarietyCode, setProductVarietyCode] = useState("");
@@ -44,17 +49,16 @@ export default function CreateAdditionalProductionPlanPage() {
   const [value, setValue] = useState("");
   const [products, setProducts] = useState<ProductItem[]>([]);
 
-  // Forward
   const [forwardTo, setForwardTo] = useState("");
   const [forwardFor, setForwardFor] = useState("");
 
-  // Create Note Modal
   const [showCreateNote, setShowCreateNote] = useState(false);
   const [noteContent, setNoteContent] = useState("");
+  const [planNameError, setPlanNameError] = useState(false);
 
   const handleAddProduct = () => {
     if (productVarietyCode.trim()) {
-      const newId = products.length > 0 ? Math.max(...products.map(p => p.id)) + 1 : 1;
+      const newId = products.length > 0 ? Math.max(...products.map((p) => p.id)) + 1 : 1;
       const qty = parseFloat(quantity) || 0;
       const val = parseFloat(value) || 0;
       const rate = qty > 0 ? val / qty : 0;
@@ -67,13 +71,19 @@ export default function CreateAdditionalProductionPlanPage() {
     setProductCategory(""); setProductGroupCode(""); setProductVarietyCode(""); setUom(""); setQuantity(""); setValue("");
   };
 
-  const handleRemoveProduct = (id: number) => {
-    setProducts(products.filter(p => p.id !== id));
-  };
+  const handleRemoveProduct = (id: number) => setProducts(products.filter((p) => p.id !== id));
 
   const totalQuantity = products.reduce((s, p) => s + p.quantity, 0);
   const totalValue = products.reduce((s, p) => s + p.value, 0);
   const totalUnitRate = products.reduce((s, p) => s + p.unitRate, 0);
+
+  const handleSave = () => {
+    if (planName.trim().length < 3 || planName.trim().length > 100) {
+      setPlanNameError(true);
+    } else {
+      setPlanNameError(false);
+    }
+  };
 
   return (
     <div className="mx-auto">
@@ -82,9 +92,12 @@ export default function CreateAdditionalProductionPlanPage() {
         <nav>
           <ol className="flex items-center gap-1.5 text-sm">
             <li><Link href="/" className="font-medium text-dark hover:text-primary dark:text-gray-400">Home</Link></li>
-            <li className="text-gray-400">/</li><li className="text-gray-500 dark:text-gray-400">Operational</li>
-            <li className="text-gray-400">/</li><li className="text-gray-500 dark:text-gray-400">Production Plan</li>
-            <li className="text-gray-400">/</li><li className="font-medium text-primary">Create Additional Production Plan</li>
+            <li className="text-gray-400">/</li>
+            <li className="text-gray-500 dark:text-gray-400">Operational</li>
+            <li className="text-gray-400">/</li>
+            <li className="text-gray-500 dark:text-gray-400">Production Plan</li>
+            <li className="text-gray-400">/</li>
+            <li className="font-medium text-primary">Create Additional Production Plan</li>
           </ol>
         </nav>
       </div>
@@ -96,36 +109,52 @@ export default function CreateAdditionalProductionPlanPage() {
         </div>
 
         <div className="p-5">
-          {/* Plan Details */}
+          {/* Row 1: Plan Name, Plan From, Plan To */}
           <div className="mb-4 grid grid-cols-1 gap-4 md:grid-cols-3">
             <div>
               <label className="mb-1 block text-xs font-medium text-dark dark:text-white">Plan Name <span className="text-red-500">*</span></label>
               <div className="flex">
-                <IconBox><svg className="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14,2 14,8 20,8"/></svg></IconBox>
-                <input type="text" value={planName} onChange={(e) => setPlanName(e.target.value)} className="w-full rounded-r border border-stroke bg-transparent px-3 py-2 text-sm outline-none focus:border-primary dark:border-dark-3 dark:bg-gray-dark dark:text-white" />
+                <IconBox>
+                  <svg className="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14,2 14,8 20,8"/></svg>
+                </IconBox>
+                <input
+                  type="text"
+                  value={planName}
+                  onChange={(e) => { setPlanName(e.target.value); setPlanNameError(false); }}
+                  className={`w-full rounded-r border px-3 py-2 text-sm outline-none focus:border-primary dark:bg-gray-dark dark:text-white ${planNameError ? "border-red-400 bg-red-50" : "border-stroke bg-transparent dark:border-dark-3"}`}
+                />
               </div>
+              {planNameError && (
+                <p className="mt-1 flex items-center gap-1 text-xs text-red-500">
+                  <svg className="size-3.5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+                  Plan name should be minimum of 3 characters and maximum of 100 characters
+                </p>
+              )}
             </div>
             <div>
               <label className="mb-1 block text-xs font-medium text-dark dark:text-white">Plan - From <span className="text-red-500">*</span></label>
               <div className="flex">
                 <input type="text" placeholder="dd-MMM-yyyy" value={planFrom} onChange={(e) => setPlanFrom(e.target.value)} className="w-full rounded-l border border-stroke bg-transparent px-3 py-2 text-sm outline-none focus:border-primary dark:border-dark-3 dark:bg-gray-dark dark:text-white" />
-                <div className="flex size-10 shrink-0 items-center justify-center rounded-r border border-l-0 border-stroke bg-gray-100 text-gray-500 dark:border-dark-3 dark:bg-dark-2"><svg className="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+                <CalendarIconBox />
               </div>
             </div>
             <div>
               <label className="mb-1 block text-xs font-medium text-dark dark:text-white">Plan - To <span className="text-red-500">*</span></label>
               <div className="flex">
                 <input type="text" placeholder="dd-MMM-yyyy" value={planTo} onChange={(e) => setPlanTo(e.target.value)} className="w-full rounded-l border border-stroke bg-transparent px-3 py-2 text-sm outline-none focus:border-primary dark:border-dark-3 dark:bg-gray-dark dark:text-white" />
-                <div className="flex size-10 shrink-0 items-center justify-center rounded-r border border-l-0 border-stroke bg-gray-100 text-gray-500 dark:border-dark-3 dark:bg-dark-2"><svg className="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+                <CalendarIconBox />
               </div>
             </div>
           </div>
 
+          {/* Row 2: Plan For, Plan Due Date */}
           <div className="mb-6 grid grid-cols-1 gap-4 md:grid-cols-3">
             <div>
               <label className="mb-1 block text-xs font-medium text-dark dark:text-white">Plan For <span className="text-red-500">*</span></label>
               <div className="flex">
-                <IconBox><svg className="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg></IconBox>
+                <IconBox>
+                  <svg className="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+                </IconBox>
                 <select value={planFor} onChange={(e) => setPlanFor(e.target.value)} className="w-full rounded-r border border-stroke bg-transparent px-3 py-2 text-sm outline-none focus:border-primary dark:border-dark-3 dark:bg-gray-dark dark:text-white">
                   <option value="">Select</option>
                   <option value="Showroom">Showroom</option>
@@ -138,7 +167,7 @@ export default function CreateAdditionalProductionPlanPage() {
               <label className="mb-1 block text-xs font-medium text-dark dark:text-white">Plan Due Date <span className="text-red-500">*</span></label>
               <div className="flex">
                 <input type="text" placeholder="dd-MMM-yyyy" value={planDueDate} onChange={(e) => setPlanDueDate(e.target.value)} className="w-full rounded-l border border-stroke bg-transparent px-3 py-2 text-sm outline-none focus:border-primary dark:border-dark-3 dark:bg-gray-dark dark:text-white" />
-                <div className="flex size-10 shrink-0 items-center justify-center rounded-r border border-l-0 border-stroke bg-gray-100 text-gray-500 dark:border-dark-3 dark:bg-dark-2"><svg className="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+                <CalendarIconBox />
               </div>
             </div>
           </div>
@@ -152,7 +181,9 @@ export default function CreateAdditionalProductionPlanPage() {
             <div>
               <label className="mb-1 block text-xs font-medium text-dark dark:text-white">Request From <span className="text-red-500">*</span></label>
               <div className="flex">
-                <IconBox><svg className="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></IconBox>
+                <IconBox>
+                  <svg className="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+                </IconBox>
                 <input type="text" value={requestFrom} onChange={(e) => setRequestFrom(e.target.value)} className="w-full rounded-r border border-stroke bg-transparent px-3 py-2 text-sm outline-none focus:border-primary dark:border-dark-3 dark:bg-gray-dark dark:text-white" />
               </div>
             </div>
@@ -160,13 +191,15 @@ export default function CreateAdditionalProductionPlanPage() {
               <label className="mb-1 block text-xs font-medium text-dark dark:text-white">Request Date <span className="text-red-500">*</span></label>
               <div className="flex">
                 <input type="text" placeholder="dd-MMM-yyyy" value={requestDate} onChange={(e) => setRequestDate(e.target.value)} className="w-full rounded-l border border-stroke bg-transparent px-3 py-2 text-sm outline-none focus:border-primary dark:border-dark-3 dark:bg-gray-dark dark:text-white" />
-                <div className="flex size-10 shrink-0 items-center justify-center rounded-r border border-l-0 border-stroke bg-gray-100 text-gray-500 dark:border-dark-3 dark:bg-dark-2"><svg className="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+                <CalendarIconBox />
               </div>
             </div>
             <div>
               <label className="mb-1 block text-xs font-medium text-dark dark:text-white">Reason</label>
               <div className="flex">
-                <IconBox><svg className="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></IconBox>
+                <IconBox>
+                  <svg className="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                </IconBox>
                 <input type="text" value={reason} onChange={(e) => setReason(e.target.value)} className="w-full rounded-r border border-stroke bg-transparent px-3 py-2 text-sm outline-none focus:border-primary dark:border-dark-3 dark:bg-gray-dark dark:text-white" />
               </div>
             </div>
@@ -181,7 +214,9 @@ export default function CreateAdditionalProductionPlanPage() {
             <div>
               <label className="mb-1 block text-xs font-medium text-dark dark:text-white">Product Category Code/ Name <span className="text-red-500">*</span></label>
               <div className="flex">
-                <IconBox><svg className="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><path d="M4 7l8-4 8 4M4 7v10l8 4M4 7l8 4M20 7v10l-8 4M20 7l-8 4M12 11v10"/></svg></IconBox>
+                <IconBox>
+                  <svg className="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><path d="M4 7l8-4 8 4M4 7v10l8 4M4 7l8 4M20 7v10l-8 4M20 7l-8 4M12 11v10"/></svg>
+                </IconBox>
                 <select value={productCategory} onChange={(e) => setProductCategory(e.target.value)} className="w-full rounded-r border border-stroke bg-transparent px-3 py-2 text-sm outline-none focus:border-primary dark:border-dark-3 dark:bg-gray-dark dark:text-white">
                   <option value="">Select</option>
                   <option value="SAREES">SAREES</option>
@@ -193,21 +228,27 @@ export default function CreateAdditionalProductionPlanPage() {
             <div>
               <label className="mb-1 block text-xs font-medium text-dark dark:text-white">Product Group Code/ Name <span className="text-red-500">*</span></label>
               <div className="flex">
-                <IconBox><svg className="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg></IconBox>
+                <IconBox>
+                  <svg className="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+                </IconBox>
                 <input type="text" value={productGroupCode} onChange={(e) => setProductGroupCode(e.target.value)} className="w-full rounded-r border border-stroke bg-transparent px-3 py-2 text-sm outline-none focus:border-primary dark:border-dark-3 dark:bg-gray-dark dark:text-white" />
               </div>
             </div>
             <div>
               <label className="mb-1 block text-xs font-medium text-dark dark:text-white">Product Variety Code/ Name <span className="text-red-500">*</span></label>
               <div className="flex">
-                <IconBox><svg className="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></IconBox>
+                <IconBox>
+                  <svg className="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+                </IconBox>
                 <input type="text" value={productVarietyCode} onChange={(e) => setProductVarietyCode(e.target.value)} className="w-full rounded-r border border-stroke bg-transparent px-3 py-2 text-sm outline-none focus:border-primary dark:border-dark-3 dark:bg-gray-dark dark:text-white" />
               </div>
             </div>
             <div>
               <label className="mb-1 block text-xs font-medium text-dark dark:text-white">UOM</label>
               <div className="flex">
-                <IconBox><svg className="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></IconBox>
+                <IconBox>
+                  <svg className="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                </IconBox>
                 <input type="text" value={uom} onChange={(e) => setUom(e.target.value)} className="w-full rounded-r border border-stroke bg-transparent px-3 py-2 text-sm outline-none focus:border-primary dark:border-dark-3 dark:bg-gray-dark dark:text-white" />
               </div>
             </div>
@@ -216,14 +257,18 @@ export default function CreateAdditionalProductionPlanPage() {
             <div>
               <label className="mb-1 block text-xs font-medium text-dark dark:text-white">Quantity <span className="text-red-500">*</span></label>
               <div className="flex">
-                <IconBox><svg className="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><path d="M4 7l8-4 8 4M4 7v10l8 4M4 7l8 4M20 7v10l-8 4M20 7l-8 4M12 11v10"/></svg></IconBox>
+                <IconBox>
+                  <svg className="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><path d="M4 7l8-4 8 4M4 7v10l8 4M4 7l8 4M20 7v10l-8 4M20 7l-8 4M12 11v10"/></svg>
+                </IconBox>
                 <input type="text" value={quantity} onChange={(e) => setQuantity(e.target.value)} className="w-40 rounded-r border border-stroke bg-transparent px-3 py-2 text-sm outline-none focus:border-primary dark:border-dark-3 dark:bg-gray-dark dark:text-white" />
               </div>
             </div>
             <div>
               <label className="mb-1 block text-xs font-medium text-dark dark:text-white">Value</label>
               <div className="flex">
-                <IconBox><svg className="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><path d="M4 7l8-4 8 4M4 7v10l8 4M4 7l8 4M20 7v10l-8 4M20 7l-8 4M12 11v10"/></svg></IconBox>
+                <IconBox>
+                  <svg className="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><path d="M4 7l8-4 8 4M4 7v10l8 4M4 7l8 4M20 7v10l-8 4M20 7l-8 4M12 11v10"/></svg>
+                </IconBox>
                 <input type="text" value={value} onChange={(e) => setValue(e.target.value)} className="w-40 rounded-r border border-stroke bg-transparent px-3 py-2 text-sm outline-none focus:border-primary dark:border-dark-3 dark:bg-gray-dark dark:text-white" />
               </div>
             </div>
@@ -293,18 +338,23 @@ export default function CreateAdditionalProductionPlanPage() {
             <div>
               <label className="mb-1 block text-xs font-medium text-dark dark:text-white">Forward to <span className="text-red-500">*</span></label>
               <div className="flex">
-                <IconBox><svg className="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><path d="M9 18l6-6-6-6"/></svg></IconBox>
+                <IconBox>
+                  <svg className="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><path d="M9 18l6-6-6-6"/></svg>
+                </IconBox>
                 <input type="text" value={forwardTo} onChange={(e) => setForwardTo(e.target.value)} className="w-full rounded-r border border-stroke bg-transparent px-3 py-2 text-sm outline-none focus:border-primary dark:border-dark-3 dark:bg-gray-dark dark:text-white" />
               </div>
             </div>
             <div>
               <label className="mb-1 block text-xs font-medium text-dark dark:text-white">Forward for <span className="text-red-500">*</span></label>
               <div className="flex">
-                <IconBox><svg className="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><path d="M9 18l6-6-6-6"/></svg></IconBox>
+                <IconBox>
+                  <svg className="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><path d="M9 18l6-6-6-6"/></svg>
+                </IconBox>
                 <select value={forwardFor} onChange={(e) => setForwardFor(e.target.value)} className="w-full rounded-r border border-stroke bg-transparent px-3 py-2 text-sm outline-none focus:border-primary dark:border-dark-3 dark:bg-gray-dark dark:text-white">
                   <option value="">Select</option>
                   <option value="Approval">Approval</option>
                   <option value="Review">Review</option>
+                  <option value="Final Approve">Final Approve</option>
                 </select>
               </div>
             </div>
@@ -321,11 +371,11 @@ export default function CreateAdditionalProductionPlanPage() {
                 <svg className="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
                 Cancel
               </button>
-              <button className="flex items-center gap-1.5 rounded bg-[#28a745] px-5 py-2.5 text-sm font-medium text-white hover:opacity-90">
+              <button onClick={handleSave} className="flex items-center gap-1.5 rounded bg-[#17a2b8] px-5 py-2.5 text-sm font-medium text-white hover:opacity-90">
                 <svg className="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"/><polyline points="17,21 17,13 7,13 7,21"/><polyline points="7,3 7,8 15,8"/></svg>
                 Save
               </button>
-              <button className="flex items-center gap-1.5 rounded bg-[#17a2b8] px-5 py-2.5 text-sm font-medium text-white hover:opacity-90">
+              <button className="flex items-center gap-1.5 rounded bg-[#28a745] px-5 py-2.5 text-sm font-medium text-white hover:opacity-90">
                 <svg className="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><polyline points="20,6 9,17 4,12"/></svg>
                 Submit
               </button>
@@ -345,7 +395,8 @@ export default function CreateAdditionalProductionPlanPage() {
               </button>
             </div>
             <div className="p-5">
-              <div className="mb-0 rounded-t border border-stroke dark:border-dark-3">
+              {/* Toolbar */}
+              <div className="rounded-t border border-stroke dark:border-dark-3">
                 <div className="flex flex-wrap items-center gap-0.5 border-b border-stroke bg-[#f9fafb] px-2 py-1.5 dark:border-dark-3 dark:bg-[#1a2232]">
                   <select className="mr-1 rounded border border-stroke bg-transparent px-1.5 py-1 text-xs outline-none dark:border-dark-3 dark:bg-gray-dark dark:text-white"><option>Sans Serif</option><option>Serif</option><option>Monospace</option></select>
                   <select className="mr-1 rounded border border-stroke bg-transparent px-1.5 py-1 text-xs outline-none dark:border-dark-3 dark:bg-gray-dark dark:text-white"><option>Normal</option><option>Small</option><option>Large</option></select>
@@ -373,13 +424,17 @@ export default function CreateAdditionalProductionPlanPage() {
                 </div>
               </div>
               <div className="mb-4 min-h-[160px] rounded-b border border-t-0 border-stroke p-3 dark:border-dark-3">
-                <textarea value={noteContent} onChange={(e) => setNoteContent(e.target.value)} rows={6} placeholder="Enter your content" className="w-full resize-none bg-transparent text-sm italic text-gray-400 outline-none dark:text-gray-500" />
+                <textarea value={noteContent} onChange={(e) => setNoteContent(e.target.value)} rows={6} className="w-full resize-none bg-transparent text-sm outline-none dark:text-white" />
               </div>
+
+              {/* Pagination dots */}
               <div className="mb-4 flex items-center justify-end gap-2">
                 <span className="size-2.5 rounded-full bg-[#17a2b8]"></span>
                 <button className="text-gray-400 hover:text-gray-600"><svg className="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><polyline points="15,18 9,12 15,6"/></svg></button>
                 <button className="text-gray-400 hover:text-gray-600"><svg className="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><polyline points="9,18 15,12 9,6"/></svg></button>
               </div>
+
+              {/* Created By */}
               <div className="mb-6 inline-block rounded border border-[#e8a87c] p-4">
                 <h5 className="mb-2 text-center text-sm font-semibold text-dark dark:text-white">Created By</h5>
                 <div className="space-y-1 text-sm text-dark dark:text-white">
@@ -388,12 +443,13 @@ export default function CreateAdditionalProductionPlanPage() {
                   <p>Date : 11-Mar-2026</p>
                 </div>
               </div>
+
               <div className="flex items-center justify-end gap-3">
                 <button onClick={() => setShowCreateNote(false)} className="flex items-center gap-1.5 rounded bg-[#6c757d] px-5 py-2.5 text-sm font-medium text-white hover:opacity-90">
                   <svg className="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
                   Cancel
                 </button>
-                <button onClick={() => setShowCreateNote(false)} className="flex items-center gap-1.5 rounded bg-[#17a2b8] px-5 py-2.5 text-sm font-medium text-white hover:opacity-90">
+                <button onClick={() => setShowCreateNote(false)} className="flex items-center gap-1.5 rounded bg-[#28a745] px-5 py-2.5 text-sm font-medium text-white hover:opacity-90">
                   <svg className="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><polyline points="20,6 9,17 4,12"/></svg>
                   Submit
                 </button>
