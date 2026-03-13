@@ -118,12 +118,12 @@ export default function RequestForModernizationListPage() {
   return (
     <div className="mx-auto">
       {/* Page Header */}
-      <div className="mb-4 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-        <h2 className="text-[22px] font-bold leading-tight text-dark dark:text-white">
+      <div className="mb-4 flex flex-col gap-2">
+        <h2 className="whitespace-nowrap text-[22px] font-bold leading-tight text-dark dark:text-white">
           Request For Modernization/Construction/Supplementary work List
         </h2>
-        <nav>
-          <ol className="flex items-center gap-1.5 text-sm">
+        <nav className="self-start">
+          <ol className="flex items-center gap-1.5 whitespace-nowrap text-sm">
             <li><Link href="/" className="font-medium text-dark hover:text-primary dark:text-gray-400">Home</Link></li>
             <li className="text-gray-400">/</li>
             <li className="text-gray-500 dark:text-gray-400">Asset Management</li>
@@ -156,7 +156,7 @@ export default function RequestForModernizationListPage() {
             </Link>
             {/* Edit */}
             <button
-              onClick={() => { if (selectedId) router.push("/asset-management/modernization/request/edit"); }}
+              onClick={() => { if (selectedId) router.push("/asset-management/modernization/request-for-modernization/create"); }}
               disabled={selectedId === null}
               className="flex items-center gap-1.5 rounded bg-[#17a2b8] px-4 py-2 text-sm font-medium text-white hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
             >

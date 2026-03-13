@@ -1,0 +1,267 @@
+"use client";
+
+import Link from "next/link";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+
+const PLAN_OPTIONS = [
+  "Produ_Deepavali_2025-26", "2023_2024_ANNUAL_PLAN", "test plan 2023-24",
+  "23-24 yearly plan", "PLAN 2023-2024", "plan24", "plan-ch1", "plan-ch", "Testing1",
+];
+
+const TOTAL_ELIGIBILITY = 10658400;
+
+const INITIAL_MONTHS = [
+  { month: "September 2025", percentage: 30, value: 3197520.00 },
+  { month: "October 2025",   percentage: 30, value: 3197520.00 },
+  { month: "November 2025",  percentage: 10, value: 1065840.00 },
+  { month: "December 2025",  percentage: 10, value: 1065840.00 },
+  { month: "January 2026",   percentage: 10, value: 1065840.00 },
+  { month: "February 2026",  percentage: 10, value: 1065840.00 },
+  { month: "March 2026",     percentage: 0,  value: 0.00       },
+];
+
+const HashIcon = () => (
+  <svg className="size-4 text-gray-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
+    <line x1="4" y1="9" x2="20" y2="9"/><line x1="4" y1="15" x2="20" y2="15"/>
+    <line x1="10" y1="3" x2="8" y2="21"/><line x1="16" y1="3" x2="14" y2="21"/>
+  </svg>
+);
+const CalIcon = () => (
+  <svg className="size-4 text-gray-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
+    <rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/>
+    <line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+  </svg>
+);
+const PctIcon = () => (
+  <svg className="size-4 text-gray-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
+    <line x1="19" y1="5" x2="5" y2="19"/><circle cx="6.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/>
+  </svg>
+);
+
+export default function EditMonthWiseProcurementPlanPage() {
+  const router = useRouter();
+  const [planCode,     setPlanCode]     = useState("Produ_Deepavali_2025-26");
+  const [fromMonth,    setFromMonth]    = useState("2025-09");
+  const [toMonth,      setToMonth]      = useState("2026-03");
+  const [regionCode,   setRegionCode]   = useState("18/SALEM,");
+  const [productCat,   setProductCat]   = useState("AJ/Half Fine Silk,");
+  const [prevFromDate, setPrevFromDate] = useState("2024-04");
+  const [prevToDate,   setPrevToDate]   = useState("2025-03");
+  const [baseStock,    setBaseStock]    = useState("40.00");
+  const [errors,       setErrors]       = useState<Record<string,string>>({});
+  const [activeRow,    setActiveRow]    = useState(5); // Feb 2026 highlighted
+
+  const [monthData, setMonthData] = useState(INITIAL_MONTHS.map(r => ({...r})));
+
+  const updatePercentage = (idx: number, pct: number) => {
+    setMonthData(prev => prev.map((r, i) => {
+      if (i !== idx) return r;
+      const value = (TOTAL_ELIGIBILITY * pct) / 100;
+      return { ...r, percentage: pct, value };
+    }));
+  };
+
+  const totalPct = monthData.reduce((s, r) => s + r.percentage, 0);
+  const totalVal = monthData.reduce((s, r) => s + r.value, 0);
+  const remPct   = 100 - totalPct;
+  const remVal   = TOTAL_ELIGIBILITY - totalVal;
+
+  const validate = () => {
+    const e: Record<string,string> = {};
+    if (!planCode)  e.planCode  = "Required";
+    if (!fromMonth) e.fromMonth = "Required";
+    if (!toMonth)   e.toMonth   = "Required";
+    return e;
+  };
+
+  const handleUpdate = () => {
+    const e = validate();
+    if (Object.keys(e).length) { setErrors(e); return; }
+    router.push("/operational/production-planning/retail-production-plan/month-wise-procurement-plan/list");
+  };
+
+  const labelCls = "block text-xs font-medium text-dark dark:text-white mb-1";
+  const errCls   = "mt-0.5 text-xs text-red-500";
+  const bordCls  = (k: string) => errors[k] ? "border-red-400" : "border-stroke dark:border-dark-3";
+
+  return (
+    <div className="mx-auto">
+      <div className="mb-4 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+        <h2 className="text-[22px] font-bold leading-tight text-dark dark:text-white">Edit Month Wise Procurement Plan</h2>
+        <nav>
+          <ol className="flex flex-wrap items-center gap-1.5 text-sm">
+            <li><Link href="/" className="font-medium text-dark hover:text-primary dark:text-gray-400">Home</Link></li>
+            <li className="text-gray-400">/</li><li className="text-gray-500 dark:text-gray-400">Operational</li>
+            <li className="text-gray-400">/</li><li className="text-gray-500 dark:text-gray-400">Month Wise Procurement Plan</li>
+            <li className="text-gray-400">/</li><li className="font-medium text-primary">Edit Month Wise Procurement Plan</li>
+          </ol>
+        </nav>
+      </div>
+
+      <div className="rounded-[10px] border border-stroke bg-white shadow-1 dark:border-dark-3 dark:bg-gray-dark dark:shadow-card">
+        <div className="flex items-center justify-between rounded-t-[10px] bg-[#2d8f7b] px-5 py-3">
+          <h3 className="text-sm font-semibold text-white">Month Wise Plan</h3>
+          <span className="text-xs text-white/80">( * Mandatory Fields)</span>
+        </div>
+
+        <div className="p-5">
+          <div className="flex gap-5">
+            {/* Left form */}
+            <div className="flex-1 space-y-4">
+              <div>
+                <label className={labelCls}>Plan Code / Name <span className="text-red-500">*</span></label>
+                <div className={`flex items-center overflow-hidden rounded border ${bordCls("planCode")} bg-white dark:bg-gray-dark`}>
+                  <span className="flex w-9 shrink-0 items-center justify-center border-r border-stroke bg-gray-100 py-[9px] dark:border-dark-3 dark:bg-gray-700"><HashIcon /></span>
+                  <input type="text" value={planCode} onChange={e=>{setPlanCode(e.target.value); if(errors.planCode) setErrors(p=>({...p,planCode:""}));}}
+                    className="flex-1 bg-transparent px-3 py-2 text-sm text-dark focus:outline-none dark:text-white" />
+                </div>
+                {errors.planCode && <p className={errCls}>{errors.planCode}</p>}
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className={labelCls}>From</label>
+                  <div className="flex items-center overflow-hidden rounded border border-stroke bg-white dark:border-dark-3 dark:bg-gray-dark">
+                    <span className="flex w-9 shrink-0 items-center justify-center border-r border-stroke bg-gray-100 py-[9px] dark:border-dark-3 dark:bg-gray-700"><CalIcon /></span>
+                    <input type="month" value={fromMonth} onChange={e=>setFromMonth(e.target.value)}
+                      className="flex-1 bg-transparent px-3 py-2 text-sm text-dark focus:outline-none dark:text-white" />
+                  </div>
+                </div>
+                <div>
+                  <label className={labelCls}>To</label>
+                  <div className="flex items-center overflow-hidden rounded border border-stroke bg-white dark:border-dark-3 dark:bg-gray-dark">
+                    <span className="flex w-9 shrink-0 items-center justify-center border-r border-stroke bg-gray-100 py-[9px] dark:border-dark-3 dark:bg-gray-700"><CalIcon /></span>
+                    <input type="month" value={toMonth} onChange={e=>setToMonth(e.target.value)}
+                      className="flex-1 bg-transparent px-3 py-2 text-sm text-dark focus:outline-none dark:text-white" />
+                  </div>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className={labelCls}>Region Code / Name</label>
+                  <textarea value={regionCode} onChange={e=>setRegionCode(e.target.value)} rows={3}
+                    className="w-full resize-none rounded border border-stroke bg-white px-3 py-2 text-sm text-dark focus:border-[#2d8f7b] focus:outline-none dark:border-dark-3 dark:bg-gray-dark dark:text-white" />
+                </div>
+                <div>
+                  <label className={labelCls}>Product Category Code / Name</label>
+                  <textarea value={productCat} onChange={e=>setProductCat(e.target.value)} rows={3}
+                    className="w-full resize-none rounded border border-stroke bg-white px-3 py-2 text-sm text-dark focus:border-[#2d8f7b] focus:outline-none dark:border-dark-3 dark:bg-gray-dark dark:text-white" />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className={labelCls}>Previous Sales - From Date</label>
+                  <div className="flex items-center overflow-hidden rounded border border-stroke bg-white dark:border-dark-3 dark:bg-gray-dark">
+                    <span className="flex w-9 shrink-0 items-center justify-center border-r border-stroke bg-gray-100 py-[9px] dark:border-dark-3 dark:bg-gray-700"><CalIcon /></span>
+                    <input type="month" value={prevFromDate} onChange={e=>setPrevFromDate(e.target.value)}
+                      className="flex-1 bg-transparent px-3 py-2 text-sm text-dark focus:outline-none dark:text-white" />
+                  </div>
+                </div>
+                <div>
+                  <label className={labelCls}>Previous Sales - To Date</label>
+                  <div className="flex items-center overflow-hidden rounded border border-stroke bg-white dark:border-dark-3 dark:bg-gray-dark">
+                    <span className="flex w-9 shrink-0 items-center justify-center border-r border-stroke bg-gray-100 py-[9px] dark:border-dark-3 dark:bg-gray-700"><CalIcon /></span>
+                    <input type="month" value={prevToDate} onChange={e=>setPrevToDate(e.target.value)}
+                      className="flex-1 bg-transparent px-3 py-2 text-sm text-dark focus:outline-none dark:text-white" />
+                  </div>
+                </div>
+              </div>
+
+              <div className="w-48">
+                <label className={labelCls}>Base Stock Percentage</label>
+                <div className="flex items-center overflow-hidden rounded border border-stroke bg-white dark:border-dark-3 dark:bg-gray-dark">
+                  <span className="flex w-9 shrink-0 items-center justify-center border-r border-stroke bg-gray-100 py-[9px] dark:border-dark-3 dark:bg-gray-700"><PctIcon /></span>
+                  <input type="number" step="0.01" value={baseStock} onChange={e=>setBaseStock(e.target.value)}
+                    className="flex-1 bg-transparent px-3 py-2 text-right text-sm text-dark focus:outline-none dark:text-white" />
+                </div>
+              </div>
+            </div>
+
+            {/* Month table */}
+            <div className="w-[340px] shrink-0">
+              <div className="overflow-hidden rounded border border-stroke dark:border-dark-3">
+                <table className="w-full text-xs">
+                  <thead>
+                    <tr className="bg-[#2d8f7b] text-white">
+                      <th className="border-r border-[#3aa88f] px-2 py-2 text-center w-8">#</th>
+                      <th className="border-r border-[#3aa88f] px-3 py-2 text-center">Month</th>
+                      <th className="border-r border-[#3aa88f] px-3 py-2 text-center">Percentage(%)</th>
+                      <th className="px-3 py-2 text-center">Value (₹)</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {monthData.map((row, i) => (
+                      <tr key={i} onClick={() => setActiveRow(i)}
+                        className={`cursor-pointer ${activeRow===i?"bg-[#2d8f7b] text-white":i%2===0?"bg-white dark:bg-gray-dark":"bg-gray-50 dark:bg-gray-800"}`}>
+                        <td className={`border-r px-2 py-1.5 text-center ${activeRow===i?"border-[#3aa88f]":"border-stroke"}`}>{i+1}</td>
+                        <td className={`border-r px-3 py-1.5 text-center ${activeRow===i?"border-[#3aa88f]":"border-stroke"}`}>{row.month}</td>
+                        <td className={`border-r px-1 py-1 ${activeRow===i?"border-[#3aa88f]":"border-stroke"}`}>
+                          <input type="number" step="0.01" min="0" max="100" value={row.percentage || ""}
+                            onChange={e=>updatePercentage(i, parseFloat(e.target.value)||0)}
+                            onClick={e=>e.stopPropagation()}
+                            className={`w-full rounded border px-2 py-0.5 text-right text-xs focus:outline-none ${activeRow===i?"border-[#3aa88f] bg-[#2d8f7b] text-white placeholder-white/60":"border-stroke dark:border-dark-3 dark:bg-gray-800 dark:text-white"}`} />
+                        </td>
+                        <td className="px-3 py-1.5 text-right">{row.value.toFixed(2)}</td>
+                      </tr>
+                    ))}
+                    <tr className="bg-gray-100 dark:bg-gray-700 font-semibold">
+                      <td colSpan={2} className="border-r border-stroke px-3 py-1.5 text-right text-xs">Total</td>
+                      <td className="border-r border-stroke px-3 py-1.5 text-right text-xs">{totalPct.toFixed(1)}</td>
+                      <td className="px-3 py-1.5 text-right text-xs">{totalVal.toLocaleString("en-IN", {minimumFractionDigits:2})}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            {/* Right summary */}
+            <div className="w-[200px] shrink-0 space-y-3">
+              <div className="rounded bg-[#2d8f7b] p-3 space-y-3">
+                <div>
+                  <p className="text-[10px] text-white/80 mb-1">Total Eligibility Value (₹)</p>
+                  <input readOnly value={TOTAL_ELIGIBILITY.toLocaleString("en-IN", {minimumFractionDigits:2})}
+                    className="w-full rounded border border-white/30 bg-white px-2 py-1 text-right text-xs text-dark" />
+                </div>
+                <div>
+                  <p className="text-[10px] text-white/80 mb-1">Remaining Percentage(%)</p>
+                  <input readOnly value={remPct.toFixed(2)}
+                    className="w-full rounded border border-white/30 bg-white px-2 py-1 text-right text-xs text-dark" />
+                </div>
+                <div>
+                  <p className="text-[10px] text-white/80 mb-1">Remaining Value (₹)</p>
+                  <input readOnly value={remVal.toLocaleString("en-IN", {minimumFractionDigits:2})}
+                    className="w-full rounded border border-white/30 bg-white px-2 py-1 text-right text-xs text-dark" />
+                </div>
+              </div>
+
+              <div>
+                <p className="text-xs font-medium text-dark dark:text-white mb-1">Note</p>
+                <div className="rounded border border-stroke bg-gray-50 px-3 py-2 text-xs text-gray-600 dark:border-dark-3 dark:bg-gray-800 dark:text-gray-300 min-h-[80px]">
+                  Monthwise Plan Value Should be equal to the total Production Plan value
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          {/* Buttons — bottom-right of card */}
+          <div className="flex justify-end gap-2 border-t border-stroke pt-4 mt-4 dark:border-dark-3">
+            <button onClick={() => router.push("/operational/production-planning/retail-production-plan/month-wise-procurement-plan/list")}
+              className="flex items-center gap-1.5 rounded bg-[#6c757d] px-5 py-2 text-sm font-medium text-white hover:opacity-90">
+              <svg className="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5}><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+              Cancel
+            </button>
+            <button onClick={handleUpdate}
+              className="flex items-center gap-1.5 rounded bg-[#28a745] px-5 py-2 text-sm font-medium text-white hover:opacity-90">
+              <svg className="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><polyline points="1,4 1,10 7,10"/><path d="M3.51 15a9 9 0 1 0 .49-4.96"/></svg>
+              Update
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
