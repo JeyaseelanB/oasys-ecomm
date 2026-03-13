@@ -537,6 +537,22 @@ export const NAV_DATA = [
                 url: "/personnel/human-resource/employee-service-register/list",
                 items: [],
               },
+               {
+                title: "Employee Regularization",
+                url: "/personnel/human-resource/employee-regularization/list",
+              },
+              {
+                title: "Confirmation Postponed",
+                url: "/personnel/human-resource/confirmation-postponed/list",
+              },
+              {
+                title: "Increment",
+                url: "/personnel/human-resource/increment/list",
+              },
+              {
+                title: "Voluntary Provident Fund Process",
+                url: "/personnel/human-resource/voluntary-provident-fund-process/list",
+              },
               {
                 title: "Attendance",
                 items: [
@@ -773,7 +789,23 @@ export const NAV_DATA = [
                 url: "/asset-management/modernization/estimation-of-modernization/list",
               },
             ]
-          }
+          },    {
+            title: "Asset Request",
+            url: "/asset-management/asset-request/list",
+          },
+
+          {
+            title: "Asset Allocation",
+            url: "/asset-management/asset-allocation/list",
+          },
+          {
+            title: "Asset Depreciation",
+            url: "/asset-management/asset-depreciation/create",
+          },
+          {
+            title: "Asset Disposal",
+            url: "/asset-management/asset-disposal/list",
+          },
         ]
       },
 
