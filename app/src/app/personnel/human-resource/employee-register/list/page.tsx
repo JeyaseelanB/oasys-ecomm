@@ -122,74 +122,33 @@ function CreateLoginModal({ employee, onClose }: { employee: Employee | null; on
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
       <div className="w-full max-w-[420px] rounded-lg bg-white shadow-2xl">
-        {/* Header */}
         <div className="flex items-center justify-between rounded-t-lg bg-[#17a2b8] px-5 py-3">
           <span className="text-base font-semibold text-white">Create Login</span>
-          <button
-            onClick={onClose}
-            className="flex size-6 items-center justify-center rounded text-lg font-bold leading-none text-white hover:bg-white/20"
-          >
-            ×
-          </button>
+          <button onClick={onClose} className="flex size-6 items-center justify-center rounded text-lg font-bold leading-none text-white hover:bg-white/20">×</button>
         </div>
-
-        {/* Body */}
         <div className="space-y-5 p-6">
-          {/* Name */}
           <div>
             <label className="mb-1.5 block text-sm text-[#212529]">Name</label>
             <div className={igWrap}>
-              <span className={igIcon}>
-                <svg className="size-4" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M12 12c2.761 0 5-2.239 5-5s-2.239-5-5-5-5 2.239-5 5 2.239 5 5 5zm0 2c-3.337 0-10 1.676-10 5v1h20v-1c0-3.324-6.663-5-10-5z" />
-                </svg>
-              </span>
-              <input
-                value={employee?.employeeName ?? ""}
-                readOnly
-                className={igInput + " bg-[#e9ecef] cursor-default text-[#6c757d]"}
-              />
+              <span className={igIcon}><svg className="size-4" viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.761 0 5-2.239 5-5s-2.239-5-5-5-5 2.239-5 5 2.239 5 5 5zm0 2c-3.337 0-10 1.676-10 5v1h20v-1c0-3.324-6.663-5-10-5z" /></svg></span>
+              <input value={employee?.employeeName ?? ""} readOnly className={igInput + " bg-[#e9ecef] cursor-default text-[#6c757d]"} />
             </div>
           </div>
-
-          {/* Designation */}
           <div>
             <label className="mb-1.5 block text-sm text-[#212529]">Designation</label>
             <div className={igWrap}>
-              <span className={igIcon}>
-                <svg className="size-4" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 14H4V6h16v12zM6 10h2v2H6zm0 4h8v2H6zm4-4h8v2h-8z" />
-                </svg>
-              </span>
-              <input
-                value={employee?.designation ?? ""}
-                readOnly
-                className={igInput + " bg-[#e9ecef] cursor-default text-[#6c757d]"}
-              />
+              <span className={igIcon}><svg className="size-4" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 14H4V6h16v12zM6 10h2v2H6zm0 4h8v2H6zm4-4h8v2h-8z" /></svg></span>
+              <input value={employee?.designation ?? ""} readOnly className={igInput + " bg-[#e9ecef] cursor-default text-[#6c757d]"} />
             </div>
           </div>
-
-          {/* PF Number */}
           <div>
-            <label className="mb-1.5 block text-sm text-[#212529]">
-              PF Number <span className="text-[#dc3545]">*</span>
-            </label>
+            <label className="mb-1.5 block text-sm text-[#212529]">PF Number <span className="text-[#dc3545]">*</span></label>
             <div className={igWrap}>
-              <span className={igIcon + " text-base font-bold"}>
-                #
-              </span>
-              <input
-                value={pfNum}
-                onChange={(e) => setPfNum(e.target.value)}
-                className={igInput}
-              />
+              <span className={igIcon + " text-base font-bold"}>#</span>
+              <input value={pfNum} onChange={(e) => setPfNum(e.target.value)} className={igInput} />
             </div>
           </div>
-
-          {/* Submit */}
-          <button className="w-full rounded bg-[#28a745] py-2.5 text-sm font-semibold text-white hover:bg-[#218838] active:bg-[#1e7e34]">
-            Submit
-          </button>
+          <button className="w-full rounded bg-[#28a745] py-2.5 text-sm font-semibold text-white hover:bg-[#218838] active:bg-[#1e7e34]">Submit</button>
         </div>
       </div>
     </div>
@@ -300,7 +259,7 @@ export default function EmployeeServiceRegisterListPage() {
       {/* Breadcrumb */}
       <div className="mb-4 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
         <h2 className="text-[22px] font-bold leading-tight text-dark dark:text-white">
-          All Employees List
+          Employee Service Register List
         </h2>
         <nav>
           <ol className="flex items-center gap-1.5 text-sm">
@@ -310,7 +269,7 @@ export default function EmployeeServiceRegisterListPage() {
             <li className="text-gray-400">/</li>
             <li className="text-gray-500 dark:text-gray-400">Human Resource</li>
             <li className="text-gray-400">/</li>
-            <li className="font-medium text-primary">All Employees List</li>
+            <li className="font-medium text-primary">Employee Service Register List</li>
           </ol>
         </nav>
       </div>
@@ -324,44 +283,29 @@ export default function EmployeeServiceRegisterListPage() {
           </p>
           <div className="flex flex-wrap items-center gap-2">
             {/* Create Login */}
-            <button
-              onClick={() => setShowCreateLogin(true)}
-              className="flex items-center gap-1.5 rounded bg-[#e83e8c] px-3 py-1.5 text-sm font-medium text-white hover:opacity-90"
-            >
+            <button onClick={() => setShowCreateLogin(true)} className="flex items-center gap-1.5 rounded bg-[#e83e8c] px-3 py-1.5 text-sm font-medium text-white hover:opacity-90">
               <svg className="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><rect x="3" y="3" width="18" height="18" rx="2" /><line x1="3" y1="9" x2="21" y2="9" /><path d="M9 21V9" /></svg>
               Create Login
             </button>
             {/* Add */}
-            <Link href="/personnel/human-resource/employee-service-register/create">
+            <Link href="/personnel/human-resource/employee-register/create">
               <button className="flex items-center gap-1.5 rounded bg-[#28a745] px-3 py-1.5 text-sm font-medium text-white hover:opacity-90">
                 <svg className="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><rect x="3" y="3" width="18" height="18" rx="2" /><line x1="3" y1="9" x2="21" y2="9" /><path d="M9 21V9" /></svg>
                 Add
               </button>
             </Link>
             {/* Edit */}
-            <button
-              disabled={selectedId === null}
-              onClick={() => selectedId !== null && router.push("/personnel/human-resource/employee-service-register/edit")}
-              className="flex items-center gap-1.5 rounded bg-[#17a2b8] px-3 py-1.5 text-sm font-medium text-white hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
-            >
+            <button disabled={selectedId === null} onClick={() => selectedId !== null && router.push("/personnel/human-resource/employee-register/edit")} className="flex items-center gap-1.5 rounded bg-[#17a2b8] px-3 py-1.5 text-sm font-medium text-white hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50">
               <svg className="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7" /><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z" /></svg>
               Edit
             </button>
             {/* Delete */}
-            <button
-              disabled={selectedId === null}
-              onClick={() => setShowDeleteConfirm(true)}
-              className="flex items-center gap-1.5 rounded bg-[#dc3545] px-3 py-1.5 text-sm font-medium text-white hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
-            >
+            <button disabled={selectedId === null} onClick={() => setShowDeleteConfirm(true)} className="flex items-center gap-1.5 rounded bg-[#dc3545] px-3 py-1.5 text-sm font-medium text-white hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50">
               <svg className="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><polyline points="3,6 5,6 21,6" /><path d="M19 6l-1 14H6L5 6" /><path d="M10 11v6M14 11v6" /><path d="M9 6V4h6v2" /></svg>
               Delete
             </button>
             {/* View */}
-            <button
-              disabled={selectedId === null}
-              onClick={() => selectedId !== null && router.push("/personnel/human-resource/employee-service-register/view")}
-              className="flex items-center gap-1.5 rounded bg-[#17a2b8] px-3 py-1.5 text-sm font-medium text-white hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
-            >
+            <button disabled={selectedId === null} onClick={() => selectedId !== null && router.push("/personnel/human-resource/employee-register/view")} className="flex items-center gap-1.5 rounded bg-[#17a2b8] px-3 py-1.5 text-sm font-medium text-white hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50">
               <svg className="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" /><circle cx="12" cy="12" r="3" /></svg>
               View
             </button>
@@ -448,7 +392,7 @@ export default function EmployeeServiceRegisterListPage() {
                       <span className={`inline-block rounded px-2 py-1 text-xs font-semibold ${STATUS_STYLES[row.status]}`}>{row.status}</span>
                     </td>
                     <td className="px-3 py-3 text-center">
-                      <input type="radio" name="selectRow" checked={selectedId === row.id} onChange={() => setSelectedId(row.id)} className="size-4 cursor-pointer accent-primary" />
+                      <input type="radio" name="esrSelectRow" checked={selectedId === row.id} onChange={() => setSelectedId(row.id)} className="size-4 cursor-pointer accent-primary" />
                     </td>
                   </tr>
                 ))

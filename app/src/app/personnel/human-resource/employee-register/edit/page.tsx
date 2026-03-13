@@ -141,7 +141,7 @@ const IcoCalendar = () => (
   </svg>
 );
 
-export default function EditEmployeeServiceRegisterPage() {
+export default function EditEmployeeRegisterPage() {
   const [activeStep, setActiveStep] = useState<Step>("personal");
   const [photoPreview, setPhotoPreview] = useState<string | null>(null);
   const fileRef = useRef<HTMLInputElement>(null);
@@ -166,7 +166,7 @@ export default function EditEmployeeServiceRegisterPage() {
             <li className="text-gray-400">/</li>
             <li className="text-gray-500 dark:text-gray-400">Human Resource</li>
             <li className="text-gray-400">/</li>
-            <li className="text-gray-500 dark:text-gray-400"><Link href="/personnel/human-resource/employee-service-register/list" className="hover:underline">All Employees List</Link></li>
+            <li className="text-gray-500 dark:text-gray-400"><Link href="/personnel/human-resource/employee-register/list" className="hover:underline">Employee Service Register List</Link></li>
             <li className="text-gray-400">/</li>
             <li className="font-medium text-primary">Edit Employee Service Register</li>
           </ol>
@@ -372,7 +372,6 @@ export default function EditEmployeeServiceRegisterPage() {
                     {photoPreview ? (
                       <img src={photoPreview} alt="preview" className="h-full w-full object-cover" />
                     ) : (
-                      /* placeholder silhouette matching the edit screenshot */
                       <svg className="size-20 text-[#adb5bd]" viewBox="0 0 24 24" fill="currentColor">
                         <path d="M12 12c2.761 0 5-2.239 5-5s-2.239-5-5-5-5 2.239-5 5 2.239 5 5 5zm0 2c-3.337 0-10 1.676-10 5v2h20v-2c0-3.324-6.663-5-10-5z" />
                       </svg>
@@ -410,7 +409,7 @@ export default function EditEmployeeServiceRegisterPage() {
 
         {/* ── Footer ── */}
         <div className="flex items-center justify-end gap-3 border-t border-stroke px-5 py-4 dark:border-dark-3">
-          <Link href="/personnel/human-resource/employee-service-register/list">
+          <Link href="/personnel/human-resource/employee-register/list">
             <button
               type="button"
               className="flex items-center gap-1.5 rounded bg-[#343a40] px-5 py-2 text-sm font-medium text-white hover:opacity-90"

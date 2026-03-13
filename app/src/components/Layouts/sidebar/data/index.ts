@@ -487,6 +487,22 @@ export const NAV_DATA = [
         ],
       },
       {
+        title: "Finance",
+        icon: Icons.Alphabet,
+        items: [
+          {
+            title: "Budget",
+            items: [
+              {
+                title: "Budget Request",
+                url: "/finance/budget/budget-request/list",
+                items: [],
+              },
+            ],
+          },
+        ],
+      },
+      {
         title: "Personnel",
         icon: Icons.Personnel,
         items: [
@@ -502,8 +518,23 @@ export const NAV_DATA = [
                 url: "/personnel/human-resource/loan-and-advance/list",
               },
               {
-                title: "Employee Service Register",
+                title: "All Employees List",
                 url: "/personnel/human-resource/employee-service-register/list",
+                items: [],
+              },
+              {
+                title: "Retired Employee Register",
+                url: "/personnel/human-resource/retired-employee-register/list",
+                items: [],
+              },
+              {
+                title: "Employee Service Register",
+                url: "/personnel/human-resource/employee-register/list",
+                items: [],
+              },
+              {
+                title: "Retired Employee List",
+                url: "/personnel/human-resource/retired-employee-list/list",
                 items: [],
               },
               {
