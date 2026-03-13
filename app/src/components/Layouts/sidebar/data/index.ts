@@ -436,6 +436,11 @@ export const NAV_DATA = [
                     title: "Production Plan-SR",
                     url: "/operational/production-planning/retail-production-plan/production-plan-sr/list",
                   },
+                  {
+                    title: "Month Wise Procurement Plan",
+                    url: "/operational/production-planning/retail-production-plan/month-wise-procurement-plan/list",
+                    items: [],
+                  },
                 ],
               },
             ],
@@ -480,6 +485,32 @@ export const NAV_DATA = [
                     title: "Purchase Order",
                     url: "/operational/quotation-order-invoice/purchase/purchase-order/list",
                   },
+                  {
+                    title: "Bill",
+                    url: "/operational/quotation-order-invoice/purchase/bill/list",
+                    items: [],
+                  },
+                ],
+              },
+              {
+                title: "Sales",
+                url: "/operational/quotation-order-invoice/sales",
+                items: [
+                  {
+                    title: "Sales Quotation",
+                    url: "/operational/quotation-order-invoice/sales/sales-quotation/list",
+                    items: [],
+                  },
+                  {
+                    title: "Sales Order",
+                    url: "/operational/quotation-order-invoice/sales/sales-order/list",
+                    items: [],
+                  },
+                  {
+                    title: "Sales Invoice",
+                    url: "/operational/quotation-order-invoice/sales/sales-invoice/list",
+                    items: [],
+                  },
                 ],
               },
             ],
@@ -513,7 +544,11 @@ export const NAV_DATA = [
                     title: "View Biometric Attendance",
                     url: "/personnel/human-resource/attendance/view-biometric-attendance",
                   },
-
+                  {
+                    title: "Manual Attendance",
+                    url: "/personnel/human-resource/attendance/manual-attendance/list",
+                    items: [],
+                  },
                 ],
               },
               {
@@ -611,6 +646,26 @@ export const NAV_DATA = [
                 url: "/personnel/admin/suspension-details/list",
               },
               {
+                title: "Policy Note",
+                url: "/personnel/admin/policy-note/list",
+                items: [],
+              },
+              {
+                title: "Claim For Expo",
+                url: "/personnel/admin/claim-for-expo/list",
+                items: [],
+              },
+              {
+                title: "Circular / Office Order",
+                url: "/personnel/admin/circular-office-order/list",
+                items: [],
+              },
+              {
+                title: "Petition",
+                url: "/personnel/admin/petition/list",
+                items: [],
+              },
+              {
                 title: "Vehicle Management",
                 items: [
                   {
@@ -637,6 +692,41 @@ export const NAV_DATA = [
                   {
                     title: "Internal / External Training",
                     url: "/personnel/human-resource/admin/training/internal-external-training/list",
+                  },
+                ],
+              },
+              {
+                title: "Meeting",
+                items: [
+                  {
+                    title: "Meeting Request",
+                    url: "/personnel/admin/meeting/meeting-request/list",
+                    items: [],
+                  },
+                  {
+                    title: "Meeting Report",
+                    url: "/personnel/admin/meeting/meeting-report/list",
+                    items: [],
+                  },
+                ],
+              },
+              {
+                title: "Tapal",
+                items: [
+                  {
+                    title: "Incoming Tapal",
+                    url: "/personnel/admin/tapal/incoming-tapal/list",
+                    items: [],
+                  },
+                  {
+                    title: "Outgoing Tapal",
+                    url: "/personnel/admin/tapal/outgoing-tapal/list",
+                    items: [],
+                  },
+                  {
+                    title: "File Numbering",
+                    url: "/personnel/admin/tapal/file-numbering/list",
+                    items: [],
                   },
                 ],
               },
