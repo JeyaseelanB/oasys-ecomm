@@ -650,6 +650,28 @@ export const NAV_DATA = [
               },
             ],
           },
+          {
+            title: "Employee Self Service",
+            items: [
+              { title: "General Information", url: "/personnel/employee-self-service/general-information/list" },
+              { title: "Apply Leave", url: "/personnel/employee-self-service/apply-leave/list" },
+              { title: "FBF Contribution", url: "/personnel/employee-self-service/fbf-contribution/list" },
+              { title: "Flag Day Contribution", url: "/personnel/employee-self-service/flag-day-contribution/list" },
+              { title: "Interchange", url: "/personnel/employee-self-service/interchange/list" },
+              { title: "Additional Charge", url: "/personnel/employee-self-service/additional-charge/list" },
+              { title: "Insurance", url: "/personnel/employee-self-service/insurance/list" },
+              { title: "Loans & Advance", url: "/personnel/employee-self-service/loans-and-advance/list" },
+              { title: "Loan Information", url: "/personnel/employee-self-service/loan-information/list" },
+              { title: "Surety Acceptance", url: "/personnel/employee-self-service/surety-acceptance/list" },
+              { title: "Transfer", url: "/personnel/employee-self-service/transfer/list" },
+              { title: "Promotion", url: "/personnel/employee-self-service/promotion/list" },
+              { title: "Training Request", url: "/personnel/employee-self-service/training-request/list" },
+              { title: "LTC Request", url: "/personnel/employee-self-service/ltc-request/list" },
+              { title: "Pay Slip", url: "/personnel/employee-self-service/pay-slip/list" },
+              { title: "Voluntary / Apply Resignation Request", url: "/personnel/employee-self-service/voluntary-resignation-request/list" },
+              { title: "Voluntary Provident Fund Request", url: "/personnel/employee-self-service/voluntary-provident-fund-request/list" },
+            ],
+          }
         ],
       },
       {
