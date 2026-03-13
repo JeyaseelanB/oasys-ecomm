@@ -591,7 +591,28 @@ export const NAV_DATA = [
                     title: "Leave Request",
                     url: "/personnel/human-resource/leave-management/leave-request/list",
                   },
+                 
                 ],
+              },
+               {
+                    title: "Employee Additional Charge",
+                    url: "/personnel/human-resource/additional-charge/list",
+                  },
+              {
+                title: "Insurance",
+                url: "/personnel/human-resource/insurance/list",
+              },
+              {
+                title: "Joining Checklist",
+                url: "/personnel/human-resource/joining-checklist/list",
+              },
+              {
+                title: "Interchange",
+                url: "/personnel/human-resource/interchange/list",
+              },
+              {
+                title: "Leave Travel Concession",
+                url: "/personnel/human-resource/leave-travel-concession/list",
               },
             ],
           },
