@@ -601,6 +601,27 @@ export const NAV_DATA = [
                 title: "Resignation",
                 url: "/personnel/human-resource/resignation/list",
               },
+              {
+                title: "Retirement",
+                items: [
+                  {
+                    title: "Normal Retirement",
+                    url: "/personnel/human-resource/retirement/normal-retirement/list",
+                  },
+                  {
+                    title: "Voluntary Retirement",
+                    url: "/personnel/human-resource/retirement/voluntary-retirement/list",
+                  },
+                  {
+                    title: "Compulsory Retirement",
+                    url: "/personnel/human-resource/retirement/compulsory-retirement/list",
+                  },
+                  {
+                    title: "Employee Death Registration",
+                    url: "/personnel/human-resource/retirement/employee-death-registration/list",
+                  },
+                ],
+              },
             ],
           },
           {
