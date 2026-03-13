@@ -524,6 +524,82 @@ export const NAV_DATA = [
           {
             title: "Human Resource",
             items: [
+               {
+                title: "Recruitment Process",
+                url: "/personnel/human-resource/recruitment-process",
+                items: [
+                  {
+                    title: "Permanent Recruitment",
+                    items: [
+                      {
+                        title: "Staff Eligibility Statement",
+                        url: "/personnel/human-resource/recruitment-process/permanent-recruitment/staff-eligibility-statement/list",
+                      },
+                      {
+                        title: "Roster Reservation",
+                        url: "/personnel/human-resource/recruitment-process/permanent-recruitment/roster-reservation/list",
+                      },
+                      {
+                        title: "Job Advertisement",
+                        url: "/personnel/human-resource/recruitment-process/permanent-recruitment/job-advertisement/list",
+                      },
+                      {
+                        title: "Job Application",
+                        url: "/personnel/human-resource/recruitment-process/permanent-recruitment/job-application/list",
+                      },
+                      {
+                        title: "Exam Centre",
+                        url: "/personnel/human-resource/recruitment-process/permanent-recruitment/exam-centre/list",
+                      },
+                      {
+                        title: "Total Nominal",
+                        url: "/personnel/human-resource/recruitment-process/permanent-recruitment/total-nominal/list",
+                      },
+                      {
+                        title: "Hall Ticket",
+                        url: "/personnel/human-resource/recruitment-process/permanent-recruitment/hall-ticket/list",
+                      },
+                      {
+                        title: "Written Examination",
+                        url: "/personnel/human-resource/recruitment-process/permanent-recruitment/written-examination/list",
+                      },
+                      {
+                        title: "Oral Test Selection",
+                        url: "/personnel/human-resource/recruitment-process/permanent-recruitment/oral-test-selection/list",
+                      },
+                      {
+                        title: "Oral Test Venue",
+                        url: "/personnel/human-resource/recruitment-process/permanent-recruitment/oral-test-venue/list",
+                      },
+                      {
+                        title: "Call Letter",
+                        url: "/personnel/human-resource/recruitment-process/permanent-recruitment/call-letter/list",
+                      },
+                      {
+                        title: "Oral Test Mark",
+                        url: "/personnel/human-resource/recruitment-process/permanent-recruitment/oral-test-mark/list",
+                      },
+                      {
+                        title: "Consolidated Mark List",
+                        url: "/personnel/human-resource/recruitment-process/permanent-recruitment/consolidated-mark-list/list",
+                      },
+                      {
+                        title: "Appointment Order",
+                        url: "/personnel/human-resource/recruitment-process/permanent-recruitment/appointment-order/list",
+                      },
+                    ],
+                  },
+                  {
+                    title: "Temporary Engagement",
+                    url: "/personnel/human-resource/recruitment-process/temporary-engagement/list",
+                  },
+                  {
+                    title: "Compassionate Appointment",
+                    url: "/personnel/human-resource/recruitment-process/compassionate-appointment/list",
+                  },
+                ],
+              },
+
               {
                 title: "TA Bill",
                 url: "/personnel/human-resource/ta-bill/list",
