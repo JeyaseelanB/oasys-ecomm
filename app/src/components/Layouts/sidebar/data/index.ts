@@ -486,7 +486,7 @@ export const NAV_DATA = [
                     url: "/operational/quotation-order-invoice/purchase/purchase-order/list",
                   },
                   {
-                    title: "Bill",
+                    title: "Add Bill",
                     url: "/operational/quotation-order-invoice/purchase/bill/list",
                     items: [],
                   },
