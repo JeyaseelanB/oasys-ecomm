@@ -6,6 +6,7 @@ import { useState, useMemo } from "react";
 
 /* ── types ──────────────────────────────────────────────────────── */
 interface Row {
+  [key: string]: string | number;
   id: number;
   planCode: string;
   variety: string;
