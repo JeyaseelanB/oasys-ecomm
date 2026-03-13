@@ -593,6 +593,14 @@ export const NAV_DATA = [
                   },
                 ],
               },
+              {
+                title: "Transfer / Deputation",
+                url: "/personnel/human-resource/transfer-deputation/list",
+              },
+              {
+                title: "Resignation",
+                url: "/personnel/human-resource/resignation/list",
+              },
             ],
           },
           {
