@@ -261,6 +261,26 @@ export const NAV_DATA = [
         ],
       },
       {
+        title: "Personnel",
+        icon: Icons.Personnel,
+        items: [
+          {
+            title: "Human Resource",
+            url: "/personnel/human-resource",
+            items: [
+              {
+                title: "TA Bill",
+                url: "/personnel/human-resource/ta-bill/list",
+              },
+              {
+                title: "Loan and Advance",
+                url: "/personnel/human-resource/loan-and-advance/list",
+              },
+            ],
+          },
+        ],
+      },
+      {
         title: "Close Sales",
         icon: Icons.CloseSales,
         items: [

@@ -244,6 +244,25 @@ export function ChevronRight(props: PropsType) {
   );
 }
 
+export function Personnel(props: PropsType) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width={24}
+      height={24}
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      {...props}
+    >
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M8 4a3 3 0 100 6 3 3 0 000-6zM3.25 7a4.75 4.75 0 119.5 0 4.75 4.75 0 01-9.5 0zm-1 10.5c0-2.9 2.574-5.25 5.75-5.25s5.75 2.35 5.75 5.25a.75.75 0 01-1.5 0c0-2.071-1.902-3.75-4.25-3.75S3.75 15.429 3.75 17.5a.75.75 0 01-1.5 0zM16 6.25a.75.75 0 000 1.5 2.25 2.25 0 010 4.5.75.75 0 000 1.5 3.75 3.75 0 000-7.5zm2.14 9.5a.75.75 0 01.86.617C19.322 16.892 20 17.654 20 18.5a.75.75 0 001.5 0c0-1.724-1.29-3.077-3.14-3.367a.75.75 0 01-.22-1.383z"
+      />
+    </svg>
+  );
+}
+
 export function ArrowLeftIcon(props: PropsType) {
   return (
     <svg
