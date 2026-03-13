@@ -58,8 +58,8 @@ export default function FileNumberingListPage() {
     if (fDate)     rows = rows.filter(r => r.createdDate.includes(fDate));
     if (fStatus)   rows = rows.filter(r => r.status === fStatus);
     rows.sort((a, b) => {
-      const va = (a as Record<string, string>)[sortCol] ?? "";
-      const vb = (b as Record<string, string>)[sortCol] ?? "";
+      const va = String((a as unknown as Record<string, unknown>)[sortCol] ?? "");
+      const vb = String((b as unknown as Record<string, unknown>)[sortCol] ?? "");
       return sortDir === "asc" ? va.localeCompare(vb) : vb.localeCompare(va);
     });
     return rows;

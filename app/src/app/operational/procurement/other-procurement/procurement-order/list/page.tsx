@@ -68,7 +68,7 @@ export default function ProcurementOrderListPage() {
   const basePath = "/operational/procurement/other-procurement/procurement-order";
 
   const [selectedId, setSelectedId]   = useState<number | null>(null);
-  const [sortKey, setSortKey]         = useState<SortKey>("id" as any);
+  const [sortKey, setSortKey]         = useState<SortKey | "id">("id");
   const [sortDir, setSortDir]         = useState<"asc" | "desc">("asc");
   const [filters, setFilters]         = useState({ orderCode: "", planCode: "", dpOffice: "", createdDate: "", status: "" });
   const [page, setPage]               = useState(1);
@@ -86,8 +86,8 @@ export default function ProcurementOrderListPage() {
     r.createdDate.toLowerCase().includes(filters.createdDate.toLowerCase()) &&
     (filters.status === "" || r.status === filters.status)
   ).sort((a, b) => {
-    if (sortKey === "id" as any) return sortDir === "asc" ? a.id - b.id : b.id - a.id;
-    const va = (a as any)[sortKey] as string, vb = (b as any)[sortKey] as string;
+    if (sortKey === "id") return sortDir === "asc" ? a.id - b.id : b.id - a.id;
+    const va = String((a as unknown as Record<string, unknown>)[sortKey] ?? ""), vb = String((b as unknown as Record<string, unknown>)[sortKey] ?? "");
     return sortDir === "asc" ? va.localeCompare(vb) : vb.localeCompare(va);
   });
 
