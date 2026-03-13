@@ -181,7 +181,7 @@ export default function ViewFileMovementPage() {
       {showNoteModal && (
         <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/50 p-4">
           <div className="relative w-full max-w-3xl rounded-lg bg-white shadow-2xl dark:bg-gray-dark">
-            <div className="flex items-center justify-between rounded-t-lg bg-[#2d8f7b] px-5 py-3">
+            <div className="flex items-center justify-between rounded-t-lg bg-[#17a2b8] px-5 py-3">
               <h3 className="text-sm font-semibold text-white">View Note</h3>
               <button onClick={() => setShowNoteModal(false)} className="text-white hover:opacity-80">
                 <svg className="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
