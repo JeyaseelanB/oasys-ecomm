@@ -101,12 +101,12 @@ export default function CreateRequestForModernizationPage() {
   return (
     <div className="mx-auto">
       {/* Page Header */}
-      <div className="mb-4 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-        <h2 className="text-[22px] font-bold leading-tight text-dark dark:text-white">
+      <div className="mb-4 flex flex-col gap-2">
+        <h2 className="whitespace-nowrap text-[22px] font-bold leading-tight text-dark dark:text-white">
           Create Request For Modernization/Construction/Supplementary work
         </h2>
-        <nav>
-          <ol className="flex flex-wrap items-center gap-1.5 text-sm">
+        <nav className="self-start">
+          <ol className="flex items-center gap-1.5 whitespace-nowrap text-sm">
             <li><Link href="/" className="font-medium text-dark hover:text-primary dark:text-gray-400">Home</Link></li>
             <li className="text-gray-400">/</li>
             <li className="text-gray-500 dark:text-gray-400">Asset Management</li>
@@ -409,7 +409,7 @@ export default function CreateRequestForModernizationPage() {
             <div className="flex items-center gap-3">
               <button
                 type="button"
-                onClick={() => router.push("/asset-management/modernization")}
+                onClick={() => router.push("/asset-management/modernization/request-for-modernization/list")}
                 className="flex items-center gap-1.5 rounded bg-[#6c757d] px-5 py-2 text-sm font-medium text-white hover:opacity-90"
               >
                 <svg className="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>

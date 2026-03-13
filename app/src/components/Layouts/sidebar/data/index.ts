@@ -436,6 +436,11 @@ export const NAV_DATA = [
                     title: "Production Plan-SR",
                     url: "/operational/production-planning/retail-production-plan/production-plan-sr/list",
                   },
+                  {
+                    title: "Month Wise Procurement Plan",
+                    url: "/operational/production-planning/retail-production-plan/month-wise-procurement-plan/list",
+                    items: [],
+                  },
                 ],
               },
             ],
@@ -480,6 +485,32 @@ export const NAV_DATA = [
                     title: "Purchase Order",
                     url: "/operational/quotation-order-invoice/purchase/purchase-order/list",
                   },
+                  {
+                    title: "Bill",
+                    url: "/operational/quotation-order-invoice/purchase/bill/list",
+                    items: [],
+                  },
+                ],
+              },
+              {
+                title: "Sales",
+                url: "/operational/quotation-order-invoice/sales",
+                items: [
+                  {
+                    title: "Sales Quotation",
+                    url: "/operational/quotation-order-invoice/sales/sales-quotation/list",
+                    items: [],
+                  },
+                  {
+                    title: "Sales Order",
+                    url: "/operational/quotation-order-invoice/sales/sales-order/list",
+                    items: [],
+                  },
+                  {
+                    title: "Sales Invoice",
+                    url: "/operational/quotation-order-invoice/sales/sales-invoice/list",
+                    items: [],
+                  },
                 ],
               },
             ],
@@ -493,6 +524,82 @@ export const NAV_DATA = [
           {
             title: "Human Resource",
             items: [
+               {
+                title: "Recruitment Process",
+                url: "/personnel/human-resource/recruitment-process",
+                items: [
+                  {
+                    title: "Permanent Recruitment",
+                    items: [
+                      {
+                        title: "Staff Eligibility Statement",
+                        url: "/personnel/human-resource/recruitment-process/permanent-recruitment/staff-eligibility-statement/list",
+                      },
+                      {
+                        title: "Roster Reservation",
+                        url: "/personnel/human-resource/recruitment-process/permanent-recruitment/roster-reservation/list",
+                      },
+                      {
+                        title: "Job Advertisement",
+                        url: "/personnel/human-resource/recruitment-process/permanent-recruitment/job-advertisement/list",
+                      },
+                      {
+                        title: "Job Application",
+                        url: "/personnel/human-resource/recruitment-process/permanent-recruitment/job-application/list",
+                      },
+                      {
+                        title: "Exam Centre",
+                        url: "/personnel/human-resource/recruitment-process/permanent-recruitment/exam-centre/list",
+                      },
+                      {
+                        title: "Total Nominal",
+                        url: "/personnel/human-resource/recruitment-process/permanent-recruitment/total-nominal/list",
+                      },
+                      {
+                        title: "Hall Ticket",
+                        url: "/personnel/human-resource/recruitment-process/permanent-recruitment/hall-ticket/list",
+                      },
+                      {
+                        title: "Written Examination",
+                        url: "/personnel/human-resource/recruitment-process/permanent-recruitment/written-examination/list",
+                      },
+                      {
+                        title: "Oral Test Selection",
+                        url: "/personnel/human-resource/recruitment-process/permanent-recruitment/oral-test-selection/list",
+                      },
+                      {
+                        title: "Oral Test Venue",
+                        url: "/personnel/human-resource/recruitment-process/permanent-recruitment/oral-test-venue/list",
+                      },
+                      {
+                        title: "Call Letter",
+                        url: "/personnel/human-resource/recruitment-process/permanent-recruitment/call-letter/list",
+                      },
+                      {
+                        title: "Oral Test Mark",
+                        url: "/personnel/human-resource/recruitment-process/permanent-recruitment/oral-test-mark/list",
+                      },
+                      {
+                        title: "Consolidated Mark List",
+                        url: "/personnel/human-resource/recruitment-process/permanent-recruitment/consolidated-mark-list/list",
+                      },
+                      {
+                        title: "Appointment Order",
+                        url: "/personnel/human-resource/recruitment-process/permanent-recruitment/appointment-order/list",
+                      },
+                    ],
+                  },
+                  {
+                    title: "Temporary Engagement",
+                    url: "/personnel/human-resource/recruitment-process/temporary-engagement/list",
+                  },
+                  {
+                    title: "Compassionate Appointment",
+                    url: "/personnel/human-resource/recruitment-process/compassionate-appointment/list",
+                  },
+                ],
+              },
+
               {
                 title: "TA Bill",
                 url: "/personnel/human-resource/ta-bill/list",
@@ -506,6 +613,22 @@ export const NAV_DATA = [
                 url: "/personnel/human-resource/employee-service-register/list",
                 items: [],
               },
+               {
+                title: "Employee Regularization",
+                url: "/personnel/human-resource/employee-regularization/list",
+              },
+              {
+                title: "Confirmation Postponed",
+                url: "/personnel/human-resource/confirmation-postponed/list",
+              },
+              {
+                title: "Increment",
+                url: "/personnel/human-resource/increment/list",
+              },
+              {
+                title: "Voluntary Provident Fund Process",
+                url: "/personnel/human-resource/voluntary-provident-fund-process/list",
+              },
               {
                 title: "Attendance",
                 items: [
@@ -513,7 +636,11 @@ export const NAV_DATA = [
                     title: "View Biometric Attendance",
                     url: "/personnel/human-resource/attendance/view-biometric-attendance",
                   },
-
+                  {
+                    title: "Manual Attendance",
+                    url: "/personnel/human-resource/attendance/manual-attendance/list",
+                    items: [],
+                  },
                 ],
               },
               {
@@ -640,6 +767,26 @@ export const NAV_DATA = [
                 url: "/personnel/admin/suspension-details/list",
               },
               {
+                title: "Policy Note",
+                url: "/personnel/admin/policy-note/list",
+                items: [],
+              },
+              {
+                title: "Claim For Expo",
+                url: "/personnel/admin/claim-for-expo/list",
+                items: [],
+              },
+              {
+                title: "Circular / Office Order",
+                url: "/personnel/admin/circular-office-order/list",
+                items: [],
+              },
+              {
+                title: "Petition",
+                url: "/personnel/admin/petition/list",
+                items: [],
+              },
+              {
                 title: "Vehicle Management",
                 items: [
                   {
@@ -666,6 +813,41 @@ export const NAV_DATA = [
                   {
                     title: "Internal / External Training",
                     url: "/personnel/human-resource/admin/training/internal-external-training/list",
+                  },
+                ],
+              },
+              {
+                title: "Meeting",
+                items: [
+                  {
+                    title: "Meeting Request",
+                    url: "/personnel/admin/meeting/meeting-request/list",
+                    items: [],
+                  },
+                  {
+                    title: "Meeting Report",
+                    url: "/personnel/admin/meeting/meeting-report/list",
+                    items: [],
+                  },
+                ],
+              },
+              {
+                title: "Tapal",
+                items: [
+                  {
+                    title: "Incoming Tapal",
+                    url: "/personnel/admin/tapal/incoming-tapal/list",
+                    items: [],
+                  },
+                  {
+                    title: "Outgoing Tapal",
+                    url: "/personnel/admin/tapal/outgoing-tapal/list",
+                    items: [],
+                  },
+                  {
+                    title: "File Numbering",
+                    url: "/personnel/admin/tapal/file-numbering/list",
+                    items: [],
                   },
                 ],
               },
@@ -712,7 +894,23 @@ export const NAV_DATA = [
                 url: "/asset-management/modernization/estimation-of-modernization/list",
               },
             ]
-          }
+          },    {
+            title: "Asset Request",
+            url: "/asset-management/asset-request/list",
+          },
+
+          {
+            title: "Asset Allocation",
+            url: "/asset-management/asset-allocation/list",
+          },
+          {
+            title: "Asset Depreciation",
+            url: "/asset-management/asset-depreciation/create",
+          },
+          {
+            title: "Asset Disposal",
+            url: "/asset-management/asset-disposal/list",
+          },
         ]
       },
 

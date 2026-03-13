@@ -47,12 +47,12 @@ export default function ViewRequestForModernizationPage() {
   return (
     <div className="mx-auto">
       {/* Page Header */}
-      <div className="mb-4 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-        <h2 className="text-[22px] font-bold leading-tight text-dark dark:text-white">
+      <div className="mb-4 flex flex-col gap-2">
+        <h2 className="whitespace-nowrap text-[22px] font-bold leading-tight text-dark dark:text-white">
           View Request For Modernization/Construction/Supplementary work
         </h2>
-        <nav>
-          <ol className="flex flex-wrap items-center gap-1.5 text-sm">
+        <nav className="self-start">
+          <ol className="flex items-center gap-1.5 whitespace-nowrap text-sm">
             <li>
               <Link href="/" className="font-medium text-dark hover:text-primary dark:text-gray-400">
                 Home
