@@ -524,7 +524,7 @@ export const NAV_DATA = [
           {
             title: "Human Resource",
             items: [
-               {
+              {
                 title: "Recruitment Process",
                 url: "/personnel/human-resource/recruitment-process",
                 items: [
@@ -617,7 +617,7 @@ export const NAV_DATA = [
                 url: "/personnel/human-resource/employee-service-register/list",
                 items: [],
               },
-               {
+              {
                 title: "Employee Regularization",
                 url: "/personnel/human-resource/employee-regularization/list",
               },
@@ -739,10 +739,10 @@ export const NAV_DATA = [
                   },
                 ],
               },
-               {
-                    title: "Employee Additional Charge",
-                    url: "/personnel/human-resource/additional-charge/list",
-                  },
+              {
+                title: "Employee Additional Charge",
+                url: "/personnel/human-resource/additional-charge/list",
+              },
               {
                 title: "Insurance",
                 url: "/personnel/human-resource/insurance/list",
@@ -932,8 +932,12 @@ export const NAV_DATA = [
                 title: "Estimation of Modernization",
                 url: "/asset-management/modernization/estimation-of-modernization/list",
               },
+              {
+                title: "Measurement Book Entry",
+                url: "/asset-management/modernization/measurement-book-entry/list",
+              },
             ]
-          },    {
+          }, {
             title: "Asset Request",
             url: "/asset-management/asset-request/list",
           },
