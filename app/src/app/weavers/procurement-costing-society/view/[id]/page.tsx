@@ -93,6 +93,10 @@ function Divider() {
 /* ═══════════════════════════════════════════
    PAGE
 ═══════════════════════════════════════════ */
+export function generateStaticParams() {
+  return [];
+}
+
 export default function ViewProcurementCostingSocietyPage() {
   const router = useRouter();
 

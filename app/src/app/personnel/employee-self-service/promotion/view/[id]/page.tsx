@@ -69,6 +69,10 @@ const DATA = {
   },
 };
 
+export function generateStaticParams() {
+  return [];
+}
+
 export default function ViewPromotionPage() {
   const router = useRouter();
 

@@ -69,6 +69,10 @@ const DATA = {
   atNumber:             "23456782",
 };
 
+export function generateStaticParams() {
+  return [];
+}
+
 export default function ViewSocietyProductAppraiserPage() {
   const router = useRouter();
   return (

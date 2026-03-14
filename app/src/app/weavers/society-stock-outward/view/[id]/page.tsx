@@ -56,6 +56,10 @@ const DATA = {
   items: ITEMS,
 };
 
+export function generateStaticParams() {
+  return [];
+}
+
 export default function ViewSocietyStockOutwardPage() {
   const router = useRouter();
   return (

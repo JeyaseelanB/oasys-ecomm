@@ -25,6 +25,10 @@ const DATA = {
   },
 };
 
+export function generateStaticParams() {
+  return [];
+}
+
 export default function ViewTransferPage() {
   const router = useRouter();
 
