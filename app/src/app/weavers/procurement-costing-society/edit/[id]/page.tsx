@@ -321,12 +321,7 @@ interface OtherCharge {
 
 /* ═══════════════════════════════════════════
    PAGE  –  pre-populated with screenshot data
-═══════════════════════════════════════════ */
-export function generateStaticParams() {
-  return [];
-}
-
-export default function EditProcurementCostingSocietyPage() {
+═══════════════════════════════════════════ */export default function EditProcurementCostingSocietyPage() {
   const router = useRouter();
 
   /* ── Procurement Costing header – pre-filled from screenshot ── */
