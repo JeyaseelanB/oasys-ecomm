@@ -60,11 +60,6 @@ const LOAN = {
 const DOCUMENTS: DocumentRow[] = [
   { id: 1, documentName: "Document.docx" },
 ];
-
-export function generateStaticParams() {
-  return [];
-}
-
 export default function ViewSuretyAcceptancePage() {
   const router = useRouter();
 

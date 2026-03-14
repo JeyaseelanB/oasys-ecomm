@@ -24,11 +24,6 @@ const DATA = {
     reason: "",
   },
 };
-
-export function generateStaticParams() {
-  return [];
-}
-
 export default function ViewTransferPage() {
   const router = useRouter();
 

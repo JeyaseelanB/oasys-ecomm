@@ -55,11 +55,6 @@ const DATA = {
   transportChargeAmount:    "",
   items: ITEMS,
 };
-
-export function generateStaticParams() {
-  return [];
-}
-
 export default function ViewSocietyStockOutwardPage() {
   const router = useRouter();
   return (

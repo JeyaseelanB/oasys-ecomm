@@ -98,11 +98,6 @@ interface ProductRow {
   uom: string; orderedUnit: string; dispatchedQty: string;
   currentDispatchedQty: string; value: number;
 }
-
-export function generateStaticParams() {
-  return [];
-}
-
 export default function EditSocietyStockOutwardPage() {
   const router = useRouter();
 

@@ -68,11 +68,6 @@ const DATA = {
     comments: "tresrt",
   },
 };
-
-export function generateStaticParams() {
-  return [];
-}
-
 export default function ViewPromotionPage() {
   const router = useRouter();
 
