@@ -24,7 +24,6 @@ const DATA = {
     reason: "",
   },
 };
-
 export default function ViewTransferPage() {
   const router = useRouter();
 

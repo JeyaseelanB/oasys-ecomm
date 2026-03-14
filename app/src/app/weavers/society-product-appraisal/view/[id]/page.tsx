@@ -68,7 +68,6 @@ const DATA = {
   weftYarnType:         "/",
   atNumber:             "23456782",
 };
-
 export default function ViewSocietyProductAppraiserPage() {
   const router = useRouter();
   return (

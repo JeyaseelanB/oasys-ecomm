@@ -92,8 +92,7 @@ function Divider() {
 
 /* ═══════════════════════════════════════════
    PAGE
-═══════════════════════════════════════════ */
-export default function ViewProcurementCostingSocietyPage() {
+═══════════════════════════════════════════ */export default function ViewProcurementCostingSocietyPage() {
   const router = useRouter();
 
   return (

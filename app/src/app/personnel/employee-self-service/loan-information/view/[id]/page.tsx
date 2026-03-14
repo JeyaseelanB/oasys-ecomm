@@ -36,7 +36,6 @@ const EMI_ROWS: EMIRow[] = [
   { id: 4, year: 2024, month: "March", emiAmount: 439.00, principalAmount: 878.00, interestAmount: 0.00, balanceAmount: 439.00, paidAmount: 439.00, paidDate: "31-May-2024", status: "PAID" },
   { id: 5, year: 2024, month: "April", emiAmount: 439.00, principalAmount: 439.00, interestAmount: 0.00, balanceAmount: 0.00, paidAmount: 439.00, paidDate: "31-Aug-2024", status: "PAID" },
 ];
-
 export default function ViewLoanInformationPage() {
   const router = useRouter();
 

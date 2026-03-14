@@ -138,8 +138,7 @@ function InfoRow({ label, value }: { label: string; value: string }) {
 
 /* ═══════════════════════════════════════════════════════════════
    PAGE
-═══════════════════════════════════════════════════════════════ */
-export default function ViewSocietyInvoicePage() {
+═══════════════════════════════════════════════════════════════ */export default function ViewSocietyInvoicePage() {
   const router = useRouter();
   const params = useParams();
   const invoiceId = parseInt(params.id as string, 10);

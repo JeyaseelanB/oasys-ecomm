@@ -160,7 +160,7 @@ export default function PurchaseOrderListPage() {
     r.createdDate.toLowerCase().includes(filters.createdDate.toLowerCase()) &&
     (filters.status === "" || r.status === filters.status)
   ).sort((a, b) => {
-    const va = (a as any)[sortKey] as string, vb = (b as any)[sortKey] as string;
+    const va = String((a as unknown as Record<string, unknown>)[sortKey] ?? ""), vb = String((b as unknown as Record<string, unknown>)[sortKey] ?? "");
     return sortDir === "asc" ? va.localeCompare(vb) : vb.localeCompare(va);
   });
 

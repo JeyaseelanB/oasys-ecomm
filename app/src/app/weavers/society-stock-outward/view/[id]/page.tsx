@@ -55,7 +55,6 @@ const DATA = {
   transportChargeAmount:    "",
   items: ITEMS,
 };
-
 export default function ViewSocietyStockOutwardPage() {
   const router = useRouter();
   return (

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { Suspense, useState, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 
@@ -59,6 +59,14 @@ const selectStyle: React.CSSProperties = {
 };
 
 export default function EditECommerceRateConfigPage() {
+  return (
+    <Suspense fallback={<div className="p-4">Loading...</div>}>
+      <EditECommerceRateConfigContent />
+    </Suspense>
+  );
+}
+
+function EditECommerceRateConfigContent() {
   const router = useRouter();
   const params = useSearchParams();
   const id = parseInt(params.get("id") || "0");

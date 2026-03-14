@@ -1,179 +1,292 @@
 "use client";
 
-import Link from "next/link";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { useSearchParams } from "next/navigation";
-import { Suspense } from "react";
 
-type LoanStatus = "LOAN DISBURSED" | "RECOVERY DISBURSED" | "FINAL APPROVED";
+const TEAL = "#2aa781";
+const HEADER_BG = "#2d8f7b";
 
-interface LoanRecord {
-  referenceNo: string;
-  employee: {
-    id: string;
-    name: string;
-    designation: string;
-    fatherName: string;
-    entityType: string;
-    entity: string;
-    department: string;
-  };
-  loan: {
-    recoveryType: string;
-    eligibilityAmount: string;
-    maximumAmount: string;
-    minimumAmount: string;
-    recoveryAmount: string;
-    rateOfInterest: string;
-    noOfInstallments: string;
-    sanctionedAmount: string;
-    reason: string;
-    loanAdvance: string;
-    loanAdvanceType: string;
-    createdDate: string;
-    status: LoanStatus;
-  };
-}
-
-const LOAN_DATA: Record<number, LoanRecord> = {
-  1: {
-    referenceNo: "LRF8251",
-    employee: { id: "422", name: "SHERIN", designation: "SALES ASSISTANT", fatherName: "RAMESH K", entityType: "Showroom", entity: "ANNA NAGAR", department: "SALES" },
-    loan: { recoveryType: "MARRIAGE LOAN 2", eligibilityAmount: "₹ 50000.00", maximumAmount: "₹ 50000.00", minimumAmount: "₹ 1000.00", recoveryAmount: "₹ 24700.00", rateOfInterest: "₹ 0.0", noOfInstallments: "12.00", sanctionedAmount: "24700.00", reason: "Marriage Expenses", loanAdvance: "Loan", loanAdvanceType: "MARRIAGE LOAN 2", createdDate: "12-Mar-2026", status: "LOAN DISBURSED" },
-  },
-  2: {
-    referenceNo: "LRF8250",
-    employee: { id: "759", name: "GANAPATHY SUBRAMANIAN S", designation: "MANAGER GRADE I", fatherName: "S SANKARAN", entityType: "Showroom", entity: "V.O.C-TUTICORIN", department: "MARKETING" },
-    loan: { recoveryType: "CSD1", eligibilityAmount: "₹ 1000000.00", maximumAmount: "₹ 1000000.00", minimumAmount: "₹ 100.00", recoveryAmount: "₹ 14000.00", rateOfInterest: "₹ 0.0", noOfInstallments: "100.00", sanctionedAmount: "14000.00", reason: "Credit sales old dues", loanAdvance: "Recovery", loanAdvanceType: "CSD1", createdDate: "26-Feb-2026", status: "RECOVERY DISBURSED" },
-  },
-  3: {
-    referenceNo: "LRF8249",
-    employee: { id: "687", name: "SRIDHAR", designation: "SENIOR SALES OFFICER", fatherName: "KRISHNASWAMY", entityType: "Showroom", entity: "TRICHY MAIN", department: "SALES" },
-    loan: { recoveryType: "CSD1", eligibilityAmount: "₹ 1000000.00", maximumAmount: "₹ 1000000.00", minimumAmount: "₹ 100.00", recoveryAmount: "₹ 82271.00", rateOfInterest: "₹ 0.0", noOfInstallments: "100.00", sanctionedAmount: "82271.00", reason: "Credit sales adjustment", loanAdvance: "Recovery", loanAdvanceType: "CSD1", createdDate: "26-Feb-2026", status: "FINAL APPROVED" },
-  },
+// Mock record for view
+const MOCK_RECORD = {
+  employeeId: "140",
+  employeeName: "ARULRAJAN",
+  designation: "ASSISTANT MANAGER",
+  department: "FINANCE",
+  cadre: "CLASS II",
+  finYear: "2024-2025",
+  loanType: "Recovery",
+  recoveryType: "Festival Advance",
+  loanEligibilityAmount: "75000.00",
+  minLoanAmount: "10000.00",
+  maxLoanAmount: "75000.00",
+  recoveryAmount: "50000.00",
+  interestRate: "6.00",
+  noOfInstallments: "12",
+  reason: "Festival advance required for Pongal festival expenses.",
+  forwardTo: "ASSISTANT DIRECTOR",
+  forwardFor: "APPROVAL",
+  comments: "Request for festival advance as per entitlement.",
+  createdDate: "10-Jan-2025",
+  status: "FINAL-APPROVED",
+  createdByName: "SANKARANARAYANAN",
+  createdByDesignation: "ASSISTANT SALES MAN",
+  createdByDate: "10-Jan-2025",
+  approvedByName: "SUBRAMANIAM",
+  approvedByDesignation: "ASSISTANT DIRECTOR",
+  approvedByDate: "15-Jan-2025",
 };
 
-const STATUS_STYLES: Record<LoanStatus, string> = {
-  "LOAN DISBURSED":     "bg-[#6c757d]",
-  "RECOVERY DISBURSED": "bg-[#28a745]",
-  "FINAL APPROVED":     "bg-[#17a2b8]",
-};
-
-const Field = ({ label, value }: { label: string; value: string }) => (
-  <div>
-    <p className="mb-0.5 text-xs text-gray-500 dark:text-gray-400">{label}</p>
-    <p className="text-sm font-medium text-[#2d8f7b]">{value || "—"}</p>
-  </div>
-);
-
-function ViewContent() {
-  const router = useRouter();
-  const searchParams = useSearchParams();
-  const idParam = searchParams.get("id");
-  const id = idParam ? parseInt(idParam) : 2;
-  const record = LOAN_DATA[id] ?? LOAN_DATA[2];
-
+function ReadOnlyRow({ label, value }: { label: string; value: string }) {
   return (
-    <div className="mx-auto">
-      <div className="mb-4 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-        <h2 className="text-[22px] font-bold leading-tight text-dark dark:text-white">View Loan &amp; Advance Approval</h2>
-        <nav>
-          <ol className="flex items-center gap-1.5 text-sm">
-            <li><Link href="/" className="font-medium text-dark hover:text-primary dark:text-gray-400">Home</Link></li>
-            <li className="text-gray-400">/</li>
-            <li className="text-gray-500 dark:text-gray-400">Personnel</li>
-            <li className="text-gray-400">/</li>
-            <li className="text-gray-500 dark:text-gray-400">Human Resource</li>
-            <li className="text-gray-400">/</li>
-            <li className="font-medium text-primary">View Loan &amp; Advance Approval</li>
-          </ol>
-        </nav>
-      </div>
-
-      <div className="rounded-[10px] border border-stroke bg-white shadow-1 dark:border-dark-3 dark:bg-gray-dark dark:shadow-card">
-        {/* Header */}
-        <div className="rounded-t-[10px] bg-[#2d8f7b] px-5 py-3">
-          <h3 className="text-sm font-semibold text-white">Loan &amp; Advance Approval</h3>
-        </div>
-
-        <div className="divide-y divide-stroke p-5 dark:divide-dark-3">
-
-          {/* Reference + Status */}
-          <div className="mb-4 flex flex-wrap items-center justify-between gap-3 pb-4">
-            <div className="flex items-center gap-3">
-              <span className="text-sm font-medium text-gray-500 dark:text-gray-400">Reference No:</span>
-              <span className="text-sm font-semibold text-[#2d8f7b]">{record.referenceNo}</span>
-            </div>
-            <span className={`inline-block rounded-sm px-3 py-1 text-xs font-semibold text-white ${STATUS_STYLES[record.loan.status]}`}>
-              {record.loan.status}
-            </span>
-          </div>
-
-          {/* Employee Details */}
-          <div className="py-5">
-            <div className="mb-3 flex items-center gap-2">
-              <svg className="size-4 text-[#2d8f7b]" viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
-              <h4 className="text-sm font-semibold text-dark dark:text-white">Employee Details</h4>
-            </div>
-            <div className="mb-4 grid grid-cols-2 gap-x-8 gap-y-4 md:grid-cols-4">
-              <Field label="Employee ID"    value={record.employee.id} />
-              <Field label="Employee Name"  value={record.employee.name} />
-              <Field label="Designation"    value={record.employee.designation} />
-              <Field label="Father Name"    value={record.employee.fatherName} />
-              <Field label="Entity Type"    value={record.employee.entityType} />
-              <Field label="Entity"         value={record.employee.entity} />
-              <Field label="Department"     value={record.employee.department} />
-            </div>
-          </div>
-
-          {/* Loan / Advance Details */}
-          <div className="py-5">
-            <div className="mb-3 flex items-center gap-2">
-              <svg className="size-4 text-[#2d8f7b]" viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
-              <h4 className="text-sm font-semibold text-dark dark:text-white">Loan / Advance Details</h4>
-            </div>
-            <div className="mb-4 grid grid-cols-2 gap-x-8 gap-y-4 md:grid-cols-4">
-              <Field label="Recovery Type"                       value={record.loan.recoveryType} />
-              <Field label="Eligibility Amount"                  value={record.loan.eligibilityAmount} />
-              <Field label="Maximum Amount"                      value={record.loan.maximumAmount} />
-              <Field label="Minimum Amount"                      value={record.loan.minimumAmount} />
-              <Field label="Recovery Amount"                     value={record.loan.recoveryAmount} />
-              <Field label="Rate of Interest on Total Loan Amount (₹)" value={record.loan.rateOfInterest} />
-              <Field label="No. of Installments"                 value={record.loan.noOfInstallments} />
-              <Field label="Sanctioned Amount"                   value={record.loan.sanctionedAmount} />
-            </div>
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-              <Field label="Reason" value={record.loan.reason} />
-              <Field label="Loan / Advance" value={record.loan.loanAdvance} />
-            </div>
-          </div>
-
-          {/* Summary row */}
-          <div className="pt-5">
-            <div className="grid grid-cols-2 gap-x-8 gap-y-4 md:grid-cols-4">
-              <Field label="Loan / Advance Type" value={record.loan.loanAdvanceType} />
-              <Field label="Created Date"        value={record.loan.createdDate} />
-            </div>
-          </div>
-
-        </div>
-
-        {/* Back button */}
-        <div className="flex items-center justify-end border-t border-stroke px-5 py-4 dark:border-dark-3">
-          <button onClick={() => router.push("/personnel/human-resource/loan-and-advance/list")} className="flex items-center gap-1.5 rounded bg-[#6c757d] px-5 py-2.5 text-sm font-medium text-white hover:opacity-90">
-            <svg className="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><polyline points="15,18 9,12 15,6"/></svg>
-            Back to List
-          </button>
-        </div>
-      </div>
+    <div className="flex items-start gap-2 mb-2">
+      <span className="text-xs text-gray-500 font-medium w-52 shrink-0 text-right">{label} :</span>
+      <span className="text-xs text-gray-800 flex-1">{value}</span>
     </div>
   );
 }
 
 export default function ViewLoanAndAdvancePage() {
+  const router = useRouter();
+  const [showViewNote, setShowViewNote] = useState(false);
+  const [viewNoteCardIdx, setViewNoteCardIdx] = useState(0);
+  const [showApproveModal, setShowApproveModal] = useState(false);
+  const [showRejectModal, setShowRejectModal] = useState(false);
+  const [approveRemark, setApproveRemark] = useState("");
+  const [rejectRemark, setRejectRemark] = useState("");
+
+  const r = MOCK_RECORD;
+
   return (
-    <Suspense fallback={<div className="p-8 text-center text-gray-400">Loading...</div>}>
-      <ViewContent />
-    </Suspense>
+    <div className="p-4 bg-gray-50 min-h-screen">
+      {/* Page title */}
+      <div className="mb-3">
+        <h1 className="text-base font-semibold text-gray-700">View Loan &amp; Advance Approval</h1>
+      </div>
+
+      {/* Section 1: Employee Details */}
+      <div className="bg-white rounded shadow-sm mb-4 overflow-hidden">
+        <div className="px-3 py-2" style={{ backgroundColor: HEADER_BG }}>
+          <h2 className="text-xs font-semibold text-white">Employee Details</h2>
+        </div>
+        <div className="p-4 grid grid-cols-2 gap-x-8">
+          <ReadOnlyRow label="Employee ID" value={r.employeeId} />
+          <ReadOnlyRow label="Employee Name" value={r.employeeName} />
+          <ReadOnlyRow label="Designation" value={r.designation} />
+          <ReadOnlyRow label="Department" value={r.department} />
+          <ReadOnlyRow label="Cadre" value={r.cadre} />
+          <ReadOnlyRow label="Financial Year" value={r.finYear} />
+        </div>
+      </div>
+
+      {/* Section 2: Financial Requirement */}
+      <div className="bg-white rounded shadow-sm mb-4 overflow-hidden">
+        <div className="px-3 py-2" style={{ backgroundColor: HEADER_BG }}>
+          <h2 className="text-xs font-semibold text-white">Financial Requirement</h2>
+        </div>
+        <div className="p-4 grid grid-cols-2 gap-x-8">
+          <ReadOnlyRow label="Type" value={r.loanType} />
+          {r.loanType === "Recovery" && (
+            <>
+              <ReadOnlyRow label="Recovery Type" value={r.recoveryType} />
+              <ReadOnlyRow label="Loan Eligibility Amount" value={r.loanEligibilityAmount} />
+              <ReadOnlyRow label="Min Loan Amount" value={r.minLoanAmount} />
+              <ReadOnlyRow label="Max Loan Amount" value={r.maxLoanAmount} />
+              <ReadOnlyRow label="Recovery Amount" value={r.recoveryAmount} />
+              <ReadOnlyRow label="Interest Rate (%)" value={r.interestRate} />
+              <ReadOnlyRow label="No. of Installments" value={r.noOfInstallments} />
+              <div className="col-span-2">
+                <ReadOnlyRow label="Reason" value={r.reason} />
+              </div>
+            </>
+          )}
+        </div>
+      </div>
+
+      {/* Section 3: Forward & Documents */}
+      <div className="bg-white rounded shadow-sm mb-4 overflow-hidden">
+        <div className="px-3 py-2" style={{ backgroundColor: HEADER_BG }}>
+          <h2 className="text-xs font-semibold text-white">Forward &amp; Documents</h2>
+        </div>
+        <div className="p-4 grid grid-cols-2 gap-x-8">
+          <ReadOnlyRow label="Forward To" value={r.forwardTo} />
+          <ReadOnlyRow label="Forward For" value={r.forwardFor} />
+          <div className="col-span-2">
+            <ReadOnlyRow label="Comments" value={r.comments} />
+          </div>
+          <ReadOnlyRow label="Created Date" value={r.createdDate} />
+          <ReadOnlyRow label="Status" value={r.status} />
+        </div>
+      </div>
+
+      {/* Footer Buttons */}
+      <div className="flex justify-between items-center mt-4">
+        {/* Left: View Note */}
+        <div className="flex gap-2">
+          <button
+            onClick={() => setShowViewNote(true)}
+            className="px-4 py-1.5 text-xs font-semibold text-white rounded"
+            style={{ backgroundColor: TEAL }}
+          >
+            View Note
+          </button>
+        </div>
+        {/* Right: Approve / Reject / Back */}
+        <div className="flex gap-2">
+          <button
+            onClick={() => setShowApproveModal(true)}
+            className="px-4 py-1.5 text-xs font-semibold text-white rounded"
+            style={{ backgroundColor: "#28a745" }}
+          >
+            Approve
+          </button>
+          <button
+            onClick={() => setShowRejectModal(true)}
+            className="px-4 py-1.5 text-xs font-semibold text-white rounded"
+            style={{ backgroundColor: "#dc3545" }}
+          >
+            Reject
+          </button>
+          <button
+            onClick={() => router.back()}
+            className="px-4 py-1.5 text-xs font-semibold text-white rounded"
+            style={{ backgroundColor: "#6c757d" }}
+          >
+            Back
+          </button>
+        </div>
+      </div>
+
+      {/* View Note Modal */}
+      {showViewNote && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
+          <div className="bg-white rounded-lg shadow-xl w-[480px]">
+            <div className="flex items-center justify-between px-4 py-3 border-b">
+              <h3 className="text-sm font-semibold text-gray-700">View Note</h3>
+              <button onClick={() => setShowViewNote(false)} className="text-gray-400 hover:text-gray-600 text-lg font-bold">×</button>
+            </div>
+            <div className="p-4 flex items-center justify-center gap-4">
+              <button
+                onClick={() => setViewNoteCardIdx((i) => Math.max(0, i - 1))}
+                className="w-7 h-7 rounded-full bg-gray-200 hover:bg-gray-300 flex items-center justify-center text-gray-600 text-sm font-bold shrink-0"
+              >
+                ‹
+              </button>
+              <div className="flex gap-3 flex-1 justify-center">
+                {/* Created By card */}
+                <div className="border rounded p-3 flex-1 max-w-[180px]" style={{ borderColor: "#f97316" }}>
+                  <p className="text-xs font-semibold text-gray-600 mb-1.5 text-center">Created By</p>
+                  <p className="text-xs text-gray-700">Name : {r.createdByName}</p>
+                  <p className="text-xs text-gray-700">Designation : {r.createdByDesignation}</p>
+                  <p className="text-xs text-gray-700">Date : {r.createdByDate}</p>
+                </div>
+                {/* Final Approved By card */}
+                <div className="border rounded p-3 flex-1 max-w-[180px]" style={{ borderColor: "#28a745" }}>
+                  <p className="text-xs font-semibold text-gray-600 mb-1.5 text-center">Final Approved By</p>
+                  <p className="text-xs text-gray-700">Name : {r.approvedByName}</p>
+                  <p className="text-xs text-gray-700">Designation : {r.approvedByDesignation}</p>
+                  <p className="text-xs text-gray-700">Date : {r.approvedByDate}</p>
+                </div>
+              </div>
+              <button
+                onClick={() => setViewNoteCardIdx((i) => i + 1)}
+                className="w-7 h-7 rounded-full bg-gray-200 hover:bg-gray-300 flex items-center justify-center text-gray-600 text-sm font-bold shrink-0"
+              >
+                ›
+              </button>
+            </div>
+            {/* Dot navigation */}
+            <div className="flex justify-center gap-1.5 pb-3">
+              {[0, 1].map((i) => (
+                <span key={i} onClick={() => setViewNoteCardIdx(i)}
+                  className="w-2 h-2 rounded-full cursor-pointer"
+                  style={{ backgroundColor: viewNoteCardIdx === i ? TEAL : "#d1d5db" }} />
+              ))}
+            </div>
+            <div className="flex justify-end px-4 pb-4">
+              <button
+                onClick={() => setShowViewNote(false)}
+                className="px-4 py-1.5 text-xs font-semibold rounded border border-gray-300 text-gray-600 hover:bg-gray-50"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Approve Remarks Modal */}
+      {showApproveModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
+          <div className="bg-white rounded-lg shadow-xl w-[420px]">
+            <div className="flex items-center justify-between px-4 py-3 border-b">
+              <h3 className="text-sm font-semibold text-gray-700">Approve Remarks</h3>
+              <button onClick={() => setShowApproveModal(false)} className="text-gray-400 hover:text-gray-600 text-lg font-bold">×</button>
+            </div>
+            <div className="p-4">
+              <label className="block text-xs text-gray-600 font-medium mb-1">Remarks</label>
+              <textarea
+                value={approveRemark}
+                onChange={(e) => setApproveRemark(e.target.value)}
+                rows={4}
+                placeholder="Enter approval remarks..."
+                className="w-full border border-gray-300 rounded px-3 py-2 text-xs text-gray-800 focus:outline-none focus:border-teal-400 resize-none"
+              />
+            </div>
+            <div className="flex justify-end gap-2 px-4 pb-4">
+              <button
+                onClick={() => setShowApproveModal(false)}
+                className="px-4 py-1.5 text-xs font-semibold rounded border border-gray-300 text-gray-600 hover:bg-gray-50"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={() => setShowApproveModal(false)}
+                className="px-4 py-1.5 text-xs font-semibold text-white rounded"
+                style={{ backgroundColor: "#28a745" }}
+              >
+                Approve
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Reject Remarks Modal */}
+      {showRejectModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
+          <div className="bg-white rounded-lg shadow-xl w-[420px]">
+            <div className="flex items-center justify-between px-4 py-3 border-b">
+              <h3 className="text-sm font-semibold text-gray-700">Reject Remarks</h3>
+              <button onClick={() => setShowRejectModal(false)} className="text-gray-400 hover:text-gray-600 text-lg font-bold">×</button>
+            </div>
+            <div className="p-4">
+              <label className="block text-xs text-gray-600 font-medium mb-1">Remarks</label>
+              <textarea
+                value={rejectRemark}
+                onChange={(e) => setRejectRemark(e.target.value)}
+                rows={4}
+                placeholder="Enter rejection reason..."
+                className="w-full border border-gray-300 rounded px-3 py-2 text-xs text-gray-800 focus:outline-none focus:border-teal-400 resize-none"
+              />
+            </div>
+            <div className="flex justify-end gap-2 px-4 pb-4">
+              <button
+                onClick={() => setShowRejectModal(false)}
+                className="px-4 py-1.5 text-xs font-semibold rounded border border-gray-300 text-gray-600 hover:bg-gray-50"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={() => setShowRejectModal(false)}
+                className="px-4 py-1.5 text-xs font-semibold text-white rounded"
+                style={{ backgroundColor: "#dc3545" }}
+              >
+                Reject
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
   );
 }

@@ -45,7 +45,6 @@ const DATA = {
   totalGst: "118.85",
   grandTotal: "2,495.85",
 };
-
 export default function ViewSupplyRateConfirmationPage() {
   const router = useRouter();
 

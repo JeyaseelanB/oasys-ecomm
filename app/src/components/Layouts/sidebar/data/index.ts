@@ -486,7 +486,7 @@ export const NAV_DATA = [
                     url: "/operational/quotation-order-invoice/purchase/purchase-order/list",
                   },
                   {
-                    title: "Bill",
+                    title: "Add Bill",
                     url: "/operational/quotation-order-invoice/purchase/bill/list",
                     items: [],
                   },
@@ -524,7 +524,7 @@ export const NAV_DATA = [
           {
             title: "Human Resource",
             items: [
-               {
+              {
                 title: "Recruitment Process",
                 url: "/personnel/human-resource/recruitment-process",
                 items: [
@@ -609,11 +609,15 @@ export const NAV_DATA = [
                 url: "/personnel/human-resource/loan-and-advance/list",
               },
               {
-                title: "Employee Service Register",
+                title: "Promotion",
+                url: "/personnel/human-resource/promotion/list",
+              },
+              {
+                title: "All Employees List",
                 url: "/personnel/human-resource/employee-service-register/list",
                 items: [],
               },
-               {
+              {
                 title: "Employee Regularization",
                 url: "/personnel/human-resource/employee-regularization/list",
               },
@@ -628,6 +632,21 @@ export const NAV_DATA = [
               {
                 title: "Voluntary Provident Fund Process",
                 url: "/personnel/human-resource/voluntary-provident-fund-process/list",
+              },
+              {
+                title: "Retired Employee Register",
+                url: "/personnel/human-resource/retired-employee-register/list",
+                items: [],
+              },
+              {
+                title: "Employee Service Register",
+                url: "/personnel/human-resource/employee-register/list",
+                items: [],
+              },
+              {
+                title: "Retired Employee List",
+                url: "/personnel/human-resource/retired-employee-list/list",
+                items: [],
               },
               {
                 title: "Attendance",
@@ -717,6 +736,55 @@ export const NAV_DATA = [
                   {
                     title: "Leave Request",
                     url: "/personnel/human-resource/leave-management/leave-request/list",
+                  },
+                ],
+              },
+              {
+                title: "Employee Additional Charge",
+                url: "/personnel/human-resource/additional-charge/list",
+              },
+              {
+                title: "Insurance",
+                url: "/personnel/human-resource/insurance/list",
+              },
+              {
+                title: "Joining Checklist",
+                url: "/personnel/human-resource/joining-checklist/list",
+              },
+              {
+                title: "Interchange",
+                url: "/personnel/human-resource/interchange/list",
+              },
+              {
+                title: "Leave Travel Concession",
+                url: "/personnel/human-resource/leave-travel-concession/list",
+              },
+              {
+                title: "Transfer / Deputation",
+                url: "/personnel/human-resource/transfer-deputation/list",
+              },
+              {
+                title: "Resignation",
+                url: "/personnel/human-resource/resignation/list",
+              },
+              {
+                title: "Retirement",
+                items: [
+                  {
+                    title: "Normal Retirement",
+                    url: "/personnel/human-resource/retirement/normal-retirement/list",
+                  },
+                  {
+                    title: "Voluntary Retirement",
+                    url: "/personnel/human-resource/retirement/voluntary-retirement/list",
+                  },
+                  {
+                    title: "Compulsory Retirement",
+                    url: "/personnel/human-resource/retirement/compulsory-retirement/list",
+                  },
+                  {
+                    title: "Employee Death Registration",
+                    url: "/personnel/human-resource/retirement/employee-death-registration/list",
                   },
                 ],
               },
@@ -864,8 +932,12 @@ export const NAV_DATA = [
                 title: "Estimation of Modernization",
                 url: "/asset-management/modernization/estimation-of-modernization/list",
               },
+              {
+                title: "Measurement Book Entry",
+                url: "/asset-management/modernization/measurement-book-entry/list",
+              },
             ]
-          },    {
+          }, {
             title: "Asset Request",
             url: "/asset-management/asset-request/list",
           },
