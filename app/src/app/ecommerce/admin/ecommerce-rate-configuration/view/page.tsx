@@ -1,5 +1,6 @@
 "use client";
 
+import { Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 
@@ -34,6 +35,14 @@ const Field = ({ label, value }: { label: string; value: string | number }) => (
 );
 
 export default function ViewECommerceRateConfigPage() {
+  return (
+    <Suspense fallback={<div className="p-4">Loading...</div>}>
+      <ViewECommerceRateConfigContent />
+    </Suspense>
+  );
+}
+
+function ViewECommerceRateConfigContent() {
   const router = useRouter();
   const params = useSearchParams();
   const id = parseInt(params.get("id") || "0");
