@@ -980,6 +980,26 @@ export const NAV_DATA = [
 
 
       {
+        title: "Masters",
+        icon: Icons.FourCircle,
+        items: [
+          {
+            title: "Asset Masters",
+            items: [
+              {
+                title: "Asset Category",
+                url: "/masters/asset-masters/asset-category/list",
+              },
+              {
+                title: "Asset Register",
+                url: "/masters/asset-masters/asset-register/list",
+              },
+            ],
+          },
+        ],
+      },
+
+      {
         title: "Pages",
         icon: Icons.Alphabet,
         items: [
