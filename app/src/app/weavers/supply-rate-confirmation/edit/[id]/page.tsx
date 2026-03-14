@@ -98,6 +98,10 @@ function ReadonlyInput({ value }: { value: string }) {
 
 interface ProductRow { id: number; productCode: string; atNumber: string; selectedBy: string; hsnCode: string; uom: string; unit: string; unitPrice: number; gstAmount: number; totalAmount: number; }
 
+export function generateStaticParams() {
+  return [];
+}
+
 export default function EditSupplyRateConfirmationPage() {
   const router = useRouter();
   const [form, setForm] = useState({

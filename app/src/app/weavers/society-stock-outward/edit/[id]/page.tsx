@@ -99,6 +99,10 @@ interface ProductRow {
   currentDispatchedQty: string; value: number;
 }
 
+export function generateStaticParams() {
+  return [];
+}
+
 export default function EditSocietyStockOutwardPage() {
   const router = useRouter();
 

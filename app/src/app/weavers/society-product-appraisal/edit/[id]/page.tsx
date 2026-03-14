@@ -135,6 +135,10 @@ function NumInput({ value, onChange }: { value: string; onChange: (v: string) =>
   return <input type="number" value={value} onChange={e => onChange(e.target.value)} className="h-10 w-full bg-transparent px-3 text-right text-sm text-dark outline-none placeholder:text-gray-400 dark:text-white"/>;
 }
 
+export function generateStaticParams() {
+  return [];
+}
+
 export default function EditSocietyProductAppraiserPage() {
   const router = useRouter();
   const [form, setForm] = useState({
