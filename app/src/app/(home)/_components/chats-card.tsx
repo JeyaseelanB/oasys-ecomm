@@ -1,12 +1,73 @@
+"use client";
+
 import { DotIcon } from "@/assets/icons";
 import { formatMessageTime } from "@/lib/format-message-time";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
-import { getChatsData } from "../fetch";
+import { useEffect, useState } from "react";
 
-export async function ChatsCard() {
-  const data = await getChatsData();
+type ChatData = {
+  name: string;
+  profile: string;
+  isActive: boolean;
+  lastMessage: {
+    content: string;
+    type: string;
+    timestamp: string;
+    isRead: boolean;
+  };
+  unreadCount: number;
+};
+
+function getChats(): ChatData[] {
+  return [
+    {
+      name: "Jacob Jones",
+      profile: "/images/user/user-01.png",
+      isActive: true,
+      lastMessage: { content: "See you tomorrow at the meeting!", type: "text", timestamp: "2024-12-19T14:30:00Z", isRead: false },
+      unreadCount: 3,
+    },
+    {
+      name: "Wilium Smith",
+      profile: "/images/user/user-03.png",
+      isActive: true,
+      lastMessage: { content: "Thanks for the update", type: "text", timestamp: "2024-12-19T10:15:00Z", isRead: true },
+      unreadCount: 0,
+    },
+    {
+      name: "Johurul Haque",
+      profile: "/images/user/user-04.png",
+      isActive: false,
+      lastMessage: { content: "What's up?", type: "text", timestamp: "2024-12-19T10:15:00Z", isRead: true },
+      unreadCount: 0,
+    },
+    {
+      name: "M. Chowdhury",
+      profile: "/images/user/user-05.png",
+      isActive: false,
+      lastMessage: { content: "Where are you now?", type: "text", timestamp: "2024-12-19T10:15:00Z", isRead: true },
+      unreadCount: 2,
+    },
+    {
+      name: "Akagami",
+      profile: "/images/user/user-07.png",
+      isActive: false,
+      lastMessage: { content: "Hey, how are you?", type: "text", timestamp: "2024-12-19T10:15:00Z", isRead: true },
+      unreadCount: 0,
+    },
+  ];
+}
+
+export function ChatsCard() {
+  const [data, setData] = useState<ChatData[]>([]);
+
+  useEffect(() => {
+    setData(getChats());
+  }, []);
+
+  if (data.length === 0) return null;
 
   return (
     <div className="col-span-12 rounded-[10px] bg-white py-6 shadow-1 dark:bg-gray-dark dark:shadow-card xl:col-span-4">

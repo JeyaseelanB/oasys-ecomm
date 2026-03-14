@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Table,
   TableBody,
@@ -8,11 +10,37 @@ import {
 } from "@/components/ui/table";
 import { compactFormat, standardFormat } from "@/lib/format-number";
 import { cn } from "@/lib/utils";
+import * as logos from "@/assets/logos";
 import Image from "next/image";
-import { getTopChannels } from "../fetch";
+import { useEffect, useState } from "react";
 
-export async function TopChannels({ className }: { className?: string }) {
-  const data = await getTopChannels();
+type ChannelData = {
+  name: string;
+  visitors: number;
+  revenues: number;
+  sales: number;
+  conversion: number;
+  logo: string;
+};
+
+function getChannelsData(): ChannelData[] {
+  return [
+    { name: "Google", visitors: 3456, revenues: 4220, sales: 3456, conversion: 2.59, logo: logos.google },
+    { name: "X.com", visitors: 3456, revenues: 4220, sales: 3456, conversion: 2.59, logo: logos.x },
+    { name: "Github", visitors: 3456, revenues: 4220, sales: 3456, conversion: 2.59, logo: logos.github },
+    { name: "Vimeo", visitors: 3456, revenues: 4220, sales: 3456, conversion: 2.59, logo: logos.vimeo },
+    { name: "Facebook", visitors: 3456, revenues: 4220, sales: 3456, conversion: 2.59, logo: logos.facebook },
+  ];
+}
+
+export function TopChannels({ className }: { className?: string }) {
+  const [data, setData] = useState<ChannelData[]>([]);
+
+  useEffect(() => {
+    setData(getChannelsData());
+  }, []);
+
+  if (data.length === 0) return null;
 
   return (
     <div
