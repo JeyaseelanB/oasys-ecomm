@@ -5,9 +5,9 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "build:dev": "next build",
-    "build:qa": "next build",
-    "build:prod": "next build",
+    "build:dev": "rm -rf .next && next build",
+    "build:qa": "rm -rf .next && next build",
+    "build:prod": "rm -rf .next && next build",
     "start": "next start",
     "lint": "next lint"
   },
