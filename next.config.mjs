@@ -1,6 +1,6 @@
 /** @type {import("next").NextConfig} */
 const nextConfig = {
-  output: "export",
+  output: process.env.VERCEL ? undefined : "standalone",
   images: {
     remotePatterns: [
       {
